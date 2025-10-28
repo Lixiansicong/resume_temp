@@ -8,11 +8,17 @@
     <title>Document</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         /* 根元素和响应式设置 */
         :root {
             /* 屏幕显示：设置合理的基础尺寸，让页面不会太小 */
             --design-width: 1654;
             --design-height: 3681;
+            --page-margin-mm: 10;
+            --page-margin-rem: calc(var(--page-margin-mm) * 4.7244rem);
             font-size: 0.8px;
             /* 基础缩放：1654rem ≈ 1323px 宽度 */
         }
@@ -21,18 +27,18 @@
         @media screen {
             body {
                 margin: 0;
-                background: #f5f5f5;
-                padding: 20px;
-                display: flex;
-                justify-content: center;
-                min-height: 100vh;
+                background: #ffffff;
+                padding: 0;
+                display: block;
             }
 
             .page {
-                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-                border-radius: 8px;
-                overflow: hidden;
-                margin: 0;
+                box-shadow: none;
+                border-radius: 0;
+                margin: 0 auto;
+                width: 100%;
+                max-width: 1654rem;
+                overflow: visible;
             }
         }
 
@@ -45,7 +51,7 @@
 
             @page {
                 size: A4 portrait;
-                margin: 0;
+                margin: calc(var(--page-margin-mm) * 1mm);
             }
 
             body {
@@ -58,6 +64,25 @@
                 box-shadow: none !important;
                 border-radius: 0 !important;
                 margin: 0 auto;
+                padding: 0;
+                width: 100%;
+                height: auto;
+                min-height: calc(297mm - var(--page-margin-mm) * 2mm);
+                overflow: visible;
+            }
+
+            .content-block,
+            .section-row,
+            .paragraph-base,
+            .chip-group {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .main-content {
+                position: static;
+                width: 100%;
+                height: auto;
             }
         }
 
@@ -69,11 +94,11 @@
             }
 
             body {
-                padding: 40px;
+                padding: 0;
             }
 
             .page {
-                box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+                box-shadow: none;
             }
         }
 
@@ -84,11 +109,11 @@
             }
 
             body {
-                padding: 10px;
+                padding: 0;
             }
 
             .page {
-                border-radius: 4px;
+                border-radius: 0;
             }
         }
 
@@ -187,8 +212,11 @@
             background-color: rgba(255, 255, 255, 1);
             position: relative;
             width: 1654rem;
-            height: 3681rem;
-            overflow: hidden;
+            padding: var(--page-margin-rem);
+            box-sizing: border-box;
+            min-height: 3681rem;
+            height: auto;
+            overflow: visible;
         }
 
         /* 统一的文本基础样式 */
@@ -251,7 +279,7 @@
         /* 统一的容器样式 */
         .section-header {
             background-color: rgba(2, 72, 134, 1);
-            height: 56rem;
+            /* height: 56rem; */
             width: 336rem;
             padding-top: 7rem;
             /* 微调垂直位置，使文字看起来居中 */
@@ -261,7 +289,9 @@
         .section-line {
             background-color: rgba(2, 72, 134, 1);
             width: 1138rem;
-            height: 13rem;
+            /* height: 9rem; */
+            position: relative;
+            left: -1rem;
         }
 
         .content-block {
@@ -283,23 +313,24 @@
 
         /* 具体页面结构样式 */
         .header-banner {
-            width: 1654rem;
+            /* width: 1654rem; */
+            width: 100%;
             height: 92rem;
         }
 
         .main-content {
-            position: absolute;
-            left: 0;
-            top: 92rem;
-            width: 1654rem;
-            height: 3590rem;
+            position: static;
+            width: 100%;
+            height: auto;
+            padding: 32rem 32rem;
+            box-sizing: border-box;
         }
 
         .personal-info-section {
             width: 1476rem;
             min-height: 496rem;
             height: auto;
-            margin: -7rem 0 0 87rem;
+            margin: -7rem 0 0 0;
         }
 
         .personal-details {
@@ -453,35 +484,12 @@
             margin-left: 20rem;
         }
 
-        .hobbies-section {
-            width: 350rem;
-            min-height: 50rem;
-            height: auto;
-            margin-top: 20rem;
-            margin-bottom: 30rem;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .hobby-label {
-            flex: 0 0 auto;
-            width: auto;
-            min-height: 36rem;
-        }
-
-        .hobby-items {
-            flex: 1 1 auto;
-            width: 100%;
-            display: block;
-            white-space: normal;
-        }
-
         .section-margin-large {
-            margin: 60rem 0 0 87rem;
+            margin: 60rem 0 0;
         }
 
         .section-margin-medium {
-            margin: 40rem 0 0 87rem;
+            margin: 40rem 0 0;
         }
 
         .section-header-text {
@@ -490,11 +498,11 @@
         }
 
         .section-line-margin {
-            margin-top: 43rem;
+            margin-top: 46rem;
         }
 
         .section-row {
-            margin: 20rem 0 0 87rem;
+            margin: 20rem 0 0;
         }
 
         .section-row-wide {
@@ -550,73 +558,82 @@
 
         /* 段落样式变体 */
         .paragraph-margin {
-            margin: 10rem 0 0 87rem;
+            margin: 10rem 0 0;
         }
 
         .paragraph-margin-small {
-            margin: 5rem 0 0 87rem;
+            margin: 5rem 0 0;
         }
 
         .paragraph-margin-large {
-            margin: 20rem 0 0 87rem;
+            margin: 20rem 0 0;
         }
 
         .paragraph-margin-bottom {
-            margin: 20rem 0 419rem 87rem;
+            margin: 20rem 0 419rem;
         }
 
         .paragraph-width-xl {
             width: 1563rem;
             min-height: 100rem;
             height: auto;
+            max-width: 100%;
         }
 
         .paragraph-width-large {
             width: 1529rem;
             min-height: 100rem;
             height: auto;
+            max-width: 100%;
         }
 
         .paragraph-width-medium {
             width: 1511rem;
             min-height: 100rem;
             height: auto;
+            max-width: 100%;
         }
 
         .paragraph-width-standard {
             width: 1510rem;
             min-height: 250rem;
             height: auto;
+            max-width: 100%;
         }
 
         .paragraph-width-narrow {
             width: 1506rem;
             min-height: 100rem;
             height: auto;
+            max-width: 100%;
         }
 
         .paragraph-width-small {
             width: 1505rem;
             min-height: 100rem;
             height: auto;
+            max-width: 100%;
         }
 
         .paragraph-width-extra-small {
             width: 1476rem;
             min-height: 100rem;
             height: auto;
+            max-width: 100%;
         }
 
         .paragraph-width-education {
             width: 1439rem;
             min-height: 250rem;
             height: auto;
+            max-width: 100%;
         }
 
         .paragraph-width-language {
             width: 166rem;
             min-height: 200rem;
             height: auto;
+            max-width: 100%;
         }
 
         .paragraph-width-single-line {
@@ -625,10 +642,11 @@
             height: auto;
             white-space: normal;
             line-height: 36rem;
+            max-width: 100%;
         }
 
         .chip-group {
-            margin: 40rem 0 0 87rem;
+            margin: 40rem 0 0;
             display: flex;
             flex-wrap: wrap;
             gap: 15rem;
@@ -663,7 +681,8 @@
             margin-top: 20rem;
             margin-bottom: 20rem;
         }
-        #certificate-container{
+
+        #certificate-container {
             margin-top: 20rem;
             margin-bottom: 20rem;
         }
@@ -726,10 +745,6 @@
                 </div>
                 <div class="photo-section flex-col justify-between">
                     <img class="image-container profile-photo" referrerpolicy="no-referrer" src="" />
-                    <div class="hobbies-section">
-                        <span class="text-base text-md hobby-label">兴趣爱好：</span>
-                        <div class="hobby-items text-base text-md text-wrap" id="hobby-list"></div>
-                    </div>
                 </div>
             </div>
             <div class="content-block section-margin-large flex-row justify-between" id="education-header">
@@ -760,6 +775,13 @@
                 <div class="section-line section-line-margin flex-col"></div>
             </div>
             <div class="chip-group" id="skill-container"></div>
+            <div class="content-block section-margin-medium flex-row justify-between" id="hobby-header">
+                <div class="section-header flex-col">
+                    <span class="text-base text-lg section-header-text">兴趣爱好</span>
+                </div>
+                <div class="section-line section-line-margin flex-col"></div>
+            </div>
+            <div class="chip-group" id="hobby-container"></div>
             <div class="content-block section-margin-medium flex-row justify-between" id="language-header">
                 <div class="section-header flex-col">
                     <span class="text-base text-lg section-header-text">掌握语言</span>
@@ -874,10 +896,6 @@
                     $(".profile-photo")
                         .attr("src", basics.image || "")
                         .attr("alt", basics.name || "个人照片");
-
-                    const $hobbyList = $("#hobby-list").empty();
-                    const hobbyTexts = Array.isArray(data.interests) ? data.interests.filter(Boolean) : [];
-                    $hobbyList.text(hobbyTexts.join("  "));
 
                     const $educationContainer = $("#education-container").empty();
                     const educationList = Array.isArray(data.education) ? data.education : [];
@@ -1021,6 +1039,20 @@
                         skillList.length > 0,
                         "#skill-header",
                         "#skill-container"
+                    );
+
+                    const $hobbyContainer = $("#hobby-container").empty();
+                    const hobbyList = Array.isArray(data.interests) ? data.interests.filter(Boolean) : [];
+                    hobbyList.forEach((hobby) => {
+                        if (!hobby) return;
+                        $hobbyContainer.append(
+                            $("<span>").addClass("text-base text-md tag-chip text-wrap").text(hobby)
+                        );
+                    });
+                    toggleSectionVisibility(
+                        hobbyList.length > 0,
+                        "#hobby-header",
+                        "#hobby-container"
                     );
 
                     const $languageContainer = $("#language-container").empty();
