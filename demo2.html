@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <title>Marketing Resume</title>
+    <style>
+        :root {
+            --design-width: 210;
+            --page-margin-mm: 10;
+            --scale-unit: calc(min(100vw, 960px) / var(--design-width));
+            --page-padding: calc(12 * var(--scale-unit));
+            --accent-width: calc(6 * var(--scale-unit));
+            --spacing-xs: calc(4 * var(--scale-unit));
+            --spacing-sm: calc(6 * var(--scale-unit));
+            --spacing-md: calc(10 * var(--scale-unit));
+            --section-gap: calc(12 * var(--scale-unit));
+            --font-size-title: calc(10 * var(--scale-unit));
+            --font-size-heading: calc(8 * var(--scale-unit));
+            --font-size-body: calc(4 * var(--scale-unit));
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: PingFangSC-Regular, Roboto, "Helvetica Neue", Helvetica, Tahoma, Arial, "PingFang SC-Light", "Microsoft YaHei";
+            background-color: #ffffff;
+            color: #000000;
+            display: flex;
+            justify-content: center;
+            padding: var(--spacing-md);
+        }
+
+        .page {
+            width: calc(var(--design-width) * var(--scale-unit));
+            display: grid;
+            gap: var(--section-gap);
+            padding: var(--page-padding);
+            background-color: #ffffff;
+        }
+
+        .resume-section {
+            display: grid;
+            gap: var(--spacing-xs);
+        }
+
+        .resume-section__title {
+            margin: 0;
+            font-size: var(--font-size-heading);
+            font-weight: 600;
+            line-height: 1.35;
+        }
+
+        .resume-section__text {
+            margin: 0;
+            font-size: var(--font-size-body);
+            line-height: 1.6;
+        }
+
+        .resume-section--intro {
+            grid-template-columns: var(--accent-width) 1fr;
+            gap: var(--spacing-md);
+            align-items: start;
+        }
+
+        .resume-section__accent {
+            background-color: #000000;
+            border-radius: calc(3 * var(--scale-unit));
+            width: 100%;
+            height: 100%;
+        }
+
+        .resume-section__content {
+            display: grid;
+            gap: var(--spacing-sm);
+        }
+
+        .resume-section__heading {
+            margin: 0;
+            font-size: var(--font-size-title);
+            font-weight: 600;
+            line-height: 1.25;
+        }
+
+        .details-list {
+            margin: 0;
+            display: grid;
+            gap: var(--spacing-xs);
+        }
+
+        .details-list__row {
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            gap: var(--spacing-sm);
+            font-size: var(--font-size-body);
+            line-height: 1.5;
+        }
+
+        .details-list__term {
+            font-weight: 600;
+        }
+
+        .details-list dt,
+        .details-list dd {
+            margin: 0;
+        }
+
+        .plain-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: var(--spacing-xs);
+            font-size: var(--font-size-body);
+            line-height: 1.6;
+        }
+
+        .plain-list strong {
+            font-weight: 600;
+        }
+
+        @media screen and (max-width: 640px) {
+            body {
+                padding: var(--spacing-sm);
+            }
+
+            .resume-section--intro {
+                grid-template-columns: 1fr;
+            }
+
+            .resume-section__accent {
+                width: var(--accent-width);
+                height: calc(40 * var(--scale-unit));
+            }
+        }
+
+        @media print {
+            :root {
+                font-size: calc(210mm / var(--design-width));
+            }
+
+            @page {
+                size: A4 portrait;
+                margin: calc(var(--page-margin-mm) * 1mm);
+            }
+
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
+                background: #ffffff !important;
+                display: block;
+            }
+
+            .page {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                margin: 0 auto;
+                padding: calc(var(--page-margin-mm) * 1mm);
+                width: calc(210mm - var(--page-margin-mm) * 2mm);
+                height: auto;
+                min-height: calc(297mm - var(--page-margin-mm) * 2mm);
+                overflow: visible;
+            }
+
+            .resume-section,
+            .plain-list li,
+            .resume-section__text,
+            .content-block,
+            .section-row,
+            .paragraph-base,
+            .chip-group {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+
+            .main-content {
+                position: static;
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <main class="page">
+        <section class="resume-section resume-section--intro" data-section="intro">
+            <div class="resume-section__accent" aria-hidden="true"></div>
+            <div class="resume-section__content">
+                <h1 class="resume-section__heading">Personal Information</h1>
+                <dl class="details-list" id="personal-details"></dl>
+            </div>
+        </section>
+
+        <section class="resume-section" data-section="education">
+            <h2 class="resume-section__title">Education</h2>
+            <ul class="plain-list" id="education-list"></ul>
+        </section>
+
+        <section class="resume-section" data-section="work">
+            <h2 class="resume-section__title">Work Experience</h2>
+            <ul class="plain-list" id="work-list"></ul>
+        </section>
+
+        <section class="resume-section" data-section="projects">
+            <h2 class="resume-section__title">Project Experience</h2>
+            <ul class="plain-list" id="project-list"></ul>
+        </section>
+
+        <section class="resume-section" data-section="certificates">
+            <h2 class="resume-section__title">Certifications</h2>
+            <ul class="plain-list" id="certificate-list"></ul>
+        </section>
+
+        <section class="resume-section" data-section="skills">
+            <h2 class="resume-section__title">Technical Skills</h2>
+            <p class="resume-section__text" id="skill-text"></p>
+        </section>
+
+        <section class="resume-section" data-section="evaluation">
+            <h2 class="resume-section__title">Self-Evaluation</h2>
+            <p class="resume-section__text" id="evaluation-text"></p>
+        </section>
+    </main>
+
+    <script>
+        window.render = window.render || {
+            "jobIntention": "Marketing Manager",
+            "basics": {
+                "name": "Zhang Wei",
+                "age": "28",
+                "gender": "男",
+                "image": "",
+                "workYears": "",
+                "email": "zhangwei.career@email.com",
+                "phone": "+86 138 0000 1234",
+                "wechat": "1211221654",
+                "address": "Room 501, Building 20, Mink Garden, Futian District, Shenzhen, Guangdong, China"
+            },
+            "work": [
+                {
+                    "name": "TechGrowth Inc.",
+                    "position": "Senior Marketing Manager",
+                    "startDate": "Jul 2020",
+                    "endDate": "Present",
+                    "summary": "Senior Marketing Manager | TechGrowth Inc., San Francisco, CA | Jul 2020 – Present",
+                    "highlights": [
+                        "Directed integrated campaigns that lifted qualified leads by 40% within one year.",
+                        "Managed a $500K advertising budget and lowered cost-per-acquisition by 25%.",
+                        "Led expansion into three new international markets, adding 15% revenue growth.",
+                        "Aligned marketing with product and sales to raise conversion rates by 18%."
+                    ]
+                }
+            ],
+            "education": [
+                {
+                    "institution": "Stanford Graduate School of Business",
+                    "area": "MBA, Marketing",
+                    "studyType": "硕士",
+                    "startDate": "Sep 2018",
+                    "endDate": "Jun 2020",
+                    "summary": "GPA: 3.8/4.0 | Strategic Marketing, Consumer Behavior, Data-Driven Decision Making"
+                },
+                {
+                    "institution": "University of California, Los Angeles",
+                    "area": "BA, Communication",
+                    "studyType": "本科",
+                    "startDate": "Sep 2014",
+                    "endDate": "Jun 2018",
+                    "summary": "Graduated Cum Laude"
+                }
+            ],
+            "projects": [
+                {
+                    "name": "AI-Powered Customer Segmentation Platform",
+                    "startDate": "Jan 2023",
+                    "endDate": "Mar 2023",
+                    "description": "Project Lead",
+                    "highlights": [
+                        "Delivered a machine-learning tool that sharpened customer segmentation accuracy.",
+                        "Coordinated data science and engineering teams to capture requirements and stay on schedule.",
+                        "Improved email marketing open rates by 30% and boosted targeted conversion rates by 10%."
+                    ]
+                }
+            ],
+            "skills": [
+                { "name": "Google Analytics", "level": "Proficient" },
+                { "name": "Google Ads", "level": "Proficient" },
+                { "name": "Salesforce", "level": "Proficient" },
+                { "name": "HubSpot", "level": "Proficient" },
+                { "name": "HTML/CSS", "level": "Proficient" },
+                { "name": "Microsoft Office Suite", "level": "Proficient" },
+                { "name": "Adobe Creative Suite", "level": "Proficient" }
+            ],
+            "certificates": [
+                "Google Analytics Individual Qualification (GAIQ)",
+                "HubSpot Inbound Marketing Certification",
+                "Project Management Professional (PMP) — Expected Dec 2025"
+            ],
+            "evaluation": "Highly motivated UI/UX designer with 5+ years of experience crafting user-centered solutions. Skilled across research, wireframing, high-fidelity prototyping, and developer collaboration. Adept at translating complex requirements into intuitive interfaces and consistently improving user satisfaction and product performance. Collaborative communicator who thrives in multicultural teams and pursues emerging design trends."
+        };
+
+        $(function () {
+            const data = window.render || {};
+            const basics = data.basics || {};
+
+            const $personalList = $('#personal-details');
+
+            const removeSectionIfEmpty = ($node) => {
+                if ($node.children().length) return;
+                const $section = $node.closest('[data-section]');
+                if ($section.length) $section.remove();
+            };
+
+            const personalPairs = [
+                { label: 'Name', value: basics.name },
+                { label: 'Age', value: basics.age },
+                { label: 'Gender', value: basics.gender },
+                { label: 'Phone', value: basics.phone },
+                { label: 'Email', value: basics.email },
+                { label: 'WeChat', value: basics.wechat },
+                { label: 'Address', value: basics.address },
+                { label: 'Job Objective', value: data.jobIntention }
+            ];
+
+            personalPairs.forEach(({ label, value }) => {
+                if (!value) return;
+                const $row = $('<div>').addClass('details-list__row');
+                $('<dt>').addClass('details-list__term').text(label).appendTo($row);
+                $('<dd>').text(value).appendTo($row);
+                $personalList.append($row);
+            });
+
+            removeSectionIfEmpty($personalList);
+
+            const formatRange = (start, end) => {
+                if (start && end) return `${start} – ${end}`;
+                return start || end || '';
+            };
+
+            const appendLine = ($container, text, { strong = false } = {}) => {
+                if (!text) return;
+                if ($container.contents().length) {
+                    $container.append('<br>');
+                }
+                if (strong) {
+                    $('<strong>').text(text).appendTo($container);
+                } else {
+                    $container.append(document.createTextNode(text));
+                }
+            };
+
+            const $educationList = $('#education-list');
+            (data.education || []).forEach(item => {
+                if (!item) return;
+                const $li = $('<li>');
+                appendLine($li, item.area, { strong: true });
+                const institutionLine = [item.institution, formatRange(item.startDate, item.endDate)].filter(Boolean).join(' | ');
+                appendLine($li, institutionLine || item.institution);
+                appendLine($li, item.summary);
+                $educationList.append($li);
+            });
+            removeSectionIfEmpty($educationList);
+
+            const $workList = $('#work-list');
+            (data.work || []).forEach(item => {
+                if (!item) return;
+                const summary = item.summary || [item.position, item.name, formatRange(item.startDate, item.endDate)].filter(Boolean).join(' | ');
+                if (summary) {
+                    const $summaryLi = $('<li>');
+                    appendLine($summaryLi, summary, { strong: true });
+                    $workList.append($summaryLi);
+                }
+                (item.highlights || []).forEach(text => {
+                    if (!text) return;
+                    $('<li>').text(text).appendTo($workList);
+                });
+            });
+            removeSectionIfEmpty($workList);
+
+            const $projectList = $('#project-list');
+            (data.projects || []).forEach(item => {
+                if (!item) return;
+                const headerLine = [item.name, item.description, formatRange(item.startDate, item.endDate)].filter(Boolean).join(' | ');
+                if (headerLine) {
+                    const $headerLi = $('<li>');
+                    appendLine($headerLi, headerLine, { strong: true });
+                    $projectList.append($headerLi);
+                }
+                (item.highlights || []).forEach(text => {
+                    if (!text) return;
+                    $('<li>').text(text).appendTo($projectList);
+                });
+            });
+            removeSectionIfEmpty($projectList);
+
+            const $certificateList = $('#certificate-list');
+            (data.certificates || []).forEach(item => {
+                if (!item) return;
+                $('<li>').text(item).appendTo($certificateList);
+            });
+            removeSectionIfEmpty($certificateList);
+
+            const $skillsSection = $('[data-section="skills"]');
+            const $skillText = $('#skill-text');
+            const skills = (data.skills || []).map(item => {
+                if (!item) return '';
+                return item.level ? `${item.name}（${item.level}）` : (item.name || '');
+            }).filter(Boolean);
+            if (skills.length) {
+                $skillText.text(skills.join('，'));
+            } else {
+                $skillsSection.remove();
+            }
+
+            const $evaluationSection = $('[data-section="evaluation"]');
+            const $evaluationText = $('#evaluation-text');
+            if (data.evaluation) {
+                $evaluationText.text(data.evaluation);
+            } else {
+                $evaluationSection.remove();
+            }
+        });
+    </script>
+</body>
+
+</html>
