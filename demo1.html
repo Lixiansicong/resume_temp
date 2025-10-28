@@ -1,0 +1,1199 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <style>
+        /* 根元素和响应式设置 */
+        :root {
+            /* 屏幕显示：设置合理的基础尺寸，让页面不会太小 */
+            --design-width: 1654;
+            --design-height: 3681;
+            font-size: 0.8px;
+            /* 基础缩放：1654rem ≈ 1323px 宽度 */
+        }
+
+        /* 屏幕显示优化 */
+        @media screen {
+            body {
+                margin: 0;
+                background: #f5f5f5;
+                padding: 20px;
+                display: flex;
+                justify-content: center;
+                min-height: 100vh;
+            }
+
+            .page {
+                box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+                border-radius: 8px;
+                overflow: hidden;
+                margin: 0;
+            }
+        }
+
+        /* A4打印设置 */
+        @media print {
+            :root {
+                /* A4纸张：210mm宽度对应1654rem设计宽度 */
+                font-size: calc(210mm / var(--design-width));
+            }
+
+            @page {
+                size: A4 portrait;
+                margin: 0;
+            }
+
+            body {
+                margin: 0 !important;
+                padding: 0 !important;
+                background: white !important;
+            }
+
+            .page {
+                box-shadow: none !important;
+                border-radius: 0 !important;
+                margin: 0 auto;
+            }
+        }
+
+        /* 大屏幕优化 */
+        @media screen and (min-width: 1400px) {
+            :root {
+                font-size: 1px;
+                /* 大屏幕上显示更大一些 */
+            }
+
+            body {
+                padding: 40px;
+            }
+
+            .page {
+                box-shadow: 0 8px 40px rgba(0, 0, 0, 0.15);
+            }
+        }
+
+        /* 移动端适配 */
+        @media screen and (max-width: 768px) {
+            :root {
+                font-size: min(calc(95vw / var(--design-width)), 0.6px);
+            }
+
+            body {
+                padding: 10px;
+            }
+
+            .page {
+                border-radius: 4px;
+            }
+        }
+
+        /* 基础重置样式 */
+        body * {
+            box-sizing: border-box;
+            flex-shrink: 0;
+        }
+
+        body {
+            font-family: PingFangSC-Regular, Roboto, Helvetica Neue, Helvetica, Tahoma,
+                Arial, PingFang SC-Light, Microsoft YaHei;
+        }
+
+        input {
+            background-color: transparent;
+            border: 0;
+        }
+
+        button {
+            margin: 0;
+            padding: 0;
+            border: 1rem solid transparent;
+            outline: none;
+            background-color: transparent;
+        }
+
+        button:active {
+            opacity: 0.6;
+        }
+
+        /* Flex 布局辅助类 */
+        .flex-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .flex-row {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .auto-wrap {
+            flex-wrap: wrap;
+            row-gap: 10rem;
+            column-gap: 40rem;
+        }
+
+        .justify-start {
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .justify-center {
+            display: flex;
+            justify-content: center;
+        }
+
+        .justify-end {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .justify-evenly {
+            display: flex;
+            justify-content: space-evenly;
+        }
+
+        .justify-around {
+            display: flex;
+            justify-content: space-around;
+        }
+
+        .justify-between {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .align-start {
+            display: flex;
+            align-items: flex-start;
+        }
+
+        .align-center {
+            display: flex;
+            align-items: center;
+        }
+
+        .align-end {
+            display: flex;
+            align-items: flex-end;
+        }
+
+        /* 页面主容器 */
+        .page {
+            background-color: rgba(255, 255, 255, 1);
+            position: relative;
+            width: 1654rem;
+            height: 3681rem;
+            overflow: hidden;
+        }
+
+        /* 统一的文本基础样式 */
+        .text-base {
+            overflow-wrap: break-word;
+            color: rgba(0, 0, 0, 1);
+            font-family: PingFang SC-Regular;
+            font-weight: normal;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .text-wrap {
+            white-space: normal !important;
+            word-break: break-word;
+        }
+
+        /* 文本尺寸变体 */
+        .text-xl {
+            font-size: 80rem;
+            line-height: 80rem;
+            font-family: PingFang SC-Medium;
+            font-weight: 500;
+        }
+
+        .text-lg {
+            font-size: 40rem;
+            line-height: 40rem;
+            font-family: PingFang SC-Semibold;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 1);
+        }
+
+        .text-md {
+            font-size: 36rem;
+            /* line-height: 36rem; */
+        }
+
+        .text-md-medium {
+            font-size: 36rem;
+            line-height: 36rem;
+            font-family: PingFang SC-Medium;
+            font-weight: 500;
+        }
+
+        /* 段落样式 */
+        .paragraph-base {
+            overflow-wrap: break-word;
+            /* color: rgba(0, 0, 0, 1); */
+            font-size: 36rem;
+            font-family: PingFang SC-Regular;
+            font-weight: normal;
+            text-align: left;
+            display: block;
+            line-height: 50rem;
+            white-space: normal;
+        }
+
+
+        /* 统一的容器样式 */
+        .section-header {
+            background-color: rgba(2, 72, 134, 1);
+            height: 56rem;
+            width: 336rem;
+            padding-top: 7rem;
+            /* 微调垂直位置，使文字看起来居中 */
+            box-sizing: border-box;
+        }
+
+        .section-line {
+            background-color: rgba(2, 72, 134, 1);
+            width: 1138rem;
+            height: 13rem;
+        }
+
+        .content-block {
+            width: 1477rem;
+            height: 56rem;
+        }
+
+        /* 图标样式 */
+        .icon {
+            width: 48rem;
+            height: 48rem;
+        }
+
+        /* 图像容器样式 */
+        .image-container {
+            width: 330rem;
+            height: 395rem;
+        }
+
+        /* 具体页面结构样式 */
+        .header-banner {
+            width: 1654rem;
+            height: 92rem;
+        }
+
+        .main-content {
+            position: absolute;
+            left: 0;
+            top: 92rem;
+            width: 1654rem;
+            height: 3590rem;
+        }
+
+        .personal-info-section {
+            width: 1476rem;
+            min-height: 496rem;
+            height: auto;
+            margin: -7rem 0 0 87rem;
+        }
+
+        .personal-details {
+            width: 1100rem;
+            min-height: 496rem;
+            height: auto;
+        }
+
+        /* 特定文本样式 */
+        .name-title {
+            width: 240rem;
+            height: 112rem;
+        }
+
+        .job-intention {
+            /* width: 324rem; */
+            height: 50rem;
+            margin-top: 21rem;
+        }
+
+        .info-grid {
+            position: relative;
+            width: 915rem;
+            min-height: 128rem;
+            height: auto;
+            margin-top: 25rem;
+        }
+
+        .info-item {
+            width: 306rem;
+            min-height: 128rem;
+            height: auto;
+        }
+
+        .info-item-wide {
+            width: 472rem;
+            min-height: 128rem;
+            height: auto;
+        }
+
+        .icon-with-margin-top {
+            margin-top: 80rem;
+        }
+
+        .icon-with-small-margin {
+            margin-top: 1rem;
+        }
+
+        .info-text-group {
+            width: 300rem;
+            min-height: 128rem;
+            height: auto;
+        }
+
+        .info-text-group-wide {
+            width: 404rem;
+            min-height: 128rem;
+            height: auto;
+        }
+
+        .info-text-narrow {
+            width: 152rem;
+            min-height: 50rem;
+            height: auto;
+            margin-left: 20rem;
+        }
+
+
+        .info-text-full {
+            width: 300rem;
+            min-height: 50rem;
+            height: auto;
+            margin-top: 28rem;
+            margin-left: 20rem;
+        }
+
+        .info-text-phone {
+            width: 620rem;
+            min-height: 50rem;
+            height: auto;
+            margin-top: 28rem;
+        }
+
+
+        .info-item-absolute {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 306rem;
+            height: 128rem;
+        }
+
+        .info-item-absolute-right {
+            position: absolute;
+            left: 443rem;
+            top: 0;
+            width: 472rem;
+            height: 128rem;
+        }
+
+
+        .contact-row {
+            width: 946rem;
+            min-height: 50rem;
+            height: auto;
+            margin-top: 30rem;
+        }
+
+        .contact-text {
+            width: 410rem;
+            min-height: 50rem;
+            height: auto;
+            margin-left: 20rem;
+        }
+
+        .contact-text-wide {
+            width: 580rem;
+            min-height: 50rem;
+            height: auto;
+            margin-left: 20rem;
+        }
+
+        .icon-with-gap {
+            margin: 1rem 0 0 12rem;
+        }
+
+        .address-row {
+            width: 752rem;
+            min-height: 50rem;
+            height: auto;
+            margin-top: 30rem;
+        }
+
+        .address-text {
+            width: 684rem;
+            min-height: 50rem;
+            height: auto;
+        }
+
+        .photo-section {
+            width: 350rem;
+            min-height: 465rem;
+            height: auto;
+            margin-top: 31rem;
+            gap: 24rem;
+            justify-content: flex-start;
+            align-items: flex-start;
+        }
+
+        .profile-photo {
+            margin-left: 20rem;
+        }
+
+        .hobbies-section {
+            width: 350rem;
+            min-height: 50rem;
+            height: auto;
+            margin-top: 20rem;
+            margin-bottom: 30rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .hobby-label {
+            flex: 0 0 auto;
+            width: auto;
+            min-height: 36rem;
+        }
+
+        .hobby-items {
+            flex: 1 1 auto;
+            width: 100%;
+            display: block;
+            white-space: normal;
+        }
+
+        .section-margin-large {
+            margin: 60rem 0 0 87rem;
+        }
+
+        .section-margin-medium {
+            margin: 40rem 0 0 87rem;
+        }
+
+        .section-header-text {
+            width: 160rem;
+            margin-left: 74rem;
+        }
+
+        .section-line-margin {
+            margin-top: 43rem;
+        }
+
+        .section-row {
+            margin: 20rem 0 0 87rem;
+        }
+
+        .section-row-wide {
+            width: 1362rem;
+            min-height: 50rem;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .section-row-medium {
+            width: 1018rem;
+            min-height: 50rem;
+            height: auto;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .section-row-narrow {
+            width: 674rem;
+            min-height: 50rem;
+            height: auto;
+        }
+
+        .date-text {
+            width: 258rem;
+            height: 50rem;
+        }
+
+        .company-text {
+            /* width: 216rem; */
+            height: 50rem;
+            margin-left: 200rem;
+        }
+
+        .position-text {
+            width: 144rem;
+            height: 50rem;
+            margin-left: 200rem;
+        }
+
+        .degree-text {
+            width: 72rem;
+            height: 50rem;
+            margin-left: 200rem;
+        }
+
+        .subject-text {
+            /* width: 216rem; */
+            height: 50rem;
+            margin-left: 200rem;
+        }
+
+        /* 段落样式变体 */
+        .paragraph-margin {
+            margin: 10rem 0 0 87rem;
+        }
+
+        .paragraph-margin-small {
+            margin: 5rem 0 0 87rem;
+        }
+
+        .paragraph-margin-large {
+            margin: 20rem 0 0 87rem;
+        }
+
+        .paragraph-margin-bottom {
+            margin: 20rem 0 419rem 87rem;
+        }
+
+        .paragraph-width-xl {
+            width: 1563rem;
+            min-height: 100rem;
+            height: auto;
+        }
+
+        .paragraph-width-large {
+            width: 1529rem;
+            min-height: 100rem;
+            height: auto;
+        }
+
+        .paragraph-width-medium {
+            width: 1511rem;
+            min-height: 100rem;
+            height: auto;
+        }
+
+        .paragraph-width-standard {
+            width: 1510rem;
+            min-height: 250rem;
+            height: auto;
+        }
+
+        .paragraph-width-narrow {
+            width: 1506rem;
+            min-height: 100rem;
+            height: auto;
+        }
+
+        .paragraph-width-small {
+            width: 1505rem;
+            min-height: 100rem;
+            height: auto;
+        }
+
+        .paragraph-width-extra-small {
+            width: 1476rem;
+            min-height: 100rem;
+            height: auto;
+        }
+
+        .paragraph-width-education {
+            width: 1439rem;
+            min-height: 250rem;
+            height: auto;
+        }
+
+        .paragraph-width-language {
+            width: 166rem;
+            min-height: 200rem;
+            height: auto;
+        }
+
+        .paragraph-width-single-line {
+            width: 1482rem;
+            min-height: 50rem;
+            height: auto;
+            white-space: normal;
+            line-height: 36rem;
+        }
+
+        .chip-group {
+            margin: 40rem 0 0 87rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15rem;
+        }
+
+        .chip-group-inline {
+            margin: 0;
+        }
+
+        .chip-group .text-base {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #project-container {
+            margin-top: 20rem;
+            margin-bottom: 20rem;
+        }
+
+        #work-container {
+            margin-top: 20rem;
+            margin-bottom: 20rem;
+        }
+
+        #education-container {
+            margin-top: 20rem;
+            margin-bottom: 20rem;
+        }
+
+        #evaluation-container {
+            margin-top: 20rem;
+            margin-bottom: 20rem;
+        }
+        #certificate-container{
+            margin-top: 20rem;
+            margin-bottom: 20rem;
+        }
+
+        /* 所有样式定义已整合到上面的统一基础样式中 */
+    </style>
+
+
+</head>
+
+<body>
+    <div class="page flex-col">
+        <img class="header-banner" referrerpolicy="no-referrer"
+            src="data:image/png;base64,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" />
+        <div class="main-content flex-col">
+            <div class="personal-info-section flex-row justify-between">
+                <div class="personal-details flex-col">
+                    <span class="text-base text-xl name-title text-wrap"></span>
+                    <span class="text-base text-md-medium job-intention text-wrap"></span>
+                    <div class="info-grid flex-row justify-between">
+                        <div class="info-item flex-row justify-between">
+                            <img class="icon icon-with-margin-top" referrerpolicy="no-referrer"
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAG6SURBVHgB7Zk7UsMwEIb/tU2S0kdIAX1KOpyBwiU3IJyAoWFIFVMwLskRwg2oSBoGSjpyAAofIVDl4VjIeTDYcWZiK0HKjL7CD/m1v7y7s5IAjUaz1xAEsVzfYURXYMzO8VhwANwNe80AgggJMFy/BTAPRSAMTLLqk+ebPgSwUJCK61fHS+O5McRoY0MYmMM3dsSmD/y0DgEKC5gAzvI44j2J7uY9abj3Hlfdmgk592w8eQMUxMA2iKa5DCAYwe/JsJwndjLelYHNe+V7VGrwD52sC07ee1W+q85fQm/IASNWi11og2cDbuBj2GuuvWdFwNy38Yq5gUpgkNEOu7fXWdfMdEN0ePahkvEx/G8f09HpF/t8eU9fS8SA6foN1Yz/Q2sW8CkSAhhFNagKjxlzVHLSzcksxEgoI+ycjISynTQqES1ANnsvIFELRSCPN3SgKGFlLFS5KkmilIjLiHBR36gI944gPQhKuNCivr+AokzALpFycZ2FZKMFyEYLkI0WIBstQDZagGy0ANloAf9JYlZ7QXJq0bDa8WIFVITQz5qlXp1e58NKA1EDKkE0iMrjjshCiEaj0eyGH0XzenvSKpQVAAAAAElFTkSuQmCC" />
+                            <div class="info-text-group flex-col justify-between">
+                                <span class="text-base text-md info-text-narrow text-wrap info-age"></span>
+                                <span class="text-base text-md info-text-full text-wrap info-workyears"></span>
+                            </div>
+                        </div>
+                        <div class="info-item-wide flex-row justify-between">
+                            <img class="icon icon-with-margin-top" referrerpolicy="no-referrer"
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAQQSURBVHgB7ZixUttAEIZ3T47tIgV5gpAZ+sATxMmkMDQxTwB+ApIuhAJTJGbSxHkCnCeANMFNgnkClJ4ZxBPg0tjWbXalmEiyzpaxxExm9DX26e50t7rd//YOICcnJydnARDmpFxtLg+Qakj4nAAqgLQEBEuBN9oIyiHQ50XCk35n14EMSWxAodqs8IT3CagC8yAGEX11O3ttyICZBjza+Lyqtftl7olP4hQBX6a9Impq5cbhjqtHFylMXlgeAF2panMfUsQyVXgDER1C+lRw5TXQ5c9zSIFYA/yvRA3IjtSMmHAhURnj5JG+sh8/s1RhjQsOmHEU+7vfjg7im1BDhAEWpBB9MAQ4MrR19One2/64Y7VZ1wBncQ158vVRZ7f7t2hb1eaLuDgSVeOfLixAaAUebXxcNQYsQi9UVLoHBlBZxrogMtaiqxAywCXYBvNoq2r901v5u1RrLGmyjGqiSe/7rshBVv20NU3FNOoaLEBoH+ClPpspmeOVCO6+5sYON1yOPkNEm8C95nf0eALOIptcyABWn6vJAVNAjCYRANWWIscZ7+p6mVOOp141Uo/j6VoR2o/Lt3bvpJHIBf1XB2AXuUn2Zeef+ABgi1WsJq44sxuqE0k/AkJgJCyjhIktnwnnQJpwDZR1w8nfhSfNCSbvTYN0TQOdiUuPY8lEyABeShtSgPgLcia6qUQmtW7dd1UlHsV4EQJTGxXuAGls7w6V+nUe+JjfuA2LwsbzvNomI0IG6NKgDQuieQdW/dLOhLtIPPBOLv5t7DxuA9iNVhFCSzLj6PNwDEj08wvg3mC77A/XmKgheic7uXv6ftM0hsSM16az+3LCCF4JSethqgHyktKwMSPPMcJSeDD004MJXFDd8X8kNRlr8vUDZwVC/TvaJG7njj3QyFK5NDqbK/hEdUoDdp/iTWw1u45C5SV2rnaP4/cbbBQBvo347KC9nCy2TVt3duv/hjXAErZNSF+SGkGA3zk3b4n8QbY4uvPh2bhgPJGxH7Y9HU/oTgjaJjngZw2GP+jUI6X4pC7frkUz0Xj8tCBzKDwXNau9dVusJHEj1uonCsmBjMGIR8w0gOXgTaBzd3zS4v/1sa57z3kbH/7Ys5Ot1v2JqlNhdgfvEqvL0X4QSa7i0w4SjcdUbx6CaFKtYHmqAZJIjQg2k2SFdwOUhy11W9xJNau9A9sQuVea+2oxCZ4EAx1BujiSpkQNsCAD+LrExpVX/HGwAukQO3khEwMEuvzVVSuvr3mNK1wsw32RHR5wHQxXkpm4UAiOI+Und1tz92VF06cfnkxv8lCIIaj5VgNfGE9mvgQ7wXqR7Wki8nAGBOFrmUK/FDKC5dC5u7kOrhrvNZJiw38JG2KtHx5DTk5OTk5W/AF63MGEkB+goQAAAABJRU5ErkJggg==" />
+                            <div class="info-text-group-wide flex-col justify-between">///微信号
+                                <span class="text-base text-md info-text-gender text-wrap info-gender"></span>
+                                <span class="text-base text-md info-text-phone text-wrap info-phone"></span>
+                            </div>
+                        </div>
+                        <div class="info-item-absolute flex-row justify-between">
+                            <img class="icon icon-with-small-margin" referrerpolicy="no-referrer"
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAKuSURBVHgB7VlBdtMwEJ2RW+jSN8A3wEfoMumqnKCvJyjZ8F7CIs6igceGcIKWExQ24CXcoEfIDeiyJY2HsRw3tiS7cpJXp0R/0dqTP+MZRdIfOQAODg7PGtiE7HXGJ4QwAQJ/4R4lcX8Ea0AcfTwDSqJFzCknFM3jwVdrf2gA4oSXyUtLBMeRD6si9U2SwoBAIAeoARoVwAkHmun25eoFmHxLA/Q4GhawfXj2BeyphoPOh2AGcEFAh7zEr18QvrmN+1OwgNcdHxP7Vk4DhBsgnNgufDUXD/dOZz/eXRc52jfw4JCCIPyLdFVKQHvK3YONkx/WzmH5WWHhF3wLmBZyGRZzmSf3VypZ6M9YOCwNYX6JhD3+O4W8GIQefIuWSRDaLcB88UpfWn4bHBML9zwgh4pnoIbSppAR6Yjxw+Zx/5LvLquJhl3KgH3h+bPFdRK/j/hfZCQi+WkVdbBaxN7dwcX+0aew6vN0roru+DNYYk73dvEstlRNiUVnTLDFSOJBKWenA23DFdA2/r9W4lEgfUESUs4p3acr1ZdGCGIqryAJ2HG4XjwzGhXA54Hv9HPwtmgT3fOAszjTePEgUngsSgaeRbw6NJpCvAH/0Yyk90eb5tVhxxYxUqgeIXmev9JohqbLxJPxbHh1KakGi1aCD95ZR0pZsxU+EU9CbSWa70LpwTvvOulJeUY4IWsbu6jE0BOEmXLK+cvKqZ7EsrPzqMRDMh9Q1HhVvE0UkClnf5IUbKIjlbPUJhDhb4oVXvc8NCq2Rbw6rK/EtjxbJW6IXVvEdJgeuPM7n1UZ0Xut0RTF9uW1OFk5Xg1WPNTn74akcta9hbvZGG+BTSgxgI1yZm/h/I3xKuCErG24AtqGVgD35r9gW8G/EagmrYA5wKmJ2DbSgU34xxZwcHAo4R/UwDFNbiuJEgAAAABJRU5ErkJggg==" />
+                        </div>
+                        <div class="info-item-absolute-right flex-row justify-between">
+                            <img class="icon icon-with-small-margin" referrerpolicy="no-referrer"
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAQnSURBVHgB7ZlNUhpREMe73yCwNCcIOUGSG+AOswk5QcgJEjep0iyEDaSyMZwAPIFkE9npDeQIkxPEwg2ovE73DOp8MjPQC6vCr8qPmfeg+j+vv94bgC1b/m8wbaDU6NUt2Do8AxBxsjg/GiWOJd00jd4AgFrwjEDA4WJ8+Cl+P4Kz320SwRk8Qwzg3v348DJ8LwIRvYF1Qbjmb+g4pvS2DPhK/iLCBx45BQWSXLoEWiD1beWuDaP2teXLu6eRCf+MoNFr89O6YIE1UMSABmL8+bcvYnzqnPGhy8L2/FXSQ0OA6xmfBxaBhAegyMYCkH0+em+32d51Gr2WJIToGGeSoeYqbCxgYXYmwetqo1ebzipXBDSQbMYp+Tj2IYJfoMTmLvT7a0jALVIzFKhICe5FLiixuQB2l+Al+3jYPUg3aKNsLKA0q4Tqhu/j1Pcu2Ne5+MSrJ+JrUGINATgEKUzLQLRoY4EqWclWb1/Y86MX0copMcKx0QQlChYy6tjxUVv+23n3480C7geWzM/EqSk1gWPkM7uVGgUE4PDBeOHOD963UADz7vtnsDZfzchJbgHst7uwJlIXpvPy8aPxHCPltJVbcg9Qs0gnvFore7PcAohsU3K6HR920uYs2/C6QRhx2/CHP7SLYF5O55xaCfwHwLEjMTKDTFwuhB32tjMVAUsZLU6b/ST/luD0agAbagmWbsJ1Whw+6PMF0qqkZMoImCJZiJsx3EsLzhn3OYbwQ+a3IKztiknkFeAbz0aumuSnTFw5R1aI+6RBWq9UlDwCUo2PGiCpNU+/z27RIg7QBZZc2JBMAWnGS8AGmzU5BFjQ/QXkQQIZS3vRPmodslegOo/5fHjTT22z3/1rgS4eM80qFI33bMmcMC9fBBu2xBMLyhmYK4yXlZRVhIJkp1EuJGZWvoL9bp/T2nv23zpkGMn5v++YndHdg6GcYh2A+gKdSZrxspIg7qouwKfGQk6ycjIbP7GSSsdHsv99gmNoATBM+siT8fJ5fM+/L+Vfqd43c+S+iVQE5MH1jV+daoOEjGcs2S+m0fWK4NQr1Tb7O0AJPv85KGT8vhj6ZPy6aK2AGz27XDZwLemHymCGswLiiqB1LhTbpN/MKtJJnvDgMfdIV9IrBcfZ3UaggI6AhAaNgqmW06y/2Q+QUF/WQWkFEuoAwiR8CW5ofFZRaepUBCCZ2CbdwdInT4TUBQ7waIyUJDUroBLEXnGTah1otbO2nJzdP4ICamnUmVcHeed6JxNKL1DUBDxsObPmeTs375hdB81KDFKYeKNS2wHoRPO+Vxduqx9vybZzN385iAkwYC65Nc58kmmIa/ATbrGQS750EYn3taY2nfPbFbIbGS4v+2L3kiY6je5QK8gUOeVzqVb0ZuprVv9l3wbvyxQRr4geUW7ZssXnH08R1v+A5mS6AAAAAElFTkSuQmCC" />
+                        </div>
+                    </div>
+                    <div class="contact-row flex-row">
+
+                        <img class="icon icon-with-small-margin" referrerpolicy="no-referrer"
+                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAANWSURBVHgB7ZlNUhpBFMf/bxjETarIDfAE4g1kR9xITgC5gdmkCrIQFkpVNjEniJ5A3UR2khPEG2SOQFlZIDL98hrF4mM+uodBSeRXhcLwGP6v+/Xr1w9gzZrXDSFlNsvtgv4/BAqz77mA1+/UPaTIQg5osQPiCjFtM3ERWjQjH/9J8uSLPSK+YeDnm9yg27to9pAAawfccnsXxPuKqQJwASlBoC6gzrJwujazZORAdu9L0Vf+vgg/MBvhxRg743c+n8bbRqBHW6b4kMG7eBkk1LgV5UigAysgfBrCzQbT+6DQmnIgX2nmb+82DiVMDrCCSGidZoHWpCNPDmTKx1UmnDxHjC8EoUcywH6ncaZfOuPrDGquvHiNaBwN9CPuxDsFGKI6jdQ3QI1TPmYjw4mBdvCP8x85IIvD8DMelkUCDZMz0ILRd7CRXULMNBA+Pj2femfvqOgoVMI+6EidMuzUu+PXupi7lw0Pi0B86V81LpJqSJxNRpUocJ1GQZdx3J37H59ukIBEizhN8Rqfh9e6YEQCrGcgbfETeBugku2Bx8qBJYof46nNwQ4sDjfGIaQLPXvx5D08jClk+rlzC3szBx6rVDPxo1zOLRnJt6pT3xo9QFswTL+6hM+U299hSGwIPYlnmCwyT8SWEBLHo5OdLFjDc3NTnI91OnYGbvu5r4biESVeo1OljNgHGMFN591x7LkkcgaccvtQ3wgG6HOs36mXTGzlvr9NwzFDbilqjwidAYnDmql4jbRVLk1tQcrMVkLNV8NzSBiHmQQ6oNMlW5YIxGze12GY20pmcu82Q7UEOiDpsmqb65nI+DRHRNuwQLE6GHf8ZgkLoRoske7cvqktM1mXDQNSgQt6zoGsVINJdlqdv0dduxgeE0MB1lA18H6zF6RlWEBCFPF5VFGmOx82iWEKvXcEhJE7b6hj2exsHfQlslH9kgx2Kvn5TNfteiP8088V5Y5VmaUaFsHJzK0zF0tACxXBNekyyEb4cCUNXOXnhzPX1l2Jl2beAWKbTeZZGQZ0ROYc8OXXEqwmXlChOD8D+jRE/A0rRlg7J3ANqNx9U/fksTqE/loTU04fNeVvFcs7A0fz0KlrqavGSbiJAXp3ZcnBeEbIyfSS9orWrHlN/AWx8lv9YGE/GwAAAABJRU5ErkJggg==" />
+                        <span class="text-base text-md contact-text text-wrap"></span> ///电话号码
+                        <img class="icon icon-with-gap" referrerpolicy="no-referrer"
+                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAIrSURBVHgB7ZixUtswHMY/KVzrbh07uncde9e+QO/CdXG38gR1n6DtVtKhnUhHeALIExAmvHDkDWBkYPAjMELAFvrCBaSQALZl0HH6LZH/iuXvZ+sSWUAgEAgEGiDmFZeSflcB33Qzhg8IcQJV7BTZn61bXbMFmfQ3AZXCQ6SQ6xe7v3+ZNUug82Xtq1LYhscIgZVitzecHnfMTnW8dyTffX6rmx/hJ4My6/03C9LqTvpxkfVS/VgG8A+GTyOd0SxK+6BM+emhxCQ8G+dA1+ywn4AQP6aGHklch2c2/ev41+y0BRRej6H2vZEQODTDj4F9HTI2vyLnnBZ7IcHwL8fLbC4KT+SC059WYhp++O/krvBE3jHMHAkxQttUCE/kPcPZEtHZCi+AtqgYntwnQG4k9MCTC7QhUSM8eYgAaVeiZnjyUAHSjkSD8KSKAHEr0TA8qSpA3Eg4CE/qCJBmEo7Ck7oCpJ6Ew/CkiQCpJuE4PGkqQG5LzFl28F/cdfircQ1ksqZQn/wFxPJptprzgBsDJcruZFzI0UW2OmLbRXi9Qr3O7VKAWBKzuLrzpoCLKWRirZ1MXE4bkyW4Jx4LddBJ+kMItcOCUuKDrv3kCxMc04bA5M1OcW9JIZ0W0HRyLsD1FHp0npuAyOE/uXkwI1D6uKE1g/1aawmU0fm6508hL6Mza3PX2hvF0ehUvf80EIV8pTe5Il15Ay/gTVUb+gZ/51IEgUAgEAg8Fy4B95Z47K4wlhgAAAAASUVORK5CYII=" />
+                        <span class="text-base text-md contact-text-wide text-wrap"></span> ///邮件
+                    </div>
+                    <div class="address-row flex-row justify-between">
+                        <img class="icon icon-with-small-margin" referrerpolicy="no-referrer"
+                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAOeSURBVHgB7Zm9bhNBEMf/c+fEFpV5AhwJapInwBEUTirnCTBP4FRIIUWcJkY0KE8Q5wkShIQsIRSXlE4NElfScQgh+et2mLUJxAHnZs93CIR/kgvL452d3dmdjwUWLPi/IaRMsdoofh3cKBkTrf7UwiExhaP2Tgcpk5oB/sZBFUx1Jl4Fo4iZCqkDmOOovdtCCsxtgF9p1hjYA7gENwIC789rSGIDrKt86ReOmE0VcyA70loC9nvtnQAJSGRAodIsDYCzBKs+i2AZtJ7ECGcDMpj8BYEpDNZw2ghd/uTBkSFwlMHkLSW/lz+BI76T8PjA8jayo0R37n/m92/eav+gdqEMXWcaQmjygxWtK6ldSFynnPnkLRJDvN6SepdzWkEJUHUZXEsgK3noMXXtFzMOblTXLgDBuwclKheauA9/gI5juU22f+cCfuWgJWvwUDOIAa1Aca2qXGhoV1BHYNpParP8N7K/EbqagXyYskZOZQCzzgCbGsTKMB1CgexUSSOnO8Q0Ozm7TASvEy+DWBkXnc6BbG4KfadIG4fOAIZKaU6x7bleXneelDpVBsi1FmjkmOxVGSOjvIWISHXYVQZ4nlENZlNrr9LcmznO5tO6pCI1KIgoF2jk1KmEt3Hw6bpKa3rQ6Rx/HEcmgVAbYe11vKIRVEdiWV65/mhPJSqrLHlTTYwe+/GAuegQxQVbdupQ30IGXguu2B1T7tq0LsTGkwv016h1B2JVEJoPasGhMnOKAyY/bIiCANkRuKy+xbmkXNp8thrx6CyJa8TMJDRMa3Csi91LylePuz7l1q1CpIWMJan3FhIU9YlSiR9GpONOgZGxknbtnGriy5h3rz/y7QcvxAdvyldtun0FakntsIWXuwESkk5rUQKVB25AkyaIu0hKfSqKj9Polabb3LWGEJ/IAV+doa0rBfu6a+/nOlLvTkNajl5/+ewXIzKY/GTYLLhqREaTnwydFRdGwAbAbCafPWLE+JMhqeyAbbX3evnxRCPPL7KJZk46Z3tGQkFKyzCFXVEbMH4P6OWrDFOSCu3W5CWGivN360geOmwjjELm6NxWYkvSENO22mMNsLmPvHc9lxy/jD+JHHyJ9o9s1L9OLDaVkMStrO3RpIw8FA5jI7zahXKVZtlIt4zIv2vdyCpILSO1iaG8YspkOuKa57anOir0u5qba75DLOeiIId39H2HRHlxci5ilQbk+aFvorBn+0T/5BW7YMHfwTd2pH1cThxVUwAAAABJRU5ErkJggg==" />
+                        <span class="text-base text-md address-text text-wrap"></span>
+                    </div>
+                </div>
+                <div class="photo-section flex-col justify-between">
+                    <img class="image-container profile-photo" referrerpolicy="no-referrer" src="" />
+                    <div class="hobbies-section">
+                        <span class="text-base text-md hobby-label">兴趣爱好：</span>
+                        <div class="hobby-items text-base text-md text-wrap" id="hobby-list"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="content-block section-margin-large flex-row justify-between" id="education-header">
+                <div class="section-header flex-col">
+                    <span class="text-base text-lg section-header-text">教育背景</span>
+                </div>
+                <div class="section-line section-line-margin flex-col"></div>
+            </div>
+            <div id="education-container"></div>
+            <div class="content-block section-margin-medium flex-row justify-between" id="work-header">
+                <div class="section-header flex-col">
+                    <span class="text-base text-lg section-header-text">工作经历</span>
+                </div>
+                <div class="section-line section-line-margin flex-col"></div>
+            </div>
+            <div id="work-container"></div>
+            <div class="content-block section-margin-medium flex-row justify-between" id="project-header">
+                <div class="section-header flex-col">
+                    <span class="text-base text-lg section-header-text">项目经历</span>
+                </div>
+                <div class="section-line section-line-margin flex-col"></div>
+            </div>
+            <div id="project-container"></div>
+            <div class="content-block section-margin-medium flex-row justify-between" id="skill-header">
+                <div class="section-header flex-col">
+                    <span class="text-base text-lg section-header-text">掌握技能</span>
+                </div>
+                <div class="section-line section-line-margin flex-col"></div>
+            </div>
+            <div class="chip-group" id="skill-container"></div>
+            <div class="content-block section-margin-medium flex-row justify-between" id="language-header">
+                <div class="section-header flex-col">
+                    <span class="text-base text-lg section-header-text">掌握语言</span>
+                </div>
+                <div class="section-line section-line-margin flex-col"></div>
+            </div>
+            <div class="chip-group" id="language-container"></div>
+            <div class="content-block section-margin-medium flex-row justify-between" id="certificate-header">
+                <div class="section-header flex-col">
+                    <span class="text-base text-lg section-header-text">技能证书</span>
+                </div>
+                <div class="section-line section-line-margin flex-col"></div>
+            </div>
+            <div class="chip-group" id="certificate-container"></div>
+            <div class="content-block section-margin-medium flex-row justify-between" id="evaluation-header">
+                <div class="section-header flex-col">
+                    <span class="text-base text-lg section-header-text">自我评价</span>
+                </div>
+                <div class="section-line section-line-margin flex-col"></div>
+            </div>
+            <div id="evaluation-container"></div>
+        </div>
+
+        <script>
+            $(function () {
+                const formatDate = (value) => {
+                    if (!value) return "";
+                    const date = new Date(value);
+                    if (Number.isNaN(date.getTime())) {
+                        return value;
+                    }
+                    const year = date.getFullYear();
+                    const month = date.getMonth() + 1;
+                    return `${year}.${month}`;
+                };
+
+                const joinDateRange = (start, end) => {
+                    const range = [formatDate(start), formatDate(end)].filter(Boolean);
+                    return range.join("-");
+                };
+
+                const createParagraph = (
+                    text,
+                    widthClass = "paragraph-width-medium",
+                    marginClass = "paragraph-margin",
+                    options = {}
+                ) => {
+                    if (!text) return null;
+                    const { boxed = false, extraClasses = [] } = options;
+                    const classList = ["paragraph-base", widthClass, marginClass];
+                    if (Array.isArray(extraClasses) && extraClasses.length) {
+                        classList.push(...extraClasses);
+                    }
+                    return $("<span>").addClass(classList.join(" ")).text(text);
+                };
+
+                const toggleSectionVisibility = (hasContent, headerSelector, containerSelector) => {
+                    const $header = $(headerSelector);
+                    const $container = $(containerSelector);
+                    if (hasContent) {
+                        $header.show();
+                        $container.show();
+                    } else {
+                        $header.hide();
+                        $container.hide();
+                    }
+                };
+
+                const renderResume = (input = {}) => {
+                    let data = input;
+                    if (typeof data === "string") {
+                        try {
+                            data = JSON.parse(data);
+                        } catch (error) {
+                            console.error("简历数据解析失败：", error);
+                            return;
+                        }
+                    }
+                    if (!data || typeof data !== "object") {
+                        console.error("无效的简历数据：", data);
+                        return;
+                    }
+
+                    const basics = data.basics || {};
+
+                    $(".name-title").text(basics.name || "");
+                    $(".job-intention").text(
+                        data.jobIntention ? `求职意向：${data.jobIntention}` : ""
+                    );
+                    const ageText = basics.age ? `年龄：${basics.age}` : "";
+                    $(".info-age").text(ageText);
+                    $(".info-age-duplicate").text(ageText);
+                    $(".info-workyears").text(
+                        basics.workYears ? `工作年限：${basics.workYears}年` : ""
+                    );
+                    $(".info-workyears-duplicate").text(
+                        basics.workYears ? `工作年限：${basics.workYears}年` : ""
+                    );
+                    const genderText = basics.gender ? `性别：${basics.gender}` : "";
+                    $(".info-gender").text(genderText);
+                    $(".info-gender-duplicate").text(genderText);
+                    const phoneText = basics.wechat ? `微信号：${basics.wechat}` : "";
+                    $(".info-phone").text(phoneText);
+                    $(".info-phone-duplicate").text(phoneText);
+                    $(".contact-text").text(basics.phone ? `电话号码：${basics.phone}` : "");
+                    $(".contact-text-wide").text(
+                        basics.email ? `电子邮件：${basics.email}` : ""
+                    );
+                    $(".address-text").text(
+                        basics.address ? `现住地址：${basics.address}` : ""
+                    );
+                    $(".profile-photo")
+                        .attr("src", basics.image || "")
+                        .attr("alt", basics.name || "个人照片");
+
+                    const $hobbyList = $("#hobby-list").empty();
+                    const hobbyTexts = Array.isArray(data.interests) ? data.interests.filter(Boolean) : [];
+                    $hobbyList.text(hobbyTexts.join("  "));
+
+                    const $educationContainer = $("#education-container").empty();
+                    const educationList = Array.isArray(data.education) ? data.education : [];
+                    educationList.forEach((edu) => {
+                        const $row = $("<div>")
+                            .addClass("section-row section-row-wide")
+                            .append(
+                                $("<span>")
+                                    .addClass("text-base text-md-medium date-text")
+                                    .text(joinDateRange(edu.startDate, edu.endDate)),
+                                $("<span>")
+                                    .addClass("text-base text-md-medium company-text text-wrap")
+                                    .text(edu.institution || ""),
+                                $("<span>")
+                                    .addClass("text-base text-md-medium degree-text")
+                                    .text(edu.studyType || ""),
+                                $("<span>")
+                                    .addClass("text-base text-md-medium subject-text text-wrap")
+                                    .text(edu.area || "")
+                            );
+                        $educationContainer.append($row);
+                        const summary = createParagraph(
+                            edu.summary,
+                            "paragraph-width-education",
+                            "paragraph-margin",
+                            { boxed: true }
+                        );
+                        if (summary) {
+                            $educationContainer.append(summary);
+                        }
+                    });
+                    toggleSectionVisibility(
+                        educationList.length > 0,
+                        "#education-header",
+                        "#education-container"
+                    );
+
+                    const widthFallback = [
+                        "paragraph-width-medium",
+                        "paragraph-width-small",
+                        "paragraph-width-extra-small",
+                        "paragraph-width-large",
+                    ];
+
+                    const $workContainer = $("#work-container").empty();
+                    const workList = Array.isArray(data.work) ? data.work : [];
+                    workList.forEach((job) => {
+                        const $row = $("<div>")
+                            .addClass("section-row section-row-medium")
+                            .append(
+                                $("<span>")
+                                    .addClass("text-base text-md-medium date-text")
+                                    .text(joinDateRange(job.startDate, job.endDate)),
+                                $("<span>")
+                                    .addClass("text-base text-md-medium company-text text-wrap")
+                                    .text(job.name || ""),
+                                $("<span>")
+                                    .addClass("text-base text-md-medium position-text")
+                                    .text(job.position || "")
+                            );
+                        $workContainer.append($row);
+
+                        const summary = createParagraph(
+                            job.summary,
+                            "paragraph-width-medium",
+                            "paragraph-margin",
+                            { boxed: true }
+                        );
+                        if (summary) {
+                            $workContainer.append(summary);
+                        }
+                        (job.highlights || []).forEach((highlight, index) => {
+                            const widthClass =
+                                widthFallback[Math.min(index + 1, widthFallback.length - 1)];
+                            const paragraph = createParagraph(
+                                highlight,
+                                widthClass,
+                                "paragraph-margin-small",
+                                { boxed: true }
+                            );
+                            if (paragraph) {
+                                $workContainer.append(paragraph);
+                            }
+                        });
+                    });
+                    toggleSectionVisibility(workList.length > 0, "#work-header", "#work-container");
+
+                    const $projectContainer = $("#project-container").empty();
+                    const projectList = Array.isArray(data.projects) ? data.projects : [];
+                    projectList.forEach((project) => {
+                        const $row = $("<div>")
+                            .addClass("section-row section-row-narrow flex-row justify-between")
+                            .append(
+                                $("<span>")
+                                    .addClass("text-base text-md-medium date-text")
+                                    .text(joinDateRange(project.startDate, project.endDate)),
+                                $("<span>")
+                                    .addClass("text-base text-md-medium company-text text-wrap")
+                                    .text(project.name || "")
+                            );
+                        $projectContainer.append($row);
+
+                        const description = createParagraph(
+                            project.description,
+                            "paragraph-width-xl",
+                            "paragraph-margin",
+                            { boxed: true }
+                        );
+                        if (description) {
+                            $projectContainer.append(description);
+                        }
+
+                        (project.highlights || []).forEach((highlight) => {
+                            const paragraph = createParagraph(
+                                highlight,
+                                "paragraph-width-xl",
+                                "paragraph-margin-small",
+                                { boxed: true }
+                            );
+                            if (paragraph) {
+                                $projectContainer.append(paragraph);
+                            }
+                        });
+                    });
+                    toggleSectionVisibility(
+                        projectList.length > 0,
+                        "#project-header",
+                        "#project-container"
+                    );
+
+                    const $skillContainer = $("#skill-container").empty();
+                    const skillList = Array.isArray(data.skills) ? data.skills : [];
+                    skillList.forEach((skill) => {
+                        const text = skill.level ? `${skill.name}（${skill.level}）` : skill.name;
+                        if (!text) return;
+                        $skillContainer.append(
+                            $("<span>").addClass("text-base text-md tag-chip text-wrap").text(text)
+                        );
+                    });
+                    toggleSectionVisibility(
+                        skillList.length > 0,
+                        "#skill-header",
+                        "#skill-container"
+                    );
+
+                    const $languageContainer = $("#language-container").empty();
+                    const languageList = Array.isArray(data.languages) ? data.languages : [];
+                    languageList.forEach((lang) => {
+                        const text = lang.level ? `${lang.name}（${lang.level}）` : lang.name;
+                        if (!text) return;
+                        $languageContainer.append(
+                            $("<span>").addClass("text-base text-md tag-chip text-wrap").text(text)
+                        );
+                    });
+                    toggleSectionVisibility(
+                        languageList.length > 0,
+                        "#language-header",
+                        "#language-container"
+                    );
+
+                    const $certificateContainer = $("#certificate-container").empty();
+                    const certificateList = Array.isArray(data.certificates) ? data.certificates : [];
+                    certificateList.forEach((cert) => {
+                        if (!cert) return;
+                        $certificateContainer.append(
+                            $("<span>").addClass("text-base text-md tag-chip text-wrap").text(cert)
+                        );
+                    });
+                    toggleSectionVisibility(
+                        certificateList.length > 0,
+                        "#certificate-header",
+                        "#certificate-container"
+                    );
+
+                    const $evaluationContainer = $("#evaluation-container").empty();
+                    const evaluationNode = createParagraph(
+                        data.evaluation,
+                        "paragraph-width-standard",
+                        "paragraph-margin-bottom",
+                        { boxed: true }
+                    );
+                    if (evaluationNode) {
+                        $evaluationContainer.append(evaluationNode);
+                    }
+                    toggleSectionVisibility(
+                        Boolean(evaluationNode),
+                        "#evaluation-header",
+                        "#evaluation-container"
+                    );
+                };
+
+                const existingResumeData = window.render;
+                let latestResumeData = existingResumeData || null;
+
+                const applyResumeData = (payload) => {
+                    latestResumeData = payload;
+                    renderResume(payload);
+                };
+
+                try {
+                    Object.defineProperty(window, "render", {
+                        configurable: true,
+                        enumerable: true,
+                        get() {
+                            return latestResumeData;
+                        },
+                        set(value) {
+                            applyResumeData(value);
+                        },
+                    });
+                } catch (error) {
+                    console.warn("render 属性无法重定义，将使用 renderResume(data) 接口。", error);
+                }
+
+                window.renderResume = applyResumeData;
+
+                const initialData =
+                    existingResumeData || window.__RESUME_DATA__ || window.initialResumeData;
+                if (initialData) {
+                    applyResumeData(initialData);
+                } else {
+                    console.warn("未检测到简历数据，请调用 renderResume(data) 注入。");
+                }
+            });
+        </script>
+        <script>
+            window.render = {
+                "jobIntention": "UI设计师",
+                "basics": {
+                    "name": "喜洋洋",
+                    "age": "26",
+                    "gender": "男",
+                    "image": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaDDSSlicePNGb83db3b2be5ee9bb8b053eed872cd421.png",
+                    "workYears": "8",
+                    "email": "1411799546@qq.com",
+                    "phone": "18276098569",
+                    "wechat": "1211221654",
+                    "address": "广东佛山南海区桂城千灯湖一号"
+                },
+                "work": [
+                    {
+                        "name": "上海财贸大厦",
+                        "position": "UI设计师",
+                        "startDate": "2024-09-01",
+                        "endDate": "2025-06-30",
+                        "summary": "负责公司核心移动端产品的整体UI设计工作，主导完成从需求分析、交互原型到高保真视觉设计的全流程，确保设计风格统一且符合产品定位",
+                        "highlights": [
+                            "通过用户调研和A/B测试，优化界面交互流程，使关键页面的用户点击率提升18%，并推动设计组件库的搭建，实现团队协作效率提升25%",
+                            "与产品、开发团队紧密协作，制定并维护设计规范文档，确保设计稿高还原度落地（开发还原度达98%），同时参与运营活动专题页的视觉创意设计，提升品牌一致性"
+                        ]
+                    }
+                ],
+                "education": [
+                    {
+                        "institution": "上海复旦大学",
+                        "area": "视觉传达设计111",
+                        "studyType": "本科",
+                        "startDate": "2020-09-01",
+                        "endDate": "2024-06-30",
+                        "summary": "系统学习了设计素描、设计色彩、三大构成（平面、色彩、立体）等艺术设计基础课程，掌握了图形创意、字体设计、版式设计等核心专业技能。熟练运用Photoshop、Illustrator、InDesign、CorelDRAW等设计软件，并深入研修了品牌形象设计（VI）、包装设计、广告设计、书籍装帧、用户界面（UI）设计、文创产品设计等专业课程，同时辅以中外设计艺术史、设计美学等理论素养课程"
+                    }
+                ],
+                "projects": [
+                    {
+                        "name": "上海财贸大厦",
+                        "startDate": "2024-09-01",
+                        "endDate": "2025-06-30",
+                        "description": "独立负责企业级管理后台和O2O电商平台的UI设计，输出多端（Web/APP/H5）界面及交互方案，注重用户体验与业务需求的结合",
+                        "highlights": [
+                            "协同前端工程师完成设计稿切片与适配，使用Zeplin等工具标注细节，提升开发效率；同时支持品牌宣传物料（如海报、手册）的平面设计，强化产品视觉传播力"
+                        ]
+                    }
+                ],
+                "skills": [
+                    {
+                        "name": "Photoshop",
+                        "level": "熟练"
+                    },
+                    {
+                        "name": "Illustrator",
+                        "level": "熟练"
+                    },
+                    {
+                        "name": "InDesign",
+                        "level": "熟练"
+                    },
+                    {
+                        "name": "CorelDRAW",
+                        "level": "熟练"
+                    }
+                ],
+                "languages": [
+                    {
+                        "name": "英语",
+                        "level": "熟练"
+                    },
+                    {
+                        "name": "日语",
+                        "level": "一般"
+                    }
+                ],
+                "certificates": [
+                    "Adobe认证设计师（Adobe Certified Designer）",
+                    "Adobe认证设计师（Adobe Certified Designer）",
+                    "Adobe认证设计师（Adobe Certified Designer）"
+                ],
+                "interests": [
+                    "篮球",
+                    "游泳",
+                    "旅游",
+                    "音乐"
+                ],
+                "evaluation": "作为一名拥有多年经验的UI设计师，我具备扎实的艺术设计专业背景和良好的艺术素养，始终关注设计理论的积累与行业流行趋势。我精通iOS与Android平台的界面设计规范，能够熟练运用Photoshop、Sketch、Figma、Axure等设计工具进行高保真原型、图标及完整界面设计。我注重细节与用户体验，善于从用户角度出发进行设计思考，并能将产品需求转化为直观、美观的视觉解决方案。"
+            };
+        </script>
+    </div>
+</body>
+
+</html>
