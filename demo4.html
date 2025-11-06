@@ -249,29 +249,14 @@
             <div class="person">
                 <div class="l1">
                     <div class="l1_1">
-                        <h1>喜洋洋</h1>
-                        <p>求职意向：UI设计师</p>
+                        <h1 id="name"></h1>
+                        <p id="job-intention"></p>
                     </div>
-                    <div class="l1_2">
-                        <div class="info_row">
-                            <span data-icon="age">年龄：28</span>
-                            <span data-icon="gender">性别：女</span>
-                        </div>
-                        <div class="info_row">
-                            <span data-icon="work">工作年限：8年</span>
-                            <span data-icon="phone">电话电话：163000025681</span>
-                        </div>
-                        <div class="info_row">
-                            <span data-icon="wechat">微信号：22255555</span>
-                            <span data-icon="email">电子邮箱：22255555@qq.com</span>
-                        </div>
-                        <div class="info_row">
-                            <span data-icon="address">现住地址：广东佛山南海区桂城千灯湖一号</span>
-                        </div>
+                    <div class="l1_2" id="basics-info">
                     </div>
                 </div>
-                <image src="https://lanhu-oss-2537-2.lanhuapp.com/FigmaDDSSlicePNGb83db3b2be5ee9bb8b053eed872cd421.png"
-                    mode="scaleToFill" style="width: 42rem; height: 50rem; margin-left: 10rem;" />
+                <img class="l2" id="avatar" referrerpolicy="no-referrer"
+                    style="width: 42rem; height: 50rem; margin-left: 10rem; display: none;" src="" />
             </div>
 
             <div class="edu">
@@ -477,7 +462,318 @@
 
             <div style="margin-top: 64rem;"></div>
         </div>
-        </divc>
+    </div>
 </body>
+
+<script>
+    // 默认数据，可以通过 window.render 覆盖
+    window.render = window.render || {
+        "jobIntention": "UI设计师",
+        "basics": {
+            "name": "喜洋洋",
+            "age": "26",
+            "gender": "男",
+            "image": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaDDSSlicePNGb83db3b2be5ee9bb8b053eed872cd421.png",
+            "workYears": "8",
+            "email": "1411799546@qq.com",
+            "phone": "18276098569",
+            "wechat": "1211221654",
+            "address": "广东佛山南海区桂城千灯湖一号"
+        },
+        "work": [
+            {
+                "name": "上海财贸大厦",
+                "position": "UI设计师",
+                "startDate": "2024-09-01",
+                "endDate": "2025-06-30",
+                "summary": "负责公司核心移动端产品的整体UI设计工作，主导完成从需求分析、交互原型到高保真视觉设计的全流程，确保设计风格统一且符合产品定位",
+                "highlights": [
+                    "通过用户调研和A/B测试，优化界面交互流程，使关键页面的用户点击率提升18%，并推动设计组件库的搭建，实现团队协作效率提升25%",
+                    "与产品、开发团队紧密协作，制定并维护设计规范文档，确保设计稿高还原度落地（开发还原度达98%），同时参与运营活动专题页的视觉创意设计，提升品牌一致性"
+                ]
+            }
+        ],
+        "education": [
+            {
+                "institution": "上海复旦大学",
+                "area": "视觉传达设计",
+                "studyType": "本科",
+                "startDate": "2020-09-01",
+                "endDate": "2024-06-30",
+                "summary": "系统学习了设计素描、设计色彩、三大构成（平面、色彩、立体）等艺术设计基础课程，掌握了图形创意、字体设计、版式设计等核心专业技能。熟练运用Photoshop、Illustrator、InDesign、CorelDRAW等设计软件，并深入研修了品牌形象设计（VI）、包装设计、广告设计、书籍装帧、用户界面（UI）设计、文创产品设计等专业课程，同时辅以中外设计艺术史、设计美学等理论素养课程"
+            }
+        ],
+        "projects": [
+            {
+                "name": "上海财贸大厦",
+                "startDate": "2024-09-01",
+                "endDate": "2025-06-30",
+                "description": "独立负责企业级管理后台和O2O电商平台的UI设计，输出多端（Web/APP/H5）界面及交互方案，注重用户体验与业务需求的结合",
+                "highlights": [
+                    "协同前端工程师完成设计稿切片与适配，使用Zeplin等工具标注细节，提升开发效率；同时支持品牌宣传物料（如海报、手册）的平面设计，强化产品视觉传播力"
+                ]
+            }
+        ],
+        "skills": [
+            {
+                "name": "Photoshop",
+                "level": "熟练"
+            },
+            {
+                "name": "Illustrator",
+                "level": "熟练"
+            },
+            {
+                "name": "InDesign",
+                "level": "熟练"
+            },
+            {
+                "name": "CorelDRAW",
+                "level": "熟练"
+            }
+        ],
+        "languages": [
+            {
+                "name": "英语",
+                "level": "熟练"
+            },
+            {
+                "name": "日语",
+                "level": "一般"
+            }
+        ],
+        "certificates": [
+            "Adobe认证设计师（Adobe Certified Designer）",
+            "ACI国际注册职业资格证书",
+            "证照国际UI设计师认证",
+            "Axure RP认证证书",
+            "Sketch认证证书"
+        ],
+        "interests": [
+            "篮球",
+            "游泳",
+            "旅游",
+            "音乐"
+        ],
+        "evaluation": "作为一名拥有多年经验的UI设计师，我具备扎实的艺术设计专业背景和良好的艺术素养，始终关注设计理论的积累与行业流行趋势。我精通iOS与Android平台的界面设计规范，能够熟练运用Photoshop、Sketch、Figma、Axure等设计工具进行高保真原型、图标及完整界面设计。我注重细节与用户体验，善于从用户角度出发进行设计思考，并能将产品需求转化为直观、美观的视觉解决方案。"
+    };
+
+    $(function () {
+        // 从 window.render 获取数据
+        const data = window.render || {};
+        const basics = data.basics || {};
+
+        // 格式化日期
+        const formatDate = (dateStr) => {
+            if (!dateStr) return '';
+            const date = new Date(dateStr);
+            const year = date.getFullYear();
+            const month = date.getMonth() + 1;
+            return `${year}.${month}`;
+        };
+
+        const formatDateRange = (start, end) => {
+            const startStr = formatDate(start);
+            const endStr = formatDate(end);
+            if (startStr && endStr) {
+                return `${startStr}-${endStr}`;
+            }
+            return startStr || endStr || '';
+        };
+
+        // 填充基本信息
+        if (basics.name) {
+            $('#name').text(basics.name);
+        }
+        if (data.jobIntention) {
+            $('#job-intention').text(`求职意向：${data.jobIntention}`);
+        }
+
+        // 填充头像
+        if (basics.image) {
+            $('#avatar').attr('src', basics.image).show();
+        }
+
+        // 填充基本信息行
+        const $basicsInfo = $('#basics-info');
+        const infoPairs = [
+            { icon: 'age', label: '年龄', value: basics.age },
+            { icon: 'gender', label: '性别', value: basics.gender },
+            { icon: 'work', label: '工作年限', value: basics.workYears ? `${basics.workYears}年` : null },
+            { icon: 'phone', label: '电话', value: basics.phone },
+            { icon: 'wechat', label: '微信号', value: basics.wechat },
+            { icon: 'email', label: '电子邮箱', value: basics.email },
+            { icon: 'address', label: '现住地址', value: basics.address }
+        ];
+
+        const validPairs = infoPairs.filter(pair => pair.value);
+        if (validPairs.length > 0) {
+            let currentRow = $('<div>').addClass('info_row');
+            validPairs.forEach((pair, index) => {
+                if (pair.icon === 'address') {
+                    // 地址单独一行
+                    if (currentRow.children().length > 0) {
+                        $basicsInfo.append(currentRow);
+                    }
+                    currentRow = $('<div>').addClass('info_row');
+                    const $span = $('<span>').attr('data-icon', pair.icon).text(`${pair.label}：${pair.value}`);
+                    currentRow.append($span);
+                    $basicsInfo.append(currentRow);
+                    currentRow = $('<div>').addClass('info_row');
+                } else {
+                    if (index > 0 && currentRow.children().length >= 2) {
+                        $basicsInfo.append(currentRow);
+                        currentRow = $('<div>').addClass('info_row');
+                    }
+                    const $span = $('<span>').attr('data-icon', pair.icon).text(`${pair.label}：${pair.value}`);
+                    currentRow.append($span);
+                }
+            });
+            if (currentRow.children().length > 0) {
+                $basicsInfo.append(currentRow);
+            }
+        }
+
+        // 填充教育背景
+        const $eduSection = $('.edu');
+        if (!data.education || data.education.length === 0) {
+            $eduSection.hide();
+        } else {
+            $eduSection.find('.content').remove();
+            data.education.forEach(edu => {
+                const $content = $('<div>').addClass('content');
+                const $timeDiv = $('<div>').addClass('time');
+
+                const dateRange = formatDateRange(edu.startDate, edu.endDate);
+                if (dateRange) $timeDiv.append($('<span>').text(dateRange));
+                if (edu.institution) $timeDiv.append($('<span>').text(edu.institution));
+                if (edu.studyType) $timeDiv.append($('<span>').text(edu.studyType));
+                if (edu.area) $timeDiv.append($('<span>').text(edu.area));
+
+                $content.append($timeDiv);
+
+                if (edu.summary) {
+                    $content.append($('<p>').text(edu.summary));
+                }
+
+                $eduSection.append($content);
+            });
+        }
+
+        // 填充工作经历
+        const $workSection = $('.work');
+        if (!data.work || data.work.length === 0) {
+            $workSection.hide();
+        } else {
+            $workSection.find('.content').remove();
+            data.work.forEach(work => {
+                const $content = $('<div>').addClass('content');
+                const $timeDiv = $('<div>').addClass('time');
+
+                const dateRange = formatDateRange(work.startDate, work.endDate);
+                if (dateRange) $timeDiv.append($('<span>').text(dateRange));
+                if (work.name) $timeDiv.append($('<span>').text(work.name));
+                if (work.position) $timeDiv.append($('<span>').text(work.position));
+
+                $content.append($timeDiv);
+
+                if (work.summary) {
+                    $content.append($('<p>').css('margin-bottom', '2rem').text(work.summary));
+                }
+
+                if (work.highlights && work.highlights.length > 0) {
+                    const $ul = $('<ul>');
+                    work.highlights.forEach(highlight => {
+                        $ul.append($('<li>').append($('<p>').text(highlight)));
+                    });
+                    $content.append($ul);
+                }
+
+                $workSection.append($content);
+            });
+        }
+
+        // 填充项目经历
+        const $projectSection = $('.project');
+        if (!data.projects || data.projects.length === 0) {
+            $projectSection.hide();
+        } else {
+            $projectSection.find('.content').remove();
+            data.projects.forEach(project => {
+                const $content = $('<div>').addClass('content');
+                const $timeDiv = $('<div>').addClass('time');
+
+                const dateRange = formatDateRange(project.startDate, project.endDate);
+                if (dateRange) $timeDiv.append($('<span>').text(dateRange));
+                if (project.name) $timeDiv.append($('<span>').text(project.name));
+
+                $content.append($timeDiv);
+
+                if (project.description) {
+                    $content.append($('<p>').css('margin-bottom', '2rem').text(project.description));
+                }
+
+                if (project.highlights && project.highlights.length > 0) {
+                    const $ul = $('<ul>');
+                    project.highlights.forEach(highlight => {
+                        $ul.append($('<li>').append($('<p>').text(highlight)));
+                    });
+                    $content.append($ul);
+                }
+
+                $projectSection.append($content);
+            });
+        }
+
+        // 填充掌握技能
+        const $skillSection = $('.skill');
+        if (!data.skills || data.skills.length === 0) {
+            $skillSection.hide();
+        } else {
+            const $skillList = $skillSection.find('.content ul');
+            $skillList.empty();
+            data.skills.forEach(skill => {
+                if (skill.name && skill.level) {
+                    $skillList.append($('<li>').append($('<p>').text(`${skill.name} - ${skill.level}`)));
+                }
+            });
+        }
+
+        // 填充掌握语言
+        const $languageSection = $('.language');
+        if (!data.languages || data.languages.length === 0) {
+            $languageSection.hide();
+        } else {
+            const $languageList = $languageSection.find('.content ul');
+            $languageList.empty();
+            data.languages.forEach(lang => {
+                if (lang.name && lang.level) {
+                    $languageList.append($('<li>').append($('<p>').text(`${lang.name} - ${lang.level}`)));
+                }
+            });
+        }
+
+        // 填充技能证书
+        const $certificatesSection = $('.certificates');
+        if (!data.certificates || data.certificates.length === 0) {
+            $certificatesSection.hide();
+        } else {
+            const certificateText = data.certificates.filter(c => c).join('、');
+            if (certificateText) {
+                $certificatesSection.find('.content p').text(certificateText);
+            } else {
+                $certificatesSection.hide();
+            }
+        }
+
+        // 填充自我评价
+        const $evaluationSection = $('.evaluation');
+        if (!data.evaluation) {
+            $evaluationSection.hide();
+        } else {
+            $evaluationSection.find('.content p').text(data.evaluation);
+        }
+    });
+</script>
 
 </html>
