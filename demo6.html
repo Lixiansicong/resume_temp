@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>左下二</title>
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        p {
+            font-size: 4rem;
+            font-weight: 400;
+            color: #000000;
+        }
+
+        :root {
+            /* 设计稿宽度 210px，限制最大参考宽度 960px */
+            --design-width: 210;
+            --px: calc(min(100vw, 960px) / var(--design-width));
+        }
+
+        /* 关键：把缩放单位作为根字体大小，1rem = 1 设计像素（缩放后） */
+        html {
+            font-size: var(--px);
+        }
+    </style>
+
+    <style>
+        .box {
+            width: 100%;
+            height: auto;
+            padding: 9rem 12rem;
+
+            .time {
+                display: flex;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                margin-bottom: 3rem;
+
+                span {
+                    font-size: 4rem;
+                    font-weight: 500;
+                    color: #000000;
+                    word-wrap: break-word;
+                    word-break: break-all;
+                    text-align: center;
+                    flex: 1;
+                }
+
+                span:first-child {
+                    text-align: start;
+                }
+            }
+
+            ul li {
+                list-style: none;
+                padding-left: 0;
+            }
+
+            .top_block {
+                display: flex;
+                justify-content: space-between;
+                align-items: end;
+                width: 100%;
+                height: 100%;
+
+                .left {
+                    width: 100%;
+                    flex: 1;
+                    height: auto;
+                    position: relative;
+
+                    p {
+                        position: absolute;
+                        top: 15rem;
+                        left: 12rem;
+                    }
+
+                    .ifo {
+                        width: 100%;
+                        height: auto;
+                        background-color: #7AC1FF;
+                        padding: 4rem 6rem 10rem;
+                        display: flex;
+                        flex-wrap: wrap;
+                        gap: 3rem 0.5rem;
+
+                        div {
+                            width: calc(50% - 2rem);
+                            text-align: left;
+                            font-size: 4rem;
+                            font-weight: 400;
+                            color: #000000;
+                            word-break: break-word;
+                            display: flex;
+                        }
+
+                        div::before {
+                            position: relative;
+                            top: 1.5rem;
+                            left: -1.5rem;
+                            content: "";
+                            display: inline-block;
+                            width: 3rem;
+                            height: 3rem;
+                            background-color: white;
+                            border-radius: 50%;
+                            vertical-align: middle;
+                        }
+                    }
+                }
+
+                .right {
+                    position: relative;
+                    width: 64rem;
+                    height: 47rem;
+                    background-color: #7AC1FF;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    font-size: 4rem;
+                    font-weight: bold;
+                    color: #000;
+                    margin-top: 24rem;
+
+
+                    .avatar {
+                        position: absolute;
+                        top: -24rem;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        width: 49rem;
+                        height: 49rem;
+                        border-radius: 50%;
+                    }
+                }
+
+
+
+            }
+
+            .item_block {
+                width: 100%;
+                padding: 0 10rem;
+
+                .title_block {
+                    margin-top: 6rem;
+                    margin-bottom: 3rem;
+                    width: 100%;
+                    padding: 3rem 1rem;
+                    border-bottom: 1px solid #D9D9D9;
+                    display: flex;
+                    align-items: center;
+
+                    img {
+                        width: 6rem;
+                        height: 6rem;
+                        object-fit: cover;
+                    }
+
+                    h1 {
+                        font-size: 5rem;
+                        font-weight: 600;
+                        color: #000000;
+                        margin-left: 2rem;
+                    }
+                }
+
+                .content {
+                    width: 100%;
+                    font-size: 4rem;
+                    font-weight: 400;
+                    color: #000000;
+                    margin-bottom: 5rem;
+                }
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="box">
+        <div class="top_block">
+            <div class="left">
+                <img style="width: 105rem; position: relative; top: 1rem;"
+                    src="data:image/png;base64,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"
+                    alt="">
+                <p>求职意向：UI设计师</p>
+                <div class="ifo">
+                    <div>
+                        <span>
+                            年龄：
+                        </span>
+                        <span>26</span>
+                    </div>
+                    <div>
+                        <span>性别：</span>
+                        <span>女</span>
+                    </div>
+                    <div>
+                        <span>工作年限：</span>
+                        <span>8年</span>
+                    </div>
+                    <div>
+                        <span>电话号码：</span>
+                        <span>16300002581</span>
+                    </div>
+                    <div>
+                        <span>微信号：</span>
+                        <span>22255555.</span>
+                    </div>
+                    <div>
+                        <span>电子邮件：</span>
+                        <span>22255555.</span>
+                    </div>
+                    <div style="width: 100%;">
+                        <span>微信号：</span>
+                        <span>广东佛山南海区桂城千灯湖一号</span>
+                    </div>
+                </div>
+            </div>
+            <div style="width: 10rem; height: auto;"></div>
+            <div class="right">
+                <img class="avatar"
+                    src="https://lanhu-oss-2537-2.lanhuapp.com/FigmaDDSSlicePNGb83db3b2be5ee9bb8b053eed872cd421.png"
+                    alt="">
+            </div>
+        </div>
+
+        <div class="item_block">
+            <div class="title_block" style="margin-top: 4rem;">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACTUlEQVR4AcxUS3LTQBB9I1FhqxugG2BfgKATkBvgnACzFaliWJCwcziBwwlyBOVTrK0bkCN4CYGoeT22BtkjyXKlKsXUjDS/7vdeT89EeILyf4Lk32VkC0n3CcBgJXScfLiRGf5gcR+hyG9kMhRoEEheyIiOFyKYYlVSCOYEndsBqnaC5LfyEREW9B2ESAQTgu9U1QliyZBMC1Sw6C+1qhltkratrSAnt/LuN9mL4DUGFu6dUtXipJDAZgPErtlXFc4FaGWF/pJWmhQa4sa+DRCyv5Q92Df8bHYZ4vxazutJD6L5byq858Id26OqMbjSaNROHIgtJNH8p9SjgwpjLn5l27saYCkk+vmVyb5kxpNdgWRmySw6VnTL/umhmeqYKH4j+71V2T+Q4FlmfJhqAweigwPgqol+mpkLgmYCfNP1rmY62Df3e5BfMY7QKBrC6BnePuch9qgqlb2Jsex7ZjyIEaTqWHH4TzXn6dzqX2IkgaoKn3h+WRRjBj4x2nh557QNUv8fiMHLn+u7cb/+KyBbQgKzOMa8VhVVyAhcMuV/0HkzAsHTQ3u+SvrVJkgY3xFYeB7lNnPh/aGqAjFAgDdGcMnzcqxp57NKE4cuNqpXwtmUsXVG7EOT4OzQTBiyY47rLHPvFAHr1xh9WUU7Vx2I5T1xrHgubrbxoarOLGu7Ew1T33UgHK1iafCC/aC2qCqpcNx2JwJjTtQgdyobD7jmXGdVVcyoMS/rmP2yc+PWggPRw9KngIYXW+vBUPcGkzsmHMiOPY9efhKQvwAAAP//4XC/CAAAAAZJREFUAwCPbAtCObMGMAAAAABJRU5ErkJggg=="
+                    alt="">
+                <h1>教育背景/Education</h1>
+            </div>
+            <div class="content">
+                <div class="time">
+                    <span>
+                        2020.9-2024.6
+                    </span>
+                    <span>
+                        上海复旦大学
+                    </span>
+                    <span>
+                        本科
+                    </span>
+                    <span>
+                        视觉传达设计
+                    </span>
+                </div>
+                <p>系统学习了设计素描、设计色彩、三大构成（平面、色彩、立体）等艺术设计基础课程，掌握了图形创意、字体设计、版式设计等核心专业技能。熟练运用Photoshop、Illustrator、InDesign、CorelDRAW等设计软件，并深入研修了品牌形象设计（VI）、包装设计、广告设计、书籍装帧、用户界面（UI）设计、文创产品设计等专业课程，同时辅以中外设计艺术史、设计美学等理论素养课程
+                </p>
+            </div>
+        </div>
+
+        <div class="item_block">
+            <div class="title_block" style="margin-top: 4rem;">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAABmUlEQVR4AexUy1ECQRB9vVpeNQRSMAFkM4AMNAO5qlVyQK4YAhlIBnwiwAggBM5YzNhvFwZmd9ZigOJkV71iumu6X/e8XhJcwP5Joh45+FyvU9t/mVgbiXlnZGsh9hLJ29Q2rcUz4q22SvCJgJVIDHCHI00Et6FUR9IZ2ax4ry6D3oPIMfioS0qSbS2eiYxEg7WfK3wxcA6srtBnzW2tjEQJqENDhZ6fA2LRVKJ3j0TWmCE3bsfJsNR1jUleEsgmuQZmAixxXts2npN0UllC4ILYmHY0SQwo5mIT8n7EoC2CthfMnUUvFVcvm4Rxa+HGo09ogXk3lXGiDeh5XIQ2wZgrhp19747IJ2FAOx7zN4RuXVpczyL2u/XyDIbYMzdJUBeLR/2LGf0Fa4Kr703nSCp1sWjoU1aDm7TXtR49PdTfPRcdLVbShfFIeHow102SOQaVuuBQK+jBNI8kqAtvxcHTg6keSZUuvHggSnowzyNhgGuq69yCwVMsbgzuWaOIEgkv6Ac41G9gEIvsJViggCBJ4c7J7kVIfgEAAP//s4xaqgAAAAZJREFUAwCMxitCam1VygAAAABJRU5ErkJggg=="
+                    alt="">
+                <h1>工作经历/Work Experience/Education</h1>
+            </div>
+            <div class="content">
+                <div class="time">
+                    <span>
+                        2024.9-2025.6
+                    </span>
+                    <span>
+                        上海财贸大夏
+                    </span>
+                    <span>
+                        UI设计师
+                    </span>
+                </div>
+                <p>负责公司核心移动端产品的整体UI设计工作，主导完成从需求分析、交互原型到高保真视觉设计的全流程，确保设计风格统一且符合产品定位</p>
+                <ul>
+                    <li>
+                        <p>通过用户调研和A/B测试，优化界面交互流程，使关键页面的用户点击率提升18%，并推动设计组件库的搭建，实现团队协作效率提升25%</p>
+                    </li>
+                    <li>
+                        <p>
+                            与产品、开发团队紧密协作，制定并维护设计规范文档，确保设计稿高还原度落地（开发还原度达98%），同时参与运营活动专题页的视觉创意设计，提升品牌一致性
+                        </p>
+                    </li>
+                </ul>
+
+            </div>
+            <div class="content">
+                <div class="time">
+                    <span>
+                        2024.9-2025.6
+                    </span>
+                    <span>
+                        上海财贸大夏
+                    </span>
+                    <span>
+                        UI设计师
+                    </span>
+                </div>
+                <p>负责公司核心移动端产品的整体UI设计工作，主导完成从需求分析、交互原型到高保真视觉设计的全流程，确保设计风格统一且符合产品定位</p>
+                <ul>
+                    <li>
+                        <p>通过用户调研和A/B测试，优化界面交互流程，使关键页面的用户点击率提升18%，并推动设计组件库的搭建，实现团队协作效率提升25%</p>
+                    </li>
+                    <li>
+                        <p>
+                            与产品、开发团队紧密协作，制定并维护设计规范文档，确保设计稿高还原度落地（开发还原度达98%），同时参与运营活动专题页的视觉创意设计，提升品牌一致性
+                        </p>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="item_block">
+            <div class="title_block" style="margin-top: 4rem;">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAB4UlEQVR4AcRV0VHCQBB9Fxy/7UDsABtQU4F2oFQgv4Azhhll/LUCtALpIEAD0oFYgfjrSNa3ZhJyx0UNOLqTl9zt7e5j95a7AH8g/0vSmcigO5aXzliEeGrHcrJu0t5MSHAGwZkYDAH0CJgADxexHOm4KrwkItBgs/6BafYPTZQkCAHMkgCxZuWiO5E4iqVOG+/jJXEtb0Iz206wjwRNYzByIYL6GzNFiQQl+hV1FJp5PzR318zOBY3viQbhfSySTiwNTZ3KY1rX3bKUzQ1wTntw/fFzP3VSAOOls4g15ebGwv0QYAepaJ2/RcG+AcGgPZFW6p6+cxLWtCXL4Onqmm8juCy65iSBwW5xYcPxThRLVg3kJInguSRwj21sfGBr75X4zLVRsrWchG05y5TO95QbGvlQq8EqS+bHWNNsrN8lCVBGohuvwVYgPBXgEepfi+qc5H0Bix2biRUrJ9F/9WZxl96SwE+CVMpKlq7+8F0D5ihInonq2MbWL1DdOtgCrDgWyRdtjAoyL7av+lkkMJhiQ3HbV8NZJNsLDHnYWfVERZEF9ES2vCwSTdPwzqDFeg2Q4FavA/pbj0WiK1ehGeoFFfA2rAL67JGgpTFcBK5C55oRyUZVQJ/S7L0kSvSb+AAAAP//X8PZtAAAAAZJREFUAwAYk/0zwljsUQAAAABJRU5ErkJggg=="
+                    alt="">
+                <h1>项目经历/Project Experience</h1>
+            </div>
+            <div class="content">
+                <div class="time">
+                    <span>
+                        2024.9-2025.6
+                    </span>
+                    <span>
+                        上海财贸大夏
+                    </span>
+                </div>
+                <p>负责公司核心移动端产品的整体UI设计工作，主导完成从需求分析、交互原型到高保真视觉设计的全流程，确保设计风格统一且符合产品定位</p>
+                <ul>
+                    <li>
+                        <p>协同前端工程师完成设计稿切片与适配，使用Zeplin等工具标注细节，提升开发效率；同时支持品牌宣传物料（如海报、手册）的平面设计，强化产品视觉传播力</p>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="item_block">
+            <div class="title_block" style="margin-top: 4rem;">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAADS0lEQVR4AbxVTVLbMBT+ZNpMl+kNwgkKFyjxCdqeADgBYdcGZuLMFOiu4QShJ2hu4AQWXZKeILkBLDsQrH7fw1bt4ARW1UiW9PTe+96f5Aj/ob0IJPnlW91Lv3d06TvdiU+0Pr7y7ZfatxZEyqg4vbvDDB5D7/GdinvgOsuQEnDG82GS+hbWtFoQCVHBtZR5j2WL53AYRRk+eWDC8727CNdf6CVWtCcg3dRv3VOI/Fscdb1F8NbX2I3OdtwePdp0DlNHL7tXvoeaVgFJ6LaLkNLCZg1vIJ3uuO1i8y1285P3LkaGPkdSB1QBodvPAlD5LceTfhq7xAE/BHSc+kqIA4iSTMm1CXQOY+WCfLX9dYaOA279BnootQDCmB6U6LVL79HKIrSPJv7mM0O7zLR4hV1PQ8jXLntjIAkFPLAq0Sg1edqjopFyUaLbkkUwoLEWKhljRH4MZLGBRwAmz2c4BHDOUekKQ0HIHtAv1sVcJJzGFkXzqJMMBpJ5GKEBDM5iN4gijFBuvBcnO+4tk7pdBitYLJ8ZEvxrcy7fcVg3EFuVPosFxISi0XJ5B1bQlED9N0xucaaZwLuaS0NhDdtHEAdT+gcwV/N4Gw1sZGoyb3Z2Qk+T2FXK2HtMyFbpLtcpIuWB6AGmMNqAJQ1svHCbtHrf0WpdUN6hm/ydMjCyhE7eBAxpIHBB4N+crBsIn4ixKQMqbjM8F1YIuQIK2juVsBpNuvRpPMAMImnKAcqNNWsYiBasinPPxzBZUmBAfAjFk48WvdKD+DHf26QQ8jKqMLSfs4BC8QSQRoaBvLnfwBBLrQhnidzkffipx7REAy/jBxq7xTBXSjyAyBIdenrD2Ou/EeQVTp7tB4IWDhf00kKjrQB1Gbmekn7BOfQAIooqh8r6BOoQaJiUQifByOGT+DRY1sFa/iUPVBykzwkUeLi3XgERhcqSHEhJTnXRAphDUbq3UQNNKm/TmJSKB+A/hXOclz/K7QmIDgVEAf2M5vAYMtEz/ilnpKU652higWvb87VgJR3qn1IHQF7UguhAAhKkV/pB9XW5WBjKwZzrMXnO+ezHem5YSQPuV/aVIIUEvZrqsgmQCre53tSac8cKomBcMz8Lskb2xUd/AQAA//8OoPyCAAAABklEQVQDAPVfd0KYliv7AAAAAElFTkSuQmCC"
+                    alt="">
+                <h1>掌握语言/Language</h1>
+            </div>
+            <div class="content">
+                <ul>
+                    <li>
+                        <p>英语 - 熟练</p>
+                    </li>
+                    <li>
+                        <p>日语 - 一般</p>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+
+        <div class="item_block">
+            <div class="title_block" style="margin-top: 4rem;">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAABqklEQVR4AayV0W3CMBCG/wsV6iNsABu0C0AzAe0GbNA+00qkUkF9ZQI6QjeAwgB0A9igvDYqdu+sgEhwbEdwul9xHPu+5E8cRziKl6W+G3zp5CwtdP+opGnmIEphyr3Ds6QxHRRAOQgXb7EunkWIF0DAFhWjGoTwQQoPqBiVIGqH17eY5kSYo0KEQwif7zFtpDYxjCrY5oNM6grtcZdo3KGDTfI0oy41+VoTCrcCdskH6bkmJzFtcQXnGJnvg7TSCLNkpq2f9mCph/wkCTzhg8j01m8N9yhEMtONEIBMC4GgtsM3CmGsAjYIiCCI4i9J7lzseV7oKbeNfRHhBA5LBEEQoc/vZiX2aG3aa4EpjRsERBgEeORa5u75aFJg3Mj18bk1fRDx3CtiO63Vs04XZMKLUBaiV1ohzupZDy5IL3Tzopqx0wqQThdE/A7awLL3I/WsKofwD5H/TW2buNKEFZylEHmZaR0NXAMnivDDvcFZCjEW/GGVplgXJeslmMADSyF87WJZhIjX3nXB9NIxxLsm76BzHnPIHITXxRPLuy5cY0Ydivc76J7yDwAA///qw+J1AAAABklEQVQDAEn9AkJHht5kAAAAAElFTkSuQmCC"
+                    alt="">
+                <h1>掌握技能/Technique</h1>
+            </div>
+            <div class="content">
+                <ul>
+                    <li>
+                        <p>Photoshop - 熟练</p>
+                    </li>
+                    <li>
+                        <p>InDesign - 熟练</p>
+                    </li>
+                    <li>
+                        <p>CorelDRAW - 熟练</p>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+
+        <div class="item_block">
+            <div class="title_block" style="margin-top: 4rem;">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAC5klEQVR4AcxV3XHaQBD+TnY8eSQd4ApiN2CjDqAD6AA/BmcGeSaQvIErgFRgUoEwLgA6QB2EZ9u6zbf6F0IMecnk5lb3sz/f7t7eycE/aP8HiOdL434lfZJ//yy/B88ipDXXM/KapyTiaCRfX6T16mAtggmpJUADcbviukvedvAiw3ir/lsL8mUlbWvhU/W4txaeRkW52n4QxPOl6Qhm+1picUfgSwPsUGgi6DKFXmGrND0I8naGYSE1qULw3TXTH64JyPuZbhbGocfzK6yzaQWEgk2hZ5kEEMBgoVEgaYxmqnuMaJNsRQPPqB9N9j4VkPczXCFtBvPxrbkc35gOo1ik2xqN7o1uzbVj4ab7HHNdLtJeAbGCXFDQ8mpSgKTZc9wmUx0+62efKiB7Ak2mwK8DisqX1ZXqGIMAB1oFxDEo5RnA1TuJY6Ubi9IZsCBOAzkPseSBlkrU7pUs8lYyKiF+5ax8VonEc82OHj3mIsDYNVF0g5V0efEmTF9T+Xvp0RLPikP5KVVAlHFhMTXABkmj8Sdeti0EMxH0eU5r3WORtFWEsjuWdbHKdDujCoh6Sm4jtOhQOQYSqLHIe8StQUDd01XAO+R+ZEqpW3klVKAE4vE5kdhTn4yG3gNY9ChYyj3XoAM78h4Y9fUFARidT90u37xSMagsbekQ05uDp3iGJvj60rMJDSz1QuqlI3VouMfR/WBxybPyXs/Qpt4aSQUawdCjs1xnPQNhjrs88PwiUkTiqLYEm31zzZK0oOE5x6Ua1/8L9JyA9BcAtgZ5E45Zz0AsS1e9ZB4WUSoyEdBOYZFMnRABncqMqw6rbc67c4cQD4lYNGQg0XvkmnnyJn2iUvTSctzRgZKSamo0NLrUOSlgoVyPbkxvxJea0cYFQ4b2DEQXRWLO+wTYsHIe1YEiL52HIXqU2TEDnToZla0F0UtJIJde1f6M1DBltABKnqvhItWCqJAC6XiMTpE5CnLM+N/w/gAAAP//KWDl+QAAAAZJREFUAwDNiDZCzK2mRAAAAABJRU5ErkJggg=="
+                    alt="">
+                <h1>技能证书/Certificate</h1>
+            </div>
+            <div class="content">
+                <p>
+                    Adobe认证设计师（Adobe Certified Designer）、Adobe认证设计师（Adobe Certified Designer）、Adobe认证设计师（Adobe Certified
+                    Designer）
+                </p>
+
+            </div>
+        </div>
+
+        <div class="item_block">
+            <div class="title_block" style="margin-top: 4rem;">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAB7ElEQVR4AbSUTVICMRCFX8a/rd4AT6CeQOcGeoPxBmz9qXKsstQdR0BP4BFQXLiUG8ANZI2Q9vUQKGYSYBihi2aSTPK+TqczEVaw67Yk1x/STVuyv8IylIZQuAbBHcVrgwh1rGClIb9bY4DTvsugrrPsUQqigiJIMGODLTRmugubpSDcRdNTEZzftuTMGw8MLIXoYXMXQTEZpzAgmx9aCsH4sPOrXE/hZXYThKRfUrtqy/lNWzRNNacZfNgIDc6r337OT12UsuadYIOpebv5kJ/BAF0jeJPCYQcpwDHnNaxFi3dI6N+ENqmVpC3JAoxY899OsA4epgArXTT4ptCEWk1qdzWdkTHoYYM2BHrRaIRLMjYDsrh/jk0v0j/mMzZAH+s0Ah5jk6pkVl0KMhYXOrAOF4vXCUD1Mog2HmLzDgtNnXb/4509oI4Zm0J0jPQXgu61XdF7TP1FGptc6nMQFSZI81itEMz4oFVn1j2Ie5ldItcu/Zh3xzwIb2nly2iAo1BEHmS4jWNUNcFBaKkHgaDyTlB2J8xr8DyYin5WeRYnnPNKwdAvGKC3ExHkIBPxHYtDrTx65+nUJCzVwwBsP+VXHQXzIIy2o3OK4sXa16/EAphKTN2DMNKXXUY9ibwoPl3pGhMYgztRD83/AwAA//9Y1iARAAAABklEQVQDAJ2P06//XSYPAAAAAElFTkSuQmCC"
+                    alt="">
+                <h1>兴趣爱好/Interest</h1>
+            </div>
+            <div class="content">
+                <p>
+                    篮球、游泳、旅游、音乐
+                </p>
+            </div>
+        </div>
+
+        <div class="item_block">
+            <div class="title_block" style="margin-top: 4rem;">
+                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACNUlEQVR4AbyV33HUMBDGP/lueOVKMBVABSGugFABSQfhkQszcWZIwhu5Cjg6uA6cPw88HlQQUgH3bIKWb23LZzuS7YEhGq0t767008redYRHaKMh6VeJVf5mT4OQ+Y0cH13JzzzHrcr8SuToWj6nmcRjgb0QLpbBIhVghkYTwX4eIUtHgoIQjUAEuwi3WEFh89bihaSZzDSCrVtwFL+7lr2gtTJ4IfdTvMDIZvqjLVbxQgrL2IvB0yFXL2R6jw3GNsHdkKsXkibmGyf+oAx2a7HEQPNCdE5kcaD3XrFYfExMazPzTB68zyDkQ2IujcXbEEQsvpwl5rBp188eEdZM3jdNfRCiTqeJueBxPON4YQwuK1kyyuQ8MftotALAxFUVN6BzdFhIL0Q99DjOXprD0x2TVHKgUarNSRPA/DphhKmz6b0XokmpRdErmrBcYQhAF56gXhuiC+tEFsJblo26MGpxdPIrxzoHYvXjzstdWzyIwC3bioQArUfraqK3yhpgwzNPMMWryg+8BwEKakHyCT5R6V2ceoQAT4ClVmxucqZ+Xakh729kF4I99LTfFq+7ESiAx5oJaxjvrU/aLVVD+Kn2lXXnr0dTvwMHoNFF38oP6oteQ/jkDZX6utN5w1xZ8p1okq6484xGB+DQ3zmvNEjn71dqO9cJjlUTTfDc8M/I8SCAPttPeGKxAnDSK4LvPPu7QoBF11dMoaO63etImMUrZnb6L3K+Yy7ay5dPNaR8/D/XPwAAAP//0Z+HBQAAAAZJREFUAwBN/xJCgaKPDAAAAABJRU5ErkJggg=="
+                    alt="">
+                <h1>自我评价/Evaluation</h1>
+            </div>
+            <div class="content">
+                <p>
+                    作为一名拥有多年经验的UI设计师，我具备扎实的艺术设计专业背景和良好的艺术素养，始终关注设计理论的积累与行业流行趋势。我精通iOS与Android平台的界面设计规范，能够熟练运用Photoshop、Sketch、Figma、Axure等设计工具进行高保真原型、图标及完整界面设计。我注重细节与用户体验，善于从用户角度出发进行设计思考，并能将产品需求转化为直观、美观的视觉解决方案。
+                </p>
+            </div>
+        </div>
+
+        <div style="margin-top: 29rem;"></div>
+
+    </div>
+
+</body>
+
+</html>
