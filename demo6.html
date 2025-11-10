@@ -97,8 +97,13 @@
                             font-size: 4rem;
                             font-weight: 400;
                             color: #000000;
-                            word-break: break-word;
                             display: flex;
+
+                            span:last-child {
+                                flex: 1;
+                                word-break: break-all;
+                                text-align: left;
+                            }
                         }
 
                         div::before {
@@ -420,7 +425,7 @@
             { label: '年龄', value: basics.age },
             { label: '性别', value: basics.gender },
             { label: '工作年限', value: basics.workYears ? `${basics.workYears}年` : null },
-            { label: '电话号码', value: basics.phone },
+            { label: '号码', value: basics.phone },
             { label: '微信号', value: basics.wechat },
             { label: '电子邮件', value: basics.email },
             { label: '现住地址', value: basics.address }
