@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>新右三</title>
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        p {
+            font-size: 4rem;
+            font-weight: 400;
+            color: #000000;
+        }
+
+        :root {
+            /* 设计稿宽度 210px，限制最大参考宽度 960px */
+            --design-width: 210;
+            --px: calc(min(100vw, 960px) / var(--design-width));
+        }
+
+        /* 关键：把缩放单位作为根字体大小，1r em = 1 设计像素（缩放后） */
+        html {
+            font-size: var(--px);
+        }
+    </style>
+
+    <style>
+        .box {
+            width: 100%;
+            height: auto;
+            padding: 6rem 12rem;
+
+            .top_bg {
+                width: 100%;
+                height: 65rem;
+                background: #FFF8E6;
+            }
+
+            .main {
+                position: relative;
+                top: -56rem;
+                display: flex;
+                width: 100%;
+                height: auto;
+
+                .left {
+                    margin-top: 31rem;
+                    flex: 1;
+                    height: auto;
+                    background: #FFE3BD;
+                    border-top-right-radius: 10rem;
+                    border-bottom-right-radius: 10rem;
+                    padding: 14rem 5rem 20rem 2rem;
+
+                    .left_title {
+                        margin: 5rem 0;
+                        width: 90rem;
+                        height: 14rem;
+                        display: flex;
+                        align-items: center;
+                        border-radius: 7rem;
+                        background: #FFC26D;
+                        padding-left: 7rem;
+
+                        img {
+                            width: 8rem;
+                            height: 8rem;
+                            object-fit: cover;
+                            margin-right: 3rem;
+                        }
+
+                        h1 {
+                            font-size: 5rem;
+                            font-weight: bold;
+                            color: #FFFFFF;
+                        }
+                    }
+
+                    .time {
+                        display: flex;
+                        justify-content: space-between;
+                        flex-wrap: wrap;
+                        margin-bottom: 3rem;
+
+                        span {
+                            font-size: 4rem;
+                            font-weight: 500;
+                            color: #000000;
+                            word-wrap: break-word;
+                            word-break: break-all;
+                            text-align: center;
+                            flex: 1;
+                        }
+
+                        span:first-child {
+                            text-align: start;
+                        }
+                    }
+
+                    .content {
+                        width: 100%;
+                        margin-bottom: 5rem;
+                        padding-left: 4rem;
+                    }
+
+
+
+                    .edu {
+                        width: 100%;
+                    }
+
+                    .work {
+                        width: 100%;
+                    }
+
+                    .project {
+                        width: 100%;
+                    }
+
+                    .evaluation {
+                        width: 100%;
+                    }
+                }
+
+                .right {
+                    width: 75rem;
+                    height: auto;
+                    padding: 0 4rem;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    .avatar_box {
+                        width: 100%;
+                        display: flex;
+                        justify-content: end;
+                        align-items: start;
+
+                        .avatar_bg {
+                            width: 56rem;
+                            height: 68rem;
+                            background: #FFC26D;
+                        }
+
+                        .right_main {
+                            width: 58rem;
+                            height: auto;
+                            position: relative;
+                            top: 4rem;
+                            right: 6rem;
+                            display: flex;
+                            flex-direction: column;
+                            align-items: flex-start;
+
+                            .right_title {
+                                width: 100%;
+                                display: flex;
+                                align-items: center;
+                                padding-bottom: 3rem;
+                                padding-left: 1rem;
+                                border-bottom: 1rem solid #FFC26D;
+                                margin-top: 10rem;
+                                margin-bottom: 4rem;
+
+                                img {
+                                    width: 8rem;
+                                    height: 8rem;
+                                    object-fit: cover;
+                                    margin-right: 3rem;
+                                }
+
+                                h1 {
+                                    font-size: 8rem;
+                                    font-weight: bold;
+                                    color: #FFC26D;
+                                }
+                            }
+
+
+                            .avatar {
+                                height: 69rem;
+                                width: 58rem;
+                                object-fit: cover;
+                                margin-bottom: 3rem;
+                            }
+
+                            .name_block {
+                                width: 100%;
+                                display: flex;
+                                flex-direction: column;
+                                align-items: center;
+
+                                h1 {
+                                    font-size: 14rem;
+                                    font-weight: 500;
+                                    color: #000000;
+                                    margin-bottom: 2rem;
+                                }
+
+                            }
+
+                            .base {
+                                width: 100%;
+
+                                .ifo {
+                                    margin-top: 4rem;
+                                    display: flex;
+                                    align-items: start;
+                                    padding-left: 1rem;
+
+                                    div {
+                                        display: flex;
+                                        align-items: center;
+
+                                        img {
+                                            width: 6rem;
+                                            height: 6rem;
+                                            margin-right: 2rem;
+                                            object-fit: cover;
+                                        }
+                                    }
+
+                                    span {
+                                        font-size: 5rem;
+                                        font-weight: 400;
+                                        color: #000000;
+                                    }
+
+                                    span:last-child {
+                                        flex: 1;
+                                        word-break: break-all;
+                                        text-align: left;
+                                    }
+                                }
+
+                                .ifo:first-child {
+                                    margin-top: 0;
+                                }
+                            }
+
+                            .skill {
+                                width: 100%;
+
+                            }
+
+                            .languages {
+                                width: 100%;
+                            }
+
+                            .interests {
+                                width: 100%;
+                            }
+
+                            .certificates {
+                                width: 100%;
+                            }
+                        }
+
+
+                    }
+
+                }
+            }
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="box">
+        <div class="top_bg"></div>
+        <div class="main">
+
+
+            <div class="left">
+                <div class="edu">
+                    <div class="left_title">
+                        <img
+                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAhCAYAAABX5MJvAAACeUlEQVR4AeyVDVHDQBCFr1VQHIADUAA4AAfFQVEAKAAUAA5AAXVAHVAH1EH5vpQNCSV/tFNgppl7c5vL7b53e7m9fvoDz1ZEbML/zsR8Pj8C1+AZ2O/Gyrr2nTIB2QBcgGeIxIj+CNi/Og6GvHdqjSIIKrGrlvSN6JdAYrql5vgdPgqyb5WdShEEkvgamlegAAkwWzXJzYhi3K4h8QZVniURTgSm+wUHiU1zpTNz2jTF3zHxjdhmx3deP1smgo+uWtJI9/7nlLVaZsfMmCGzY8ZSHwGx6iWFa6UvB5Pc7CjoxEw8lb9v9G0K26Tf6/X82/d4eQCbaDNIBF06g39qJpIGcL8Uc8ZXFdKttU2Idg7k0MZctEzEwkwh5h5BTjxNKT2m1R9jHBPzANyAyEIeuSQiH8Vg8iNQiIK6ZkeiK8LsGAOMsStbpYjwIMAURHaOGfffkQRzqUnmqiW/xG/G6fP419aaWhEE8AhZvDxSbteYwEOwA73Zuac33bf0kosxfpb6EX1U21wEYxfMjXJwiJ1qRTBBck+PxeWFAHmBQYjZ8e8+xR6BIJdEcku+/oRZNPwlN95iIKUbxgZNImKyvVXUAqMgM+RKTbVQnKSSS5KvXMeAQrH9V+iSW2rmZl1EpMLjiiS11AvFtbpnEKJIhSggO6o/FVHQ091UCMgE6P0rIiQuYisistGUCYvTKveIJ+Cc/a+NUSviw/kAxf7NdJ2a1TO7L5q8akXojJAZ8FjFHWJwP30HV1ysnr5/N6801igiZiMk7hDPd49xM+R2CW3viz3mZdWT761baxFfI0I2Ad4lQtv9/zqt1fuPRbSKXpxUY29FRHLeAQAA//+pqSvEAAAABklEQVQDABnwF1KuUbTlAAAAAElFTkSuQmCC" />
+                        <h1>教育背景/Education</h1>
+                    </div>
+                    <div class="content">
+                        <div class="time">
+                            <span>2020.9-2024.6</span>
+                            <span>上海复旦大学</span>
+                            <span style="flex: 0.5;">本科</span>
+                            <span>视觉传达设计</span>
+                        </div>
+                        <p>系统学习了设计素描、设计色彩、三大构成（平面、色彩、立体）等艺术设计基础课程，掌握了图形创意、字体设计、版式设计等核心专业技能。熟练运用Photoshop、Illustrator、InDesign、CorelDRAW等设计软件，并深入研修了品牌形象设计（VI）、包装设计、广告设计、书籍装帧、用户界面（UI）设计、文创产品设计等专业课程，同时辅以中外设计艺术史、设计美学等理论素养课程
+                        </p>
+                    </div>
+                </div>
+
+                <div class="work">
+                    <div class="left_title">
+                        <img
+                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAhCAYAAABX5MJvAAAB20lEQVR4AeyWgVHCQBBF0QqwA6hAOzAdoBWIFQgViBVoB2gHWAF0oB1ICekgvh+5zCXZC4HJMTgTZj+b7O7t/d0NOS4HZ/DpSbgh/L9OZFk2AosGzPCNXIVtdetO7JJ/kfi5Aa/41sQO0a2lNQkyzoCSjy8CH/z3QJ24Q7eWEglVAKYWyHgNJInllw2nCKAGt7o3YJIrSLBgSIEpGdTuJbqKBJukavfvNQ7FTPny7e56gr0mBQk8juUH17HkU8UCV1C+j09CT76cm9zT/VdKp1ekdcVy+Sc+CVkSAkViq5uOIQJKWRtJlcSDokCMkeSjIPfeTsQaSXAUkBpUOyFbjJEER6ENLRL7RvLOwpcA3Ga4SxIchaIsEo0j4cF9BAsLJJyDqmyJFbnas+ACLRLyTVi4ATWRk9+5DjFUSTRGbVhdM9Ya8ARMCZHQabhki9orfJflG62x+EiJH4LaGmxr4m+AKSESCjZfvSTU631FuRqLDxHT2eFe0b7WS1A5TTSRMBdg/IGICXyqGHWYHENCx7kqtiDfYQyIPoYEy7qVnoTr59l1Qke4Ixdbl/4qFJ3gdy8SOhNiEtDfxzl72SS0M06dCahockXmN+3lo+iEbzz19elINFTWk3DN+QUAAP//92w2UgAAAAZJREFUAwDazCpSjTChRwAAAABJRU5ErkJggg==" />
+                        <h1>工作经历/Work Experience</h1>
+                    </div>
+                    <div class="content">
+                        <div class="time">
+                            <span>2024.9-2025.6</span>
+                            <span>上海财贸大夏</span>
+                            <span>UI设计师</span>
+                        </div>
+                        <p>负责公司核心移动端产品的整体UI设计工作，主导完成从需求分析、交互原型到高保真视觉设计的全流程，确保设计风格统一且符合产品定位
+                        </p>
+                        <p>通过用户调研和A/B测试，优化界面交互流程，使关键页面的用户点击率提升18%，并推动设计组件库的搭建，实现团队协作效率提升25%</p>
+                        <p>与产品、开发团队紧密协作，制定并维护设计规范文档，确保设计稿高还原度落地（开发还原度达98%），同时参与运营活动专题页的视觉创意设计，提升品牌一致性</p>
+                    </div>
+                    <div class="content">
+                        <div class="time">
+                            <span>2024.9-2025.6</span>
+                            <span>上海财贸大夏</span>
+                            <span>UI设计师</span>
+                        </div>
+                        <p>负责公司核心移动端产品的整体UI设计工作，主导完成从需求分析、交互原型到高保真视觉设计的全流程，确保设计风格统一且符合产品定位
+                        </p>
+                        <p>通过用户调研和A/B测试，优化界面交互流程，使关键页面的用户点击率提升18%，并推动设计组件库的搭建，实现团队协作效率提升25%</p>
+                        <p>与产品、开发团队紧密协作，制定并维护设计规范文档，确保设计稿高还原度落地（开发还原度达98%），同时参与运营活动专题页的视觉创意设计，提升品牌一致性</p>
+                    </div>
+                </div>
+
+                <div class="project">
+                    <div class="left_title">
+                        <img
+                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAhCAYAAABX5MJvAAACBElEQVR4AdSXjVECMRCF76yAErQCsQOoQKlAqEA6ACtQK1ArkA60A7ACtAOsAL/HkBvyc8mAiQPMvrlcNtl82SR3x1l1BL/TgViv113UM8qdvGgmGLSD3hl0jnTdiLolOqcui0UhGOEB9dAKfWz1xVUAb4B0KP/ZUhDd7QiDuq77NeK+jwQi3xyQaUQ3tE1aCsKbKSACMCDKyIRR2qRsyUeTdktBBHsKBF3gHKD7Fr1SL1OmtKQqB3UQhIkEyAxNWzSknQFRxrgNWxCCNdapGNPFLMctdZrRXqL/JZJd0791f3gQNL6j1xLpZBgIzUpru6+0eQlVCUD7I3i0LQgA1OmxqiozeJX5p2V5dmNaEDg1ey5FbfPk3R3BhRDprr9UWRlvYrsQjaOloGfEC76YZvhTpjhNGxdi0XjCBT05RxzJmPTsSMXRa6AZwYX4aTzhwoTNO0yJrqmNbUG6EJaTYK7pqGl3pxTbWysyGc2EtVYuQaZ7b6L7ZiIHh7fkFgRpOopMaKalQZLLIQivkSozytqUimsthyrQNypp3iRDECWXwzuemu1/Q3hZaIPQV7V8JfQZCuplgmOqjVMKRN8qHocHsW2hl1DuvaGXXjBmEELZQPqaHgGlV7Myc6ieiHFFPL3+KfoWhDDN1BHp9b3540P5kOuYfovKBA1coxCB9kWqjgLiFwAA///yb/yQAAAABklEQVQDAHjTElJqtyh/AAAAAElFTkSuQmCC" />
+                        <h1>项目经历/Project Experience</h1>
+                    </div>
+                    <div class="content">
+                        <div class="time">
+                            <span>2024.9-2025.6</span>
+                            <span>上海财贸大夏</span>
+                        </div>
+                        <p>独立负责企业级管理后台和O2O电商平台的UI设计，输出多端（Web/APP/H5）界面及交互方案，注重用户体验与业务需求的结合
+                        </p>
+                        <p>协同前端工程师完成设计稿切片与适配，使用Zeplin等工具标注细节，提升开发效率；同时支持品牌宣传物料（如海报、手册）的平面设计，强化产品视觉传播力</p>
+                    </div>
+                </div>
+
+                <div class="evaluation">
+                    <div class="left_title">
+                        <img
+                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAhCAYAAABX5MJvAAACV0lEQVR4AdSWiVUUQRRFa4wAM4AIhAwkAjUCJ4QxAiACNQI0AkMgBMkAQjCD8d461djVSy3D4NE+9bq2X++//rX1q/APPP+niP1+fwp24DphS376nIA2R0JH4A5nD+AzuEq4JX+g7xYcJKZJBOTnOPoJ3oK1tKXjDttuIVURifQHDk5ALSlA25pd1l8VgbVhl5xiUzpH+HWTZTIqioBM54Y5mTdnH5stMSyKoN+1QNad3EEt0xeJayKaiSJb/jKKectKrSZiZdhxm2si7g91t9lsmscWRSSiXwcI+dYzpigiEd2kvCfrGlMVQTS+4P07aE03jHmcGrPdPT887qddoSrCEZB6Vny1XIDT9gnb2UGlAMZ573jxeddQ/ZOaRGgO+Y78AhgVHVKMya9W4AU2Ri02Dq+RgGG7G5GhHM2aRWiNk3uwBa/BkM4o7IBiNHvCggB3zCW2449om44n1o5CqwApmyMBqUdxDTHM2HrcuwZiHUeLEaA9plUREJ0AF5L/CHus/ZkpITplTJcAeJenAyLPfX9i3FKlHxk5hOvhkoJfHsVQNhUjoIGYRSIJkEgh2tRQFFAbbP9MBI1+/bEEyOP/p9sb6uWUiSAKhv79sums1W22OgVYK8CIOkVXcJvTPE+ZCLpbBWAaFCEGR4EnrgHysQCqQQGr3FMRb0LfI7lw1CDgHRUX9dBONSaFxcL0NRUx7a/VjYQ3pnBqFNB1jevgOSL80vGC86+8W8AxROh4wFiQ3M2YRuIDI89eBCHMbtiQnkyEtxt4fCG4fpLbPMtE5F1/r/YbAAD//zl28nsAAAAGSURBVAMAI8/+Q/v8ZtoAAAAASUVORK5CYII=" />
+                        <h1>自我评价/Evaluation</h1>
+                    </div>
+                    <div class="content">
+                        <p>作为一名拥有多年经验的UI设计师，我具备扎实的艺术设计专业背景和良好的艺术素养，始终关注设计理论的积累与行业流行趋势。我精通iOS与Android平台的界面设计规范，能够熟练运用Photoshop、Sketch、Figma、Axure等设计工具进行高保真原型、图标及完整界面设计。我注重细节与用户体验，善于从用户角度出发进行设计思考，并能将产品需求转化为直观、美观的视觉解决方案。
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="right">
+                <div class="avatar_box">
+                    <div class="avatar_bg">
+                        <div class="right_main">
+                            <img class="avatar"
+                                src="https://lanhu-oss-2537-2.lanhuapp.com/FigmaDDSSlicePNGb83db3b2be5ee9bb8b053eed872cd421.png"
+                                alt="">
+                            <div class="name_block">
+                                <h1>喜洋洋</h1>
+                                <p>求职意向：UI设计师</p>
+                            </div>
+
+                            <div class="base">
+                                <div class="right_title" style="margin-top: 5rem;">
+                                    <img
+                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADpElEQVR4AbRXS1LbQBB9LXmRpXMD5wQh61QC3ABOELNN8VFOYHMCQyDZAicgOYHBVCpLcwN8A1whK0DqvJ6xZFkeEwNmyi2Npn+ve3o+jvDMpv2krhfbLT3f7mtvSx1Z/2J7R38njf+ZnxuAGTNnZYP66/MSbrI+VNsQXSp41lfdw13adTIFY7rzIADntLfVZVTXNHaFP2lfu0ndzBgPae0U0IeibCCNu07WlAI0E4D2NtfotE+dFZJzCsGZrO4NYe0ubeFh5yZlVKedI+uEKAjAI446VPCO2fG/+Ke9R1loWn9OWhnpTIkHAeA2S4LRpRjAWg3j+cacrXYf1AkDEH07w6xP/wzmU4bDACCzCstPyT18JvD8NgOAhh3EqUsjC9H482dDMZAPh2cItDAAlfOArA19soenbNe/53gKZsqGAWTRHlQsyqr1Fb3YtGUJ+fiNMrpfFZj6Vj2RjwfHU+OjgWj0nngxxUNk0WoQRCbtXFiWDxPugrtBOQWnKPtCmQeXaxAA2AhiQBDv2N0gnTknqrvI4jV+Fz86aCOLKKfrlNl1BGwgi9+4LBWS4c5MAE78FeqQeIA4ZiRf35gzAmNk3CXsEOola9rbShBlCTRaQt5UGjZmPL1IVpSyOav6jqoDTqG8/2dZB7co6sF2SRo+xU16BaQ8C9DhQdQKEsjTtEvZa+ocmS4qrQBgKLW304EpAFZodShsGtaLqHnEcl+nY9g01PG41qSuHdncZceKBQD8zboAUznm8TNepXMXvZ35LLi9MvsJfQPdcbZGyg6Aj1zHc+iZx4Xz3laTzovq9+xnPFXb+XKO/LxUIjfbaew2D8+Xlg0tlFSOzF7EeWlZp0J27rvUk8960EaFv4jPhnIVRRCpph6Y3IpL2+8i/JZsaNqMOLfTAER99F6WGfCdhT8Fb6Og0REA7SYvkfqyywYBSDlaz9SaLRfff+EnpwDunjfpJ3UARstwOMlb4JfKZcQ9+weqTaVcF5dV9sK+RS8jd1NRnTzXRceVL+r2g4U5LRsSPWENcCSrtbn0ypHW853KAQSC1yk8rx2bbQeAcz2Eu4DoSWFTpVX009juBIurBcWA/5hcZh0AsBkInvdNHqu8CRGIYolHaEIWyOOdIOW4TK8YE3gMmfMsLg65AkBuw9JiQGT54DVRFnc5ef/90mUJmC5azN3OUHJuWlMAbDAnRj6Rdn4PeMFcH2dJynWTq43fiiFra0DaNx3qFpHnQv8AAAD//ymciXcAAAAGSURBVAMAIn2uF1Mn43gAAAAASUVORK5CYII=" />
+                                    <h1>基本信息</h1>
+                                </div>
+                                <div class="ifo">
+                                    <div>
+                                        <img
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAB3UlEQVR4AexVy1ECQRDtBu5qBmsGGIAfItAMxKuliBEAEQjiHTKQDBApyyNmICFgeVPY9vXszn7YnZIqUC9OTW/3vHkzb6d7ardAv9D+TkQm9W15vKzDqt8dVJ7OyzKqNeW57rm4+Sd5nx9hwQ2sJ8N6Gd7d/VKPWBr0sWi7SIX8Cd6O8NI8jiMwEQgF80xb5GiRiIxrDRx7IuMLPUWKrqnA3GvKkM4UKRwgxUPwJromhCgSIZEmjl0m4VNaFAfwHWAt3r97oM/FEea8lCnP7OJfw/Ux10JqPcTKLZs1GGiPRXQU2AkVF1UseiHmKd4MMV8FU4kniyk4kUntCC/lYV2DclqeiObYFB38njGR/OJrwYkCTuCr4Gd6nkiGtC7gFhGakfCUkm1VLLkGsUtkxofdHT683QVnAAu6X9w1mHAnAPD0i3sZDHCyO0UikvCbjbnSnoWx9Tq0sfWKpcwl4uFW3cN6uGXHdgXGFotvW8kfAldejNkFoXeJ6PQJHnpb9LYhND2LBTdvmWfI9uEWWbXIeTy7e+hdIv+FDxOUdq50KStbZKIstlbhaXMtPsnyJ2RdDZbokxSL+IUK9j3biLFUzH8Im2mPRPDJmPJBt78R0x+d7h5aJBKOf8R9AQAA//9/EpmCAAAABklEQVQDAC42C0KtT9M2AAAAAElFTkSuQmCC" />
+                                        <span>年龄：</span>
+                                    </div>
+                                    <span>26</span>
+                                </div>
+                                <div class="ifo">
+                                    <div>
+                                        <img
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACeklEQVR4AbxVXXISQRD+BrDKN+MN4g3Mo2WFwA3CCQyvloG9AXCCrAZ9hZwg3ICEaPlIPIHcQKr0SWq2/XqWXZb9gbWSStc0s9PT09/0zzQVPAE9LYh89w5ldn5Nnj4CnyUDtPFkZS+4cUpuFDDFWCCkIp1IPpKpdxCqAhsQIBYiTUaapn6p3NYZVXtElSV514jtJUEKDlR8czy80U0Nqc7m7Zd7zgNyqVHZq2XNleowT2dY2Z+cPV3DVsduLvGzHwRYhyUI3Rc5xH9SPohADbchZoEqXoNk6p99PKu+MifD0JOq1SLhzv6RD2IwYILHCCpHpu5PIjPmje+qS769J7Dp8RKaG81XkpGmfBCgqyVomr56BJl9OJXZub6fkc7MxxwiP8zJJ17CVZ1WnmOA3mOb8kFEriIAp25remPeHvrI9C0ABi9QkrIgIgPGva/n5WvnnSvb57oyziv9WnNDbjtz9Xi9LpyyILXaRLUVAIGMWbZT8hyQ7aoSc8+cNdVjmXth5enBHM6CWMv+1b1wAOEBNa5GmFxpga+f4nYMwJ6HP/aassKRBQFoNPCQJJGPrDYmdjjR18/vsfNAAVbBFIKGFoSGD2mPaScPhOLUCGq+SrR0aagvUfP7G7AQ4jA26KUWh6pucRmQBW/t3geC2oiGemyQ4UM0gVbdlsG8RRmQg/jmYrWPTfhObkJjhqENv3b9lgJBJXA50tbCfLRiz2C6u4xHe0mQZSTMzEZ6ctfpybpU5c5zic5LcuYsBQmQ4Jbr4iHSx2/7i1UkEDulYoOcPwwmG2+x+WfUUDDWL7XTPpTN8WULCUp4AhB9qZ32oYwUbYGk9h5t+Q8AAP//tvjMoAAAAAZJREFUAwCjG05CD+fTIwAAAABJRU5ErkJggg==" />
+                                        <span>性别：</span>
+                                    </div>
+                                    <span>女</span>
+                                </div>
+                                <div class="ifo">
+                                    <div>
+                                        <img
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAABMUlEQVR4AeyV303DMBDGP7tF4jEjuBvwygtNJiAjdACKskFHoIIBOkLFBIbwwCNsQEfgvUmOs4ObKEGhrZyoDz3lp/OfO3+6iyxLDGCnIUJvSUjpfNYmiek9Ufs0orMSSu9iUK5BYtEmX2Gba9JJgH+sUwQkWQTPYvo4aYJiNOGzFcbZFfvOT7pdUzql8zWjHRB0C4Epvd5/NYEsPspc+eDif/2qWZ0VsYvbQnNSzIQ1TCsCFlN/woEgMpXUc2YY5Wuz5bAiGIMDScGfGdHdaaXIbtrPYECRDJ/c88grqKys5BIBChl6BZVJO8yguIqFV1BZKVLNexmdRQ5q67ldR7TL3HgSm4Myu4Nf6tv2n4ho+W0eJVzwQ+QBcfMUtUTcgrhebnzgznPeVuImfflBRH4AAAD//73+kjoAAAAGSURBVAMAOCjxMwfUHZIAAAAASUVORK5CYII=" />
+                                        <span>工作年限：</span>
+                                    </div>
+                                    <span>8年</span>
+                                </div>
+                                <div class="ifo">
+                                    <div>
+                                        <img
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACNElEQVR4AcxUS3IaMRB9gk2W5AY+glmnEswJQk4Q2KYKmBsYnwASU9ninIDcwPY4rizxDfANQlWWZqbzWgozmmFkJq6Kyyo9/dVP/VE38AzlZZDIbXQs8bAv16MJ+4XDeOrmUU9+RkeHjFGpidxEJ07Y8BeSZEUhCxg5Zd93SCM3T5Z4SNYkXElM4gBhgYSC+xKP1pDk0glDC3WKkWOAxEoYDxdl7SyJezmFAwtADqp/gLdvtbsZne7OWRL38pJwwT2AC9TDFc8Vq4j6UM0LR1LcdjODK/PufFAHMM0zPFIciRh9dfnYdXkhON/iDlXFiJXrSNJGl2cGPqjBhTqQwbAkLoOg7U13tmEUtv37jL6ueTu3ZrQkPHSvQn0oAR5SjbIeL58E4Wwfme7XO//+joD3qn2SE0jdSJvKj9FHFVgFq4m/8QjBdzUBmkkbIvuOTmUmt5/4X3xpblwgkVXUwjZdovxXxKgpPqgJzBuapTOfQEyZqIWkubSPdLKztkCC30wdIvuvMfI5u7EbpI3Zbuj1R/yI/NDeCocNwlZNhNDUYGc1mlcIpRzNexG8kpHQTPZ3env5UMw4n/wdbdOgo3niPZHVnAQIvQx0uKb7tcRRz2E8pfMnCJeCyX2S8BW3w3BOGBQKZly3FmoLD/4XkpDAqvWNv5iTNFLNuP7e08ci3/zLGYn+AW4MGP/VyY6bB6tgQ1+dmc48EF0AbO7pfGmzN09C5/w1CfYCItME/7E8C8kfAAAA//+YFPCPAAAABklEQVQDAGeiNkLboZwTAAAAAElFTkSuQmCC" />
+                                        <span>号码：</span>
+                                    </div>
+                                    <span>12345678910</span>
+                                </div>
+                                <div class="ifo">
+                                    <div>
+                                        <img
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACa0lEQVR4AeRUS3LTQBB9PSZ75wSEEyRZUhQkPgHmBHb2wREnsH0CG5JiazgB5AQRNlUszQ3QDXAVy6BpXo8s2bJlSqQoFmRqft3T3W/mdUsO/6DdAxCdR02dRm2dvoz0U28Q9l+ig7uwu0WXMhAD3+BH+h1IPzDoCKL9sL9NvxFwzvMu9bV7CUQ/9zq4Tef0PuWo7qJHPJjo9GLEtVYvQHR63obXd/RqQrEA8BGArVhrMVSSTPZRXaACBHBrN5PX8uzyBYMNOfIeU9eC/2n6pc5HOjvf/eqlVQDRWURDXU/qc0s0IBdYtSNlEaCx1ylU9irv6FtoKjcuaDU1nsM2TIH3lEkvATd5NoLqKSkbhiEasygeGm28QNeKhjZbPQPZ5n7LMFO4MUQscJ/B+9RZlXH4iPsJi+ZGZz3TU1x1F7aN9GtYfzepDhmY1ISAuywP+NLBJlAAkSdvDSTe5QlFQoAFAyxp9a+QNh4hZ0CRUN7n+XtYUyXQqiACiOlpdAZLZBA2J7mGNDorrTvBA2+y5QkQNNFI23DuEHnzYhQGqQCR1jiBd61KINGEt1y+Ivi1KQ/CLpsMbELdykZwmB0BBYgpApBVjAkqRqHtABUr70Um1J6T3LIEEpSqQv5bcvLmmB+fYI/cezcgUMZ3MKo1FfZu01xOrrry9KooAnk8TvjCBakcE6i43aZfSVYkvKD9omBtC8SUVYNACYGqc1Z2iOEbx+uq2iDmZECk0Ur3jHKM7EdqObMX5q+/pl0pf38EwsChGxUczNvlPlcxYK4tfgZ2gRKAOdwJxByrBl9QykVu81dB8qCb6/8D8gsAAP//yfAFeQAAAAZJREFUAwBQNfAz9KPDHAAAAABJRU5ErkJggg==" />
+                                        <span>微信号：</span>
+                                    </div>
+                                    <span>2552555</span>
+                                </div>
+                                <div class="ifo">
+                                    <div>
+                                        <img
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAABWElEQVR4AeyUwU3DMBSGnxN67whsAAwAIRPABoQBitINGKFA7y0TsEKJkDhWTAAbUIkLEo0f77ebQlBI7aRwqGrlt+Nn+/8SPycB/UPZQAhP0y5n6SlnvaSdxOMx3f2eBbNdjOCbnhLldzI4aifx+Mif+eHiTHzMZSD0TjNifU/rKkwvpOZPtCgWEs6PVTRMiPl2EW/eAKDDmHhnrzCxEA72JQ+j1qAC0NERab4sQ2wPCW8OKgPG1tLW9k3sPepmoBoATH9CEPMDrQDAsAqCuBvIAQCz3yAYqwc5AmBUB8F4NcgDAJNVEMz5AhGdS6BPOjwge0xLp0jGKi8XCBYaEHXCiTq6GQjgRL4DJwAWu0IwNyH8k7Leqw8AC30gmA91UfnIQgI98VnkOHfpaSDqcIgAkoq2vVhdUR72i4cxEHQkoWNRvBZF16mKBzP4QksIOn+lLcRrZz8BAAD//123KwkAAAAGSURBVAMApNsIQqW8lVkAAAAASUVORK5CYII=" />
+                                        <span>邮件：</span>
+                                    </div>
+                                    <span>255255525</span>
+                                </div>
+                                <div class="ifo">
+                                    <div>
+                                        <img
+                                            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACQklEQVR4AcyVQXbaMBCG/4EeoD1ByQmarvsK+AblBsk+BPcEpSdISmi3NCeAngBjXl+XSU8AN2i7Tsz0HxsIWLLNIi8vehpLskbzWZoZq4YnKM8HovOwrXE3pIwy6V1oHH449BBKd6K/wgaNTqHJlAYvKCeZrEIgGXNuofFZJawQYgDcrcx4m4aLagOQsc7PP6GkFEIygNJIyerNlGpf52eFH+OFaNzlsRwI2IJktOnmWy8EEHf7KreAdiAaQPUabmkU7caB6DR8SWP7x6RYYlXrSHM4kffDSFrDEy9I5Rie4kDwAj7F3xJcLrFbBBO45Y37CnAh99g3Bivy2p77Ivu7tUmVf9bkxYUAf5EJm3UVPd4N0zS8Ib317EMjSr89DDc9B8JjMYirbGEadxc6O7/BXbJw/GYWk3pkTV4cSKpQTz6mrftoMLp8PiNTv/ADPUcNj09oWN59405WRSBq5CrDmxEX5t5uh/6dcFqaXy8Zpp/ZraoRwzsoUyqE2CJ+XR9J/YgwX/JFPLpAmlcBj8n8aEu8UgqxFTSwJIy/GZzaOBVmfGqciZmOKx6VkM16Gv3O/qntag3l8LBaCrF80J8hcyRsby8pkcj66UVmlxnvnCqUA2HS9fgXnlL+pPmQJDdIL61kTGOjTNi3dybMGeqq5Q/bUfbvo9ZOdSC4r/2Ayow6EdtbKIqdanMqlhsTADMGwjV96Og7ECrR0YM+fdCR1uCttK5esS9esbnW4IhzphvaH5owpzoQR+MRXjwJ5D8AAAD//zVvrkkAAAAGSURBVAMAlmX+M1W6cfgAAAAASUVORK5CYII=" />
+                                        <span>现住地址：</span>
+                                    </div>
+                                    <span>广东佛山南海区 桂城千灯湖一号</span>
+                                </div>
+                            </div>
+                            <div class="skill">
+                                <div class="right_title">
+                                    <img
+                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACRElEQVR4AdRWUVLbMBB9a5PPTuEG7Q3IZ6dTmtyA3qAXSGtu0N4gbZn+Nj0BcAJnwgef4QbkBmQG/sBadu0YSGQrkhI+0GhtSavdfV6vVptgpfE02+XzrPcidJG9WzEHCwBuzBRc5C9Cd6J3BYENAGyhXJHZZGrpbgCwif5w2dcOwByB+Vf4dz9JxHuAMUPRGcHs/AAwR2SLB0AYU384VwJTtBfiARTpT9TNJEMZRnkhEcH1Xd0NHAH8BZ30PYp0T758VgvKeE4Hf/aQFl0Q92VdYoMe+TJv7X4AQHMxOqKD41P6MJypwSaN9PHvJX06HuNNOgI17bDX/AAQ7yMxOefZrq1ieYUllePW5OItK+ks76xmfgB0r4JIixMdOkmNswB2bnpi+gOoZHo8GXythvaz5AUYVw2hACBB5gguDj4J4QDudy7R1goHr0UmFECVeERZWS9MBjmff5vy4p6X06HeCfJCKADwJDuUf13VC0BP7oJ93BVXsvZPeQhsoQDkGJYnoddgR4Kz5MmeBm7LUiiAFjXxy34AmDTwxmLGnyoZEXF3HwAj+vy7K7m+H0QiI/Hx320eDUWpLRH0T2vxMiUTva3nbW8fD2jUs0R5EOGmuBajh0LO7gPAqWBT5noAWgtoDeAiSG0YiWQ9ANBZWQNoHdBC6HROI+17BCHxd/n/J0KS6QaNhHuz/ppuQejhgVJSg0kyHZop8ArGs+YL4JnIdoc2ACa90bZrpdamAV2PF28bgEn6UnRsjZZ0mbS7sPv4egAAAP//DhHe4gAAAAZJREFUAwBj/pZQbNsRMQAAAABJRU5ErkJggg==" />
+                                    <h1>专业技能</h1>
+                                </div>
+                                <p>Photoshop - 熟练</p>
+                                <p>Illustrator - 熟练</p>
+                                <p>InDesign - 熟练</p>
+                                <p>CorelDRAW - 熟练</p>
+                            </div>
+                            <div class="languages">
+                                <div class="right_title">
+                                    <img
+                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAE4UlEQVR4AaRXXVLjRhD+WuI9zg3MCcI+p4LxCWJOEPs1lWXFCQwnWIcleTWcwOQENlCpPEJOgG+Aq3gkUufrnpHKP5INu1Pz1z093a3WNz1SgjcWfchaevexzzbW25MHjs9sGttz5I1J9032jWqx0wH9J2vr3afPeMmfqHTM1ofoAccWW1lbkdcnY0xZc25se0lvrY0O2FO44VczXGTU0mKrqwsobqFyzsUZW1n74F7TodOsaW99BNzzl+IBcMOlwqaxBUGHEZjL4Zcu8nSfggOozDmyUkeaP7hOUut1IwL6968HeC2mgLbXhbfSKvZaIN2ROXIlnYt9qFpUbFub0Zi6bqOW2ooD7mW+N3m3cWBAg9mSXp9K5/IMaf4hRqPN6Ezchq+GrnJAifKvenLTIxrDbcRqkx//fESRdMldsIVILGGicgAvOsR7w06NXv/bM+U+revstRAjx3GtjdRsBcodCGEhWALv7b2ChotTGnjEjiI/Xc6Iid+DWJEFm4in4DUfhoV39Iq5dL58L4d/jAxcnoCWQou6UuydkU2n2UebiYZNlkDIfUcVMEF9nDADnsGAqxhyd4uttpqTBOSYizdsVntmOyGzZ9RXth7fLQ0rj6xe81U0gpEn4DNt9GLjgJbZNgx08K1FMfcjhy1FpIxOOZpwJ4HIgc0IkGuoGEgG9Haf853A8n3WCc5taGqWjqk/2AlCAQdMXgkXGD5yRWbSuciYTq9iKP8lt65eMXQfAD1+i5N6fzJEU0oXbSe0EEKyJZlQJlSLUJ6eWnKRw8sbJpjybIf1td6Pmqohf22lIlvmQKB0LzgSKOtDmGxWNjrJ6FR8zgm64hRIK14p6uNrbqDz6VpX2TIH4ua8YrpwUpTHxUnvVFZlyBTmATkcbcpyjSdkF44WCUT4FJQmINhXdTVzRbbId3qfHeld1vPwRnbT4DqAGZoKr+wEBQLYRH9Yl+PRMlAKgRpRXmTQfArkE79e+Ym2vmeDztNmsIo+MgJaenhkmWlDARl0xIA0g+d+MkK10zMOKA+Mup44WUSwxleNcgTLbcIzb+8vMJNi406nUKh8EmHuJ1E6zCkrUc57YOv3H52YQ+UvSvMhxHINp6x5epNwccHFa5IgaD41RqE7Ck5C7MmxVuz7j9HIjtb4FSmdiz5zTBeCXyLT8g1BaFSRjGxgY37WIcctVQNoNyWODB9+OW2uOSe8Lg0PkKeOq8RWGAULkTPArKX3vzU+CbMgzz1iNLBZRGvX7PQQzIYlcDx3m9ztDnAEgTICj4XPVSZ+fTqx2lkWBHRAbp2hK4a5jCZFQnVdypNjpGIeQQ0rlQP0aEEnutGJFsE5bYqEWBrO0/Jj0/SEFsMaiND7k+fplFQLijmKtIulUjlgPDpBAX5Ahkhwg9CJk2EdMF0WuLV9sc0iz0nlR264BfMV48syJrjigDFcwL5igxOMtp7xvdu/YH979ks87bphuwH9Vy4eaxV+Gadd121GllqyNK+mJshjw28CPY9MQ+6Y2e+JZ37KNmabQPTnuM6hyMh7wkv+TJAZ2MK9odTBBzKdFNqotQ6UUg4W+9VS5ccKStDZCekDsJsuGEFVzFFGDQuEq3vfdNB4uRfrZasDJszNcyrpEzz71HzsioEZltOyvS4LsxkFBibLCGa2FzvK/wAAAP///ul8ywAAAAZJREFUAwDDM1zP6WK8NgAAAABJRU5ErkJggg==" />
+                                    <h1>掌握语言</h1>
+                                </div>
+                                <p>英语 - 熟练</p>
+                                <p>日语 - 一般</p>
+                            </div>
+                            <div class="interests">
+                                <div class="right_title">
+                                    <img
+                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACZklEQVR4AcSWUVLbMBCGfykcIDco3ID3zgC5gXOD9L2AeoKQE6QtTF9LTxBuEBqm08dwg+QG6Qx9A3vZVYwntiXHMg7sSLEUrff/VrJka7zC6O5sSLPTBU1Nt2mYxgAsPADRBQvvQyeGr41KIwCaG85YDTNFRUP6a/azfkCjEQD+J+cA5QUf43GAbuYaDGAzXU99FiRtRHT3+SRt174EA+AxHnqj08ayeJ3yA0EANntgAL+dhM5CEEBl9i9QiQ56FmoD1Mh+jaDo0G7RdW/rby0Au+3CnvIx/TGHW9XZoQQgmdLMRJyF4Tqh32cLPMQr9o241i1dxPGc719xndLsfGxjOqC0ZJceqRN2XvE6L4B4wkqylhFUYb/zQEDhAwu8NeWk5Jg5qNOBJKvxkMzTIzUCIDdgxyYaDIWfnOxUg3YsVxWetTX2nvoA/uE9TGGk1ccf96z9hevbFqKROrq8trtAGvwcjN6MQMSPry5EzwJIQ8kfPCDtnVaiX1YrFckApG8H2EHaO6mk7pHsmc3YOQA7IA7iaDst/hCWSHRf9b7mHvgSgHVgR5Baoi2z4p0exy7FLAGIpnVUSXs7Q+GbjSnBC9UJUPB5fZeUnH7OOBUAKv/N57y95p+KPvg8/QDUIgDgTcYPUEGNcGsA0O6bsRHA9i8aguzpW9QwmhonhH8JqmZAhOXYTjoH/B7pAdSvcW50XZxOAB8tNoX53cF7W2YA6ujqRh1/P2CBT/AdYJ3YOaNOAA6ULx7hvBMY5PLaD9KxsCiYE4AzW6av5xt7laneyLgQo9TlZclAeEbke+MWMeSKoj0DAAD//9GjMLgAAAAGSURBVAMAX7cKiYuWTwEAAAAASUVORK5CYII=" />
+                                    <h1>兴趣爱好</h1>
+                                </div>
+                                <p>篮球、游泳、跑步、羽毛球、滑雪</p>
+                            </div>
+
+                            <div class="certificates">
+                                <div class="right_title">
+                                    <img
+                                        src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAADu0lEQVR4AdRWQXIaMRBseZ2cyQ/sH8AxlYqBH5gXBO62IS8wfkEwUL5CXhDnBRCcVI74B+YHoSo3U9pJj2BhBVoW55KKStqVNKNRa2Y0oyP84/J/ApBpqyA/WkWZXNZl0jqXh1blbxX5Ig3oRtx0gN/2CdZOuekAsF8gdsR5YRvIz9YJ5w+uBwOQSfOTbkTJdbYCW6jWsbBPyiujVhaPty4XgKi6J5cjIG55K/cOyHsUj+QAELkAqG6qGVk2HkPMI0LFSBEEESKl5/YCkIerJpnP2XarYGbOelVT7pYIYoZQIQj5dtUOkZK5TADOmQTZaje4QVKM3Cbdnb+R5j5TZAKgM1HtEvbo5emH681sNMzUAlCgKTIPkg0A+IB0ET2l1PAqOjXl3mmaZKqduSl3TxHZEkAekc9pOoyUvXFqsA9AMcU3M+V+y5z1783bTtjeZDbv7h4dT7nPq2rSfGlZ5NzUIICVzdL3+ES+X/ka2cjY6dF5rwHPfGlZHn8QgMeRDGIZHgLC8Yi0k2V5/yAAtSkXztn8qiD2BBd3c8jjL+KITstvsAYBrDjDAQY4QVaJnwtBksEYGWUfgK+hNdROFjDg+XXa8TbLjfi3YkNBNgC928C2GbwNVtmRHg9XCI78nvfTFzEz7/sv18BSmDTgl+U7gPmfqXe0yo4D9pkBk3eB+CaKo6ovwh9la4B8eqchsgm5GtX0HcD8TzIjJb/Lyk2X74LlcP1t8CCz1bVeT6Y7QQA8UZ1JZKoLGYDaWyDS68N9AU2BBpPV0N2MY6bmjIdKEABgrhk+i4zhIxXgQNhIw+8Y+WWMOCqtN1/EIx6gyNyiaX1n9Q4AL4oxnXKhPrfqqkoKrbp4L0bNMoa+BbQB99zkRmnKo7yU0+TaKTYRsSKTi53U7gHQ01LQduaifTEQvorU6128L3fbbiO+BZiE9LQ11ZLSlEd5IdKB+gw/m2oGatbNGFvXcGGvSQwHE6ACOh+FP8nDRQVbRcGT9kt5SNqhc05rAZHoHtp3zdMA7a4B4yMpVC/UkRAo49C9XmXJrCBFeUYfLQ1EC91jLdYDoIKp2g4bn1q9N9Dcvh2MbKT2XwvwOjby44beBmvVRJTXZTrvDdVM6TUegDRB+y4ORFYDyVIbIrfqYEoLNUcjj6Pp5rGtmupdllYc214AyuEQG6lBM1p83NG5vS0+bpM+x5HU8jYn35YT6kygqWnc3a52vFwQYAW1MIeNSm5NiGFrLlcDCb8TnAxy/uTNBZqIOBhAsuCl/zz+PwAAAP//qLi+rwAAAAZJREFUAwAkibhQMKEGTAAAAABJRU5ErkJggg==" />
+                                    <h1>技能证书</h1>
+                                </div>
+                                <p>英语CET6、IXDC国际体验设计大会认证书、ACI国际注册职业资格证书、证照国际UI设计师认证 Axure RP认证证书、Sketch认证证书</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
