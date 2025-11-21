@@ -582,20 +582,10 @@
         const data = window.render || {};
         const basics = data.basics || {};
 
-        const formatDate = (value) => {
-            if (!value) return '';
-            const date = new Date(value);
-            if (Number.isNaN(date.getTime())) return '';
-            const year = date.getFullYear();
-            const month = date.getMonth() + 1;
-            return `${year}.${month}`;
-        };
 
         const formatDateRange = (start, end) => {
-            const startStr = formatDate(start);
-            const endStr = formatDate(end);
-            if (startStr && endStr) return `${startStr}-${endStr}`;
-            return startStr || endStr || '';
+            if (start && end) return `${startStr}-${end}`;
+            return start || end || '';
         };
 
         const formatWorkYears = (value) => {
