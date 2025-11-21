@@ -6,6 +6,96 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>最新下右一</title>
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        window.render = {
+            "jobIntention": "UI设计师",
+            "basics": {
+                "name": "喜洋洋",
+                "age": "26",
+                "gender": "男",
+                "image": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaDDSSlicePNGb83db3b2be5ee9bb8b053eed872cd421.png",
+                "workYears": "8",
+                "email": "1411799546@qq.com",
+                "phone": "18276098569",
+                "wechat": "1211221654",
+                "address": "广东佛山南海区桂城千灯湖一号"
+            },
+            "work": [
+                {
+                    "name": "上海财贸大厦",
+                    "position": "UI设计师",
+                    "startDate": "2024.9",
+                    "endDate": "2025.6",
+                    "summary": "负责公司核心移动端产品的整体UI设计工作，主导完成从需求分析、交互原型到高保真视觉设计的全流程，确保设计风格统一且符合产品定位",
+                    "highlights": [
+                        "通过用户调研和A/B测试，优化界面交互流程，使关键页面的用户点击率提升18%，并推动设计组件库的搭建，实现团队协作效率提升25%",
+                        "与产品、开发团队紧密协作，制定并维护设计规范文档，确保设计稿高还原度落地（开发还原度达98%），同时参与运营活动专题页的视觉创意设计，提升品牌一致性"
+                    ]
+                }
+            ],
+            "education": [
+                {
+                    "institution": "上海复旦大学",
+                    "area": "视觉传达设计",
+                    "studyType": "本科",
+                    "startDate": "2020.9",
+                    "endDate": "2024.6",
+                    "summary": "系统学习了设计素描、设计色彩、三大构成（平面、色彩、立体）等艺术设计基础课程，掌握了图形创意、字体设计、版式设计等核心专业技能。熟练运用Photoshop、Illustrator、InDesign、CorelDRAW等设计软件，并深入研修了品牌形象设计（VI）、包装设计、广告设计、书籍装帧、用户界面（UI）设计、文创产品设计等专业课程，同时辅以中外设计艺术史、设计美学等理论素养课程"
+                }
+            ],
+            "projects": [
+                {
+                    "name": "上海财贸大厦",
+                    "startDate": "2024.9",
+                    "endDate": "2025.6",
+                    "description": "独立负责企业级管理后台和O2O电商平台的UI设计，输出多端（Web/APP/H5）界面及交互方案，注重用户体验与业务需求的结合",
+                    "highlights": [
+                        "协同前端工程师完成设计稿切片与适配，使用Zeplin等工具标注细节，提升开发效率；同时支持品牌宣传物料（如海报、手册）的平面设计，强化产品视觉传播力"
+                    ]
+                }
+            ],
+            "skills": [
+                {
+                    "name": "Photoshop",
+                    "level": "熟练"
+                },
+                {
+                    "name": "Illustrator",
+                    "level": "熟练"
+                },
+                {
+                    "name": "InDesign",
+                    "level": "熟练"
+                },
+                {
+                    "name": "CorelDRAW",
+                    "level": "熟练"
+                }
+            ],
+            "languages": [
+                {
+                    "name": "英语",
+                    "level": "熟练"
+                },
+                {
+                    "name": "日语",
+                    "level": "一般"
+                }
+            ],
+            "certificates": [
+                "Adobe认证设计师（Adobe Certified Designer）",
+                "Adobe认证设计师（Adobe Certified Designer）",
+                "Adobe认证设计师（Adobe Certified Designer）"
+            ],
+            "interests": [
+                "篮球",
+                "游泳",
+                "旅游",
+                "音乐"
+            ],
+            "evaluation": "作为一名拥有多年经验的UI设计师，我具备扎实的艺术设计专业背景和良好的艺术素养，始终关注设计理论的积累与行业流行趋势。我精通iOS与Android平台的界面设计规范，能够熟练运用Photoshop、Sketch、Figma、Axure等设计工具进行高保真原型、图标及完整界面设计。我注重细节与用户体验，善于从用户角度出发进行设计思考，并能将产品需求转化为直观、美观的视觉解决方案。"
+        };
+    </script>
     <style>
         * {
             margin: 0;
@@ -308,6 +398,7 @@
                         padding-left: 3rem;
                         padding-bottom: 3rem;
                         border-bottom: 1rem solid #323B4C;
+                        margin-bottom: 3rem;
 
                         h2 {
                             font-size: 6rem;
@@ -538,9 +629,267 @@
                 </div>
 
             </div>
-            <div style="margin-top: 35rem;"></div>
+            <div style="margin-top: 30rem;"></div>
         </div>
     </div>
+
+    <script>
+        $(function () {
+            const data = window.render || {};
+            const basics = data.basics || {};
+
+            const formatDateRange = (start, end) => {
+                if (start && end) return `${start}-${end}`;
+                return start || end || '';
+            };
+
+            const formatWorkYears = (value) => {
+                if (!value) return '';
+                const text = String(value);
+                return text.endsWith('年') ? text : `${text}年`;
+            };
+
+            // 右侧：姓名和求职意向
+            (function renderTopName() {
+                const hasName = Boolean(basics.name);
+                const hasJobIntention = Boolean(data.jobIntention);
+                const $name = $('.right .name_block h1');
+                const $job = $('.right .name_block > div');
+                if (hasName) {
+                    $name.text(basics.name).show();
+                } else {
+                    $name.hide();
+                }
+                if (hasJobIntention) {
+                    $job.text(`求职意向：${data.jobIntention}`).show();
+                } else {
+                    $job.hide();
+                }
+                if (!hasName && !hasJobIntention) {
+                    $('.right .name_block').hide();
+                }
+            })();
+
+            // 左侧头像
+            if (basics.image) {
+                $('.left .avatar img').attr('src', basics.image).show();
+                $('.left .avatar').show();
+            } else {
+                $('.left .avatar').hide();
+            }
+
+            // 左侧基本信息（base）七行：年龄/性别/工作年限/号码/微信号/邮件/现住地址
+            (function renderBase() {
+                const values = [
+                    basics.age,
+                    basics.gender,
+                    formatWorkYears(basics.workYears || ''),
+                    basics.phone,
+                    basics.wechat,
+                    basics.email,
+                    basics.address
+                ];
+                const $base = $('.left .base');
+                const $rows = $base.find('.ifo');
+                let shown = 0;
+                $rows.each(function (idx) {
+                    const val = values[idx];
+                    if (val) {
+                        $(this).find('span').last().text(val);
+                        $(this).show();
+                        shown++;
+                    } else {
+                        $(this).hide();
+                    }
+                });
+                if (!shown) {
+                    $base.hide();
+                }
+            })();
+
+            // 左侧：掌握语言
+            (function renderLanguages() {
+                const $section = $('.left .languages');
+                $section.find('.left_content p').remove();
+                if (!Array.isArray(data.languages) || !data.languages.length) {
+                    $section.hide();
+                    return;
+                }
+                data.languages.forEach(lang => {
+                    const text = [lang.name, lang.level].filter(Boolean).join(' - ');
+                    if (text) $section.find('.left_content').append($('<p>').text(text));
+                });
+                if (!$section.find('.left_content p').length) {
+                    $section.hide();
+                }
+            })();
+
+            // 左侧：专业技能
+            (function renderSkills() {
+                const $section = $('.left .skills');
+                $section.find('.left_content p').remove();
+                if (!Array.isArray(data.skills) || !data.skills.length) {
+                    $section.hide();
+                    return;
+                }
+                data.skills.forEach(skill => {
+                    const text = [skill.name, skill.level].filter(Boolean).join(' - ');
+                    if (text) $section.find('.left_content').append($('<p>').text(text));
+                });
+                if (!$section.find('.left_content p').length) {
+                    $section.hide();
+                }
+            })();
+
+            // 左侧：兴趣爱好
+            (function renderInterests() {
+                const $section = $('.left .interests');
+                $section.find('.left_content p').remove();
+                if (!Array.isArray(data.interests) || !data.interests.length) {
+                    $section.hide();
+                    return;
+                }
+                const text = data.interests.filter(Boolean).join('、');
+                if (text) {
+                    $section.find('.left_content').append($('<p>').text(text));
+                } else {
+                    $section.hide();
+                }
+            })();
+
+            // 左侧：技能证书
+            (function renderCertificates() {
+                const $section = $('.left .certificates');
+                $section.find('.left_content p').remove();
+                if (!Array.isArray(data.certificates) || !data.certificates.length) {
+                    $section.hide();
+                    return;
+                }
+                data.certificates
+                    .filter(Boolean)
+                    .forEach(cert => $section.find('.left_content').append($('<p>').text(`${cert}、`)));
+                if (!$section.find('.left_content p').length) {
+                    $section.hide();
+                }
+            })();
+
+            // 右侧：教育背景
+            (function renderEducation() {
+                const $section = $('.right .edu');
+                $section.find('.right_contert').remove();
+                if (!Array.isArray(data.education) || !data.education.length) {
+                    $section.hide();
+                    return;
+                }
+                data.education.forEach(edu => {
+                    const $item = $('<div>').addClass('right_contert');
+                    const $time = $('<div>').addClass('time');
+                    const range = formatDateRange(edu.startDate, edu.endDate);
+                    if (range) $time.append($('<span>').text(range));
+                    if (edu.institution) $time.append($('<span>').text(edu.institution));
+                    if (edu.studyType) $time.append($('<span>').css('flex', '0.5').text(edu.studyType));
+                    if (edu.area) $time.append($('<span>').text(edu.area));
+                    if ($time.children().length) $item.append($time);
+                    if (edu.summary) $item.append($('<p>').text(edu.summary));
+                    if ($item.children().length) $section.append($item);
+                });
+                if (!$section.find('.right_contert').length) {
+                    $section.hide();
+                }
+            })();
+
+            // 右侧：工作经历
+            (function renderWork() {
+                const $section = $('.right .work');
+                $section.find('.right_contert').remove();
+                if (!Array.isArray(data.work) || !data.work.length) {
+                    $section.hide();
+                    return;
+                }
+                data.work.forEach(work => {
+                    const $item = $('<div>').addClass('right_contert');
+                    const $time = $('<div>').addClass('time');
+                    const range = formatDateRange(work.startDate, work.endDate);
+                    if (range) $time.append($('<span>').text(range));
+                    if (work.name) $time.append($('<span>').text(work.name));
+                    if (work.position) $time.append($('<span>').text(work.position));
+                    if ($time.children().length) $item.append($time);
+                    if (work.summary) $item.append($('<p>').text(work.summary));
+                    if (Array.isArray(work.highlights)) {
+                        work.highlights.filter(Boolean).forEach(text => $item.append($('<p>').text(text)));
+                    }
+                    if ($item.children().length) $section.append($item);
+                });
+                if (!$section.find('.right_contert').length) {
+                    $section.hide();
+                }
+            })();
+
+            // 右侧：项目经历
+            (function renderProjects() {
+                const $section = $('.right .project');
+                $section.find('.right_contert').remove();
+                if (!Array.isArray(data.projects) || !data.projects.length) {
+                    $section.hide();
+                    return;
+                }
+                data.projects.forEach(project => {
+                    const $item = $('<div>').addClass('right_contert');
+                    const $time = $('<div>').addClass('time');
+                    const range = formatDateRange(project.startDate, project.endDate);
+                    if (range) $time.append($('<span>').text(range));
+                    if (project.name) $time.append($('<span>').text(project.name));
+                    if ($time.children().length) $item.append($time);
+                    if (project.description) $item.append($('<p>').text(project.description));
+                    if (Array.isArray(project.highlights)) {
+                        project.highlights.filter(Boolean).forEach(text => $item.append($('<p>').text(text)));
+                    }
+                    if ($item.children().length) $section.append($item);
+                });
+                if (!$section.find('.right_contert').length) {
+                    $section.hide();
+                }
+            })();
+
+            // 右侧：自我评价
+            (function renderEvaluation() {
+                const $section = $('.right .evaluation');
+                $section.find('.evaluation_content').remove();
+                if (!data.evaluation) {
+                    $section.hide();
+                    return;
+                }
+                const $item = $('<div>').addClass('evaluation_content');
+                $item.append($('<p>').text(data.evaluation));
+                $section.append($item);
+            })();
+
+            // 隐藏空的父级容器
+            (function hideEmptySections() {
+                $('.left > div').each(function () {
+                    const $section = $(this);
+                    const hasVisibleContent = $section.find('.left_content p, .ifo').filter(function () {
+                        return $(this).is(':visible') && $(this).text().trim();
+                    }).length > 0;
+
+                    if (!hasVisibleContent && !$section.hasClass('avatar')) {
+                        $section.hide();
+                    }
+                });
+
+                $('.right > div').each(function () {
+                    const $section = $(this);
+                    const hasVisibleContent = $section.find('.right_contert, .evaluation_content').filter(function () {
+                        return $(this).is(':visible') && $(this).text().trim();
+                    }).length > 0;
+
+                    if (!hasVisibleContent && !$section.hasClass('name_block')) {
+                        $section.hide();
+                    }
+                });
+            })();
+        });
+    </script>
 </body>
 
 </html>
