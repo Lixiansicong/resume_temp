@@ -7,184 +7,159 @@
     <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
     <title>Marketing Resume</title>
     <style>
-        :root {
-            --design-width: 210;
-            --page-margin-mm: 10;
-            --scale-unit: calc(min(100vw, 960px) / var(--design-width));
-            --page-padding: calc(12 * var(--scale-unit));
-            --accent-width: calc(6 * var(--scale-unit));
-            --spacing-xs: calc(4 * var(--scale-unit));
-            --spacing-sm: calc(6 * var(--scale-unit));
-            --spacing-md: calc(10 * var(--scale-unit));
-            --section-gap: calc(12 * var(--scale-unit));
-            --font-size-title: calc(10 * var(--scale-unit));
-            --font-size-heading: calc(8 * var(--scale-unit));
-            --font-size-body: calc(4 * var(--scale-unit));
-        }
-
-        * {
-            box-sizing: border-box;
-        }
-
-        body {
-            margin: 0;
-            font-family: PingFangSC-Regular, Roboto, "Helvetica Neue", Helvetica, Tahoma, Arial, "PingFang SC-Light", "Microsoft YaHei";
-            background-color: #ffffff;
-            color: #000000;
-            display: flex;
-            justify-content: center;
-            padding: var(--spacing-md);
-        }
-
-        .page {
-            width: calc(var(--design-width) * var(--scale-unit));
-            display: grid;
-            gap: var(--section-gap);
-            padding: var(--page-padding);
-            background-color: #ffffff;
-        }
-
-        .resume-section {
-            display: grid;
-            gap: var(--spacing-xs);
-        }
-
-        .resume-section__title {
-            margin: 0;
-            font-size: var(--font-size-heading);
-            font-weight: 600;
-            line-height: 1.35;
-        }
-
-        .resume-section__text {
-            margin: 0;
-            font-size: var(--font-size-body);
-            line-height: 1.6;
-        }
-
-        .resume-section--intro {
-            grid-template-columns: var(--accent-width) 1fr;
-            gap: var(--spacing-md);
-            align-items: start;
-        }
-
-        .resume-section__accent {
-            background-color: #000000;
-            border-radius: calc(3 * var(--scale-unit));
-            width: 100%;
-            height: 100%;
-        }
-
-        .resume-section__content {
-            display: grid;
-            gap: var(--spacing-sm);
-        }
-
-        .resume-section__heading {
-            margin: 0;
-            font-size: var(--font-size-title);
-            font-weight: 600;
-            line-height: 1.25;
-        }
-
-        .details-list {
-            margin: 0;
-            display: grid;
-            gap: var(--spacing-xs);
-        }
-
-        .details-list__row {
-            display: grid;
-            grid-template-columns: max-content 1fr;
-            gap: var(--spacing-sm);
-            font-size: var(--font-size-body);
-            line-height: 1.5;
-        }
-
-        .details-list__term {
-            font-weight: 600;
-        }
-
-        .details-list dt,
+:root {
+  --design-width: 210;
+  --page-margin-mm: 10;
+  --scale-unit: calc(min(100vw, 960px) / var(--design-width));
+  --page-padding: calc(12 * var(--scale-unit));
+  --accent-width: calc(6 * var(--scale-unit));
+  --spacing-xs: calc(4 * var(--scale-unit));
+  --spacing-sm: calc(6 * var(--scale-unit));
+  --spacing-md: calc(10 * var(--scale-unit));
+  --section-gap: calc(12 * var(--scale-unit));
+  --font-size-title: calc(10 * var(--scale-unit));
+  --font-size-heading: calc(8 * var(--scale-unit));
+  --font-size-body: calc(4 * var(--scale-unit));
+}
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: PingFangSC-Regular, Roboto, "Helvetica Neue", Helvetica, Tahoma, Arial, "PingFang SC-Light", "Microsoft YaHei";
+  background-color: #ffffff;
+  color: #000000;
+  display: flex;
+  justify-content: center;
+  padding: var(--spacing-md);
+}
+.page {
+  width: calc(var(--design-width) * var(--scale-unit));
+  display: grid;
+  gap: var(--section-gap);
+  padding: var(--page-padding);
+  background-color: #ffffff;
+}
+.resume-section {
+  display: grid;
+  gap: var(--spacing-xs);
+}
+.resume-section__title {
+  margin: 0;
+  font-size: var(--font-size-heading);
+  font-weight: 600;
+  line-height: 1.35;
+}
+.resume-section__text {
+  margin: 0;
+  font-size: var(--font-size-body);
+  line-height: 1.6;
+}
+.resume-section--intro {
+  grid-template-columns: var(--accent-width) 1fr;
+  gap: var(--spacing-md);
+  align-items: start;
+}
+.resume-section__accent {
+  background-color: #000000;
+  border-radius: calc(3 * var(--scale-unit));
+  width: 100%;
+  height: 100%;
+}
+.resume-section__content {
+  display: grid;
+  gap: var(--spacing-sm);
+}
+.resume-section__heading {
+  margin: 0;
+  font-size: var(--font-size-title);
+  font-weight: 600;
+  line-height: 1.25;
+}
+.details-list {
+  margin: 0;
+  display: grid;
+  gap: var(--spacing-xs);
+}
+.details-list__row {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: var(--spacing-sm);
+  font-size: var(--font-size-body);
+  line-height: 1.5;
+}
+.details-list__term {
+  font-weight: 600;
+}
+.details-list dt,
         .details-list dd {
-            margin: 0;
-        }
-
-        .plain-list {
-            margin: 0;
-            padding: 0;
-            list-style: none;
-            display: grid;
-            gap: var(--spacing-xs);
-            font-size: var(--font-size-body);
-            line-height: 1.6;
-        }
-
-        .plain-list strong {
-            font-weight: 600;
-        }
-
-        @media screen and (max-width: 640px) {
-            body {
-                padding: var(--spacing-sm);
-            }
-
-            .resume-section--intro {
-                grid-template-columns: 1fr;
-            }
-
-            .resume-section__accent {
-                width: var(--accent-width);
-                height: calc(40 * var(--scale-unit));
-            }
-        }
-
-        @media print {
-            :root {
-                font-size: calc(210mm / var(--design-width));
-            }
-
-            @page {
-                size: A4 portrait;
-                margin: calc(var(--page-margin-mm) * 1mm);
-            }
-
-            body {
-                margin: 0 !important;
-                padding: 0 !important;
-                background: #ffffff !important;
-                display: block;
-            }
-
-            .page {
-                box-shadow: none !important;
-                border-radius: 0 !important;
-                margin: 0 auto;
-                padding: calc(var(--page-margin-mm) * 1mm);
-                width: calc(210mm - var(--page-margin-mm) * 2mm);
-                height: auto;
-                min-height: calc(297mm - var(--page-margin-mm) * 2mm);
-                overflow: visible;
-            }
-
-            .resume-section,
+  margin: 0;
+}
+.plain-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-body);
+  line-height: 1.6;
+}
+.plain-list strong {
+  font-weight: 600;
+}
+@media screen and (max-width: 640px) {
+body {
+  padding: var(--spacing-sm);
+}
+.resume-section--intro {
+  grid-template-columns: 1fr;
+}
+.resume-section__accent {
+  width: var(--accent-width);
+  height: calc(40 * var(--scale-unit));
+}
+}
+@media print {
+:root {
+  font-size: calc(210mm / var(--design-width));
+}
+@page {
+  size: A4 portrait;
+  margin: calc(var(--page-margin-mm) * 1mm);
+}
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #ffffff !important;
+  display: block;
+}
+.page {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  margin: 0 auto;
+  padding: calc(var(--page-margin-mm) * 1mm);
+  width: calc(210mm - var(--page-margin-mm) * 2mm);
+  height: auto;
+  min-height: calc(297mm - var(--page-margin-mm) * 2mm);
+  overflow: visible;
+}
+.resume-section,
             .plain-list li,
             .resume-section__text,
             .content-block,
             .section-row,
             .paragraph-base,
             .chip-group {
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-
-            .main-content {
-                position: static;
-                width: 100%;
-                height: auto;
-            }
-        }
-    </style>
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.main-content {
+  position: static;
+  width: 100%;
+  height: auto;
+}
+}
+</style>
 </head>
 
 <body>

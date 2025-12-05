@@ -20,12 +20,10 @@
         }
 
         :root {
-            /* 设计稿宽度 210px，限制最大参考宽度 960px */
             --design-width: 210;
             --px: calc(min(100vw, 960px) / var(--design-width));
         }
 
-        /* 关键：把缩放单位作为根字体大小，1rem = 1 设计像素（缩放后） */
         html {
             font-size: var(--px);
         }
@@ -36,155 +34,151 @@
             width: 100%;
             height: auto;
             padding: 9rem 12rem;
+        }
 
-            .time {
-                display: flex;
-                justify-content: space-between;
-                flex-wrap: wrap;
-                margin-bottom: 3rem;
+        .box .time {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
 
-                span {
-                    font-size: 4rem;
-                    font-weight: 500;
-                    color: #000000;
-                    word-wrap: break-word;
-                    word-break: break-all;
-                    text-align: center;
-                    flex: 1;
-                }
+        .box .time span {
+            font-size: 4rem;
+            font-weight: 500;
+            color: #000000;
+            word-wrap: break-word;
+            word-break: break-all;
+            text-align: center;
+            flex: 1;
+        }
 
-                span:first-child {
-                    text-align: start;
-                }
-            }
+        .box .time span:first-child {
+            text-align: start;
+        }
 
-            ul li {
-                list-style: none;
-                padding-left: 0;
-            }
+        .box ul li {
+            list-style: none;
+            padding-left: 0;
+        }
 
-            .top_block {
-                display: flex;
-                justify-content: space-between;
-                align-items: end;
-                width: 100%;
-                height: 100%;
+        .box .top_block {
+            display: flex;
+            justify-content: space-between;
+            align-items: end;
+            width: 100%;
+            height: 100%;
+        }
 
-                .left {
-                    width: 100%;
-                    flex: 1;
-                    height: auto;
-                    position: relative;
+        .box .top_block .left {
+            width: 100%;
+            flex: 1;
+            height: auto;
+            position: relative;
+        }
 
-                    p {
-                        position: absolute;
-                        top: 15rem;
-                        left: 12rem;
-                    }
+        .box .top_block .left p {
+            position: absolute;
+            top: 15rem;
+            left: 12rem;
+        }
 
-                    .ifo {
-                        width: 100%;
-                        height: auto;
-                        background-color: #7AC1FF;
-                        padding: 4rem 6rem 10rem;
-                        display: flex;
-                        flex-wrap: wrap;
-                        gap: 3rem 0.5rem;
+        .box .top_block .left .ifo {
+            width: 100%;
+            height: auto;
+            background-color: #7AC1FF;
+            padding: 4rem 6rem 10rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 3rem 0.5rem;
+        }
 
-                        div {
-                            width: calc(50% - 2rem);
-                            text-align: left;
-                            font-size: 4rem;
-                            font-weight: 400;
-                            color: #000000;
-                            display: flex;
+        .box .top_block .left .ifo div {
+            width: calc(50% - 2rem);
+            text-align: left;
+            font-size: 4rem;
+            font-weight: 400;
+            color: #000000;
+            display: flex;
+        }
 
-                            span:last-child {
-                                flex: 1;
-                                word-break: break-all;
-                                text-align: left;
-                            }
-                        }
+        .box .top_block .left .ifo div span:last-child {
+            flex: 1;
+            word-break: break-all;
+            text-align: left;
+        }
 
-                        div::before {
-                            position: relative;
-                            top: 1.5rem;
-                            left: -1.5rem;
-                            content: "";
-                            display: inline-block;
-                            width: 3rem;
-                            height: 3rem;
-                            background-color: white;
-                            border-radius: 50%;
-                            vertical-align: middle;
-                        }
-                    }
-                }
+        .box .top_block .left .ifo div::before {
+            position: relative;
+            top: 1.5rem;
+            left: -1.5rem;
+            content: "";
+            display: inline-block;
+            width: 3rem;
+            height: 3rem;
+            background-color: white;
+            border-radius: 50%;
+            vertical-align: middle;
+        }
 
-                .right {
-                    position: relative;
-                    width: 64rem;
-                    height: 47rem;
-                    background-color: #7AC1FF;
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    font-size: 4rem;
-                    font-weight: bold;
-                    color: #000;
-                    margin-top: 24rem;
+        .box .top_block .right {
+            position: relative;
+            width: 64rem;
+            height: 47rem;
+            background-color: #7AC1FF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 4rem;
+            font-weight: bold;
+            color: #000;
+            margin-top: 24rem;
+        }
 
+        .box .top_block .right .avatar {
+            position: absolute;
+            top: -24rem;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 49rem;
+            height: 49rem;
+            border-radius: 50%;
+        }
 
-                    .avatar {
-                        position: absolute;
-                        top: -24rem;
-                        left: 50%;
-                        transform: translateX(-50%);
-                        width: 49rem;
-                        height: 49rem;
-                        border-radius: 50%;
-                    }
-                }
+        .box .item_block {
+            width: 100%;
+            padding: 0 10rem;
+        }
 
+        .box .item_block .title_block {
+            margin-top: 6rem;
+            margin-bottom: 3rem;
+            width: 100%;
+            padding: 3rem 1rem;
+            border-bottom: 1px solid #D9D9D9;
+            display: flex;
+            align-items: center;
+        }
 
+        .box .item_block .title_block img {
+            width: 6rem;
+            height: 6rem;
+            object-fit: cover;
+        }
 
-            }
+        .box .item_block .title_block h1 {
+            font-size: 5rem;
+            font-weight: 600;
+            color: #000000;
+            margin-left: 2rem;
+        }
 
-            .item_block {
-                width: 100%;
-                padding: 0 10rem;
-
-                .title_block {
-                    margin-top: 6rem;
-                    margin-bottom: 3rem;
-                    width: 100%;
-                    padding: 3rem 1rem;
-                    border-bottom: 1px solid #D9D9D9;
-                    display: flex;
-                    align-items: center;
-
-                    img {
-                        width: 6rem;
-                        height: 6rem;
-                        object-fit: cover;
-                    }
-
-                    h1 {
-                        font-size: 5rem;
-                        font-weight: 600;
-                        color: #000000;
-                        margin-left: 2rem;
-                    }
-                }
-
-                .content {
-                    width: 100%;
-                    font-size: 4rem;
-                    font-weight: 400;
-                    color: #000000;
-                    margin-bottom: 5rem;
-                }
-            }
+        .box .item_block .content {
+            width: 100%;
+            font-size: 4rem;
+            font-weight: 400;
+            color: #000000;
+            margin-bottom: 5rem;
         }
     </style>
 

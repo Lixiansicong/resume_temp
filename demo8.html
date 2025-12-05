@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=3.0, user-scalable=yes">
     <title>左上三</title>
     <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
     <style>
@@ -20,12 +20,10 @@
         }
 
         :root {
-            /* 设计稿宽度 210px，限制最大参考宽度 960px */
             --design-width: 210;
             --px: calc(min(100vw, 960px) / var(--design-width));
         }
 
-        /* 关键：把缩放单位作为根字体大小，1rem = 1 设计像素（缩放后） */
         html {
             font-size: var(--px);
         }
@@ -36,158 +34,157 @@
             width: 100%;
             height: auto;
             padding: 6rem 16rem;
+        }
 
-            .top_block {
-                width: 100%;
-                display: flex;
-                align-items: flex-start;
+        .box .top_block {
+            width: 100%;
+            display: flex;
+            align-items: flex-start;
+        }
 
-                .top_left {
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                    margin-right: 15rem;
+        .box .top_block .top_left {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-right: 15rem;
+        }
 
-                    img {
-                        width: 45rem;
-                        height: 23rem;
-                        object-fit: cover;
-                        margin-bottom: 7rem;
-                    }
+        .box .top_block .top_left img {
+            width: 45rem;
+            height: 23rem;
+            object-fit: cover;
+            margin-bottom: 7rem;
+        }
 
-                    h1 {
-                        font-size: 12rem;
-                        font-weight: 500;
-                        color: #5F73B2;
-                    }
+        .box .top_block .top_left h1 {
+            font-size: 12rem;
+            font-weight: 500;
+            color: #5F73B2;
+        }
 
-                    p {
-                        color: #5F73B2;
-                    }
-                }
+        .box .top_block .top_left p {
+            color: #5F73B2;
+        }
 
-                .top_center {
-                    flex: 1;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: flex-start;
-                    padding-top: 21rem;
+        .box .top_block .top_center {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            padding-top: 21rem;
+        }
 
-                    div {
-                        display: flex;
-                        align-items: start;
-                        margin-top: 2rem;
+        .box .top_block .top_center div {
+            display: flex;
+            align-items: start;
+            margin-top: 2rem;
+        }
 
-                        span {
-                            font-size: 4rem;
-                            font-weight: 400;
-                            color: #000000;
-                        }
+        .box .top_block .top_center div span {
+            font-size: 4rem;
+            font-weight: 400;
+            color: #000000;
+        }
 
-                        span:last-child {
-                            flex: 1;
-                            word-break: break-all;
-                            text-align: left;
-                        }
-                    }
-                }
+        .box .top_block .top_center div span:last-child {
+            flex: 1;
+            word-break: break-all;
+            text-align: left;
+        }
 
-                .top_right {
-                    width: 42rem;
-                    height: 50rem;
-                    object-fit: cover;
-                    margin-left: 5rem;
-                    margin-top: 8rem;
-                }
-            }
+        .box .top_block .top_right {
+            width: 42rem;
+            height: 50rem;
+            object-fit: cover;
+            margin-left: 5rem;
+            margin-top: 8rem;
+        }
 
-            .main {
-                width: 100%;
-                height: auto;
-                border-left: 1rem solid #B1B6DA;
-                margin-top: 5rem;
-                padding-bottom: 3rem;
+        .box .main {
+            width: 100%;
+            height: auto;
+            border-left: 1rem solid #B1B6DA;
+            margin-top: 5rem;
+            padding-bottom: 3rem;
+        }
 
-                .title_style {
-                    margin-top: 13rem;
-                    width: 100%;
-                    border-top: 0.51rem solid #646EB5;
-                    position: relative;
+        .box .main .title_style {
+            margin-top: 13rem;
+            width: 100%;
+            border-top: 0.51rem solid #646EB5;
+            position: relative;
+        }
 
-                    img {
-                        width: 34rem;
-                        height: 10rem;
-                        object-fit: cover;
-                        position: relative;
-                        top: -8rem;
-                        left: -4rem;
-                    }
+        .box .main .title_style img {
+            width: 34rem;
+            height: 10rem;
+            object-fit: cover;
+            position: relative;
+            top: -8rem;
+            left: -4rem;
+        }
 
-                    h1 {
-                        position: absolute;
-                        top: -8rem;
-                        left: 3rem;
-                        font-size: 5rem;
-                        font-weight: bold;
-                        color: #FFFFFF;
-                    }
-                }
+        .box .main .title_style h1 {
+            position: absolute;
+            top: -8rem;
+            left: 3rem;
+            font-size: 5rem;
+            font-weight: bold;
+            color: #FFFFFF;
+        }
 
-                .time {
-                    display: flex;
-                    justify-content: space-between;
-                    flex-wrap: wrap;
-                    margin-bottom: 3rem;
+        .box .main .time {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
 
-                    span {
-                        font-size: 4rem;
-                        font-weight: 500;
-                        color: #000000;
-                        word-wrap: break-word;
-                        word-break: break-all;
-                        text-align: center;
-                        flex: 1;
-                    }
+        .box .main .time span {
+            font-size: 4rem;
+            font-weight: 500;
+            color: #000000;
+            word-wrap: break-word;
+            word-break: break-all;
+            text-align: center;
+            flex: 1;
+        }
 
-                    span:first-child {
-                        text-align: start;
-                    }
-                }
+        .box .main .time span:first-child {
+            text-align: start;
+        }
 
-                .content {
-                    padding-left: 6rem;
-                    margin-bottom: 4rem;
-                }
+        .box .main .content {
+            padding-left: 6rem;
+            margin-bottom: 4rem;
+        }
 
-                .edu {
-                    width: 100%;
-                }
+        .box .main .edu {
+            width: 100%;
+        }
 
-                .work {
-                    width: 100%;
-                }
+        .box .main .work {
+            width: 100%;
+        }
 
-                .project {
-                    width: 100%;
-                }
+        .box .main .project {
+            width: 100%;
+        }
 
-                .skill {
-                    width: 100%;
-                }
+        .box .main .skill {
+            width: 100%;
+        }
 
-                .language {
-                    width: 100%;
-                }
+        .box .main .language {
+            width: 100%;
+        }
 
-                .certificates {
-                    width: 100%;
-                }
+        .box .main .certificates {
+            width: 100%;
+        }
 
-                .interests {
-                    width: 100%;
-                }
-            }
-
+        .box .main .interests {
+            width: 100%;
         }
     </style>
 
@@ -293,12 +290,12 @@
                 "name": "喜洋洋",
                 "age": "26",
                 "gender": "男",
-                "image": "https://lanhu-oss-2537-2.lanhuapp.com/FigmaDDSSlicePNGb83db3b2be5ee9bb8b053eed872cd421.png",
+                "image": "https://ts4.tc.mm.bing.net/th/id/OIP-C.iCXuE_HnNhT_teEWcHU7xQAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
                 "workYears": "8",
-                "email": "1411799546@qq.com",
-                "phone": "18276098569",
+                "email": "141179xxxx@qq.com",
+                "phone": "1827609xxxx",
                 "wechat": "1211221654",
-                "address": "广东佛山南海区桂城千灯湖一号"
+                "address": "广东省佛山市南海区xx花园xx街xx号"
             },
             "work": [
                 {
@@ -389,13 +386,15 @@
         $(function () {
             const data = window.render || {};
             const basics = data.basics || {};
-
-            const formatDate = (dateStr) => {
-                if (!dateStr) return '';
-                const date = new Date(dateStr);
-                if (Number.isNaN(date.getTime())) return '';
-                const year = date.getFullYear();
-                const month = date.getMonth() + 1;
+            const formatDate = (input) => {
+                let year, month;
+                if (input.includes('-')) {
+                    [year, month] = input.split('-').map(part => part.trim());
+                } else if (input.includes('.')) {
+                    [year, month] = input.split('.').map(part => part.trim());
+                } else {
+                    return input;
+                }
                 return `${year}.${month}`;
             };
 

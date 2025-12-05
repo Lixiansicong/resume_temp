@@ -8,636 +8,504 @@
     <title>Document</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-        }
-
-        /* 根元素和响应式设置 */
-        :root {
-            /* 屏幕显示：设置合理的基础尺寸，让页面不会太小 */
-            --design-width: 1654;
-            --design-height: 3681;
-            --page-margin-mm: 10;
-            --page-margin-rem: calc(var(--page-margin-mm) * 4.7244rem);
-            font-size: 0.8px;
-            /* 基础缩放：1654rem ≈ 1323px 宽度 */
-        }
-
-        /* 屏幕显示优化 */
-        @media screen {
-            body {
-                margin: 0;
-                background: #ffffff;
-                padding: 0;
-                display: block;
-            }
-
-            .page {
-                box-shadow: none;
-                border-radius: 0;
-                margin: 0 auto;
-                width: 100%;
-                max-width: 1654rem;
-                overflow: visible;
-            }
-        }
-
-        /* A4打印设置 */
-        @media print {
-            :root {
-                /* A4纸张：210mm宽度对应1654rem设计宽度 */
-                font-size: calc(210mm / var(--design-width));
-            }
-
-            @page {
-                size: A4 portrait;
-                margin: calc(var(--page-margin-mm) * 1mm);
-            }
-
-            body {
-                margin: 0 !important;
-                padding: 0 !important;
-                background: white !important;
-            }
-
-            .page {
-                box-shadow: none !important;
-                border-radius: 0 !important;
-                margin: 0 auto;
-                padding: 0;
-                width: 100%;
-                height: auto;
-                min-height: calc(297mm - var(--page-margin-mm) * 2mm);
-                overflow: visible;
-            }
-
-            .content-block,
+* {
+  box-sizing: border-box;
+}
+:root {
+  --design-width: 1654;
+  --design-height: 3681;
+  --page-margin-mm: 10;
+  --page-margin-rem: calc(var(--page-margin-mm) * 4.7244rem);
+  font-size: 0.8px;
+}
+@media screen {
+body {
+  margin: 0;
+  background: #ffffff;
+  padding: 0;
+  display: block;
+}
+.page {
+  box-shadow: none;
+  border-radius: 0;
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1654rem;
+  overflow: visible;
+}
+}
+@media print {
+:root {
+  font-size: calc(210mm / var(--design-width));
+}
+@page {
+  size: A4 portrait;
+  margin: calc(var(--page-margin-mm) * 1mm);
+}
+body {
+  margin: 0 !important;
+  padding: 0 !important;
+  background: white !important;
+}
+.page {
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  height: auto;
+  min-height: calc(297mm - var(--page-margin-mm) * 2mm);
+  overflow: visible;
+}
+.content-block,
             .section-row,
             .paragraph-base,
             .chip-group {
-                break-inside: avoid;
-                page-break-inside: avoid;
-            }
-
-            .main-content {
-                position: static;
-                width: 100%;
-                height: auto;
-            }
-        }
-
-        /* 大屏幕优化 */
-        @media screen and (min-width: 1400px) {
-            :root {
-                font-size: 1px;
-                /* 大屏幕上显示更大一些 */
-            }
-
-            body {
-                padding: 0;
-            }
-
-            .page {
-                box-shadow: none;
-            }
-        }
-
-        /* 移动端适配 */
-        @media screen and (max-width: 768px) {
-            :root {
-                font-size: min(calc(95vw / var(--design-width)), 0.6px);
-            }
-
-            body {
-                padding: 0;
-            }
-
-            .page {
-                border-radius: 0;
-            }
-        }
-
-        /* 基础重置样式 */
-        body * {
-            box-sizing: border-box;
-            flex-shrink: 0;
-        }
-
-        body {
-            font-family: PingFangSC-Regular, Roboto, Helvetica Neue, Helvetica, Tahoma,
+  break-inside: avoid;
+  page-break-inside: avoid;
+}
+.main-content {
+  position: static;
+  width: 100%;
+  height: auto;
+}
+}
+@media screen and (min-width: 1400px) {
+:root {
+  font-size: 1px;
+}
+body {
+  padding: 0;
+}
+.page {
+  box-shadow: none;
+}
+}
+@media screen and (max-width: 768px) {
+:root {
+  font-size: min(calc(95vw / var(--design-width)), 0.6px);
+}
+body {
+  padding: 0;
+}
+.page {
+  border-radius: 0;
+}
+}
+body * {
+  box-sizing: border-box;
+  flex-shrink: 0;
+}
+body {
+  font-family: PingFangSC-Regular, Roboto, Helvetica Neue, Helvetica, Tahoma,
                 Arial, PingFang SC-Light, Microsoft YaHei;
-        }
-
-        input {
-            background-color: transparent;
-            border: 0;
-        }
-
-        button {
-            margin: 0;
-            padding: 0;
-            border: 1rem solid transparent;
-            outline: none;
-            background-color: transparent;
-        }
-
-        button:active {
-            opacity: 0.6;
-        }
-
-        /* Flex 布局辅助类 */
-        .flex-col {
-            display: flex;
-            flex-direction: column;
-        }
-
-        .flex-row {
-            display: flex;
-            flex-direction: row;
-        }
-
-        .justify-between {
-            justify-content: space-between;
-        }
-
-        /* 页面主容器 */
-        .page {
-            background-color: rgba(255, 255, 255, 1);
-            position: relative;
-            width: 1654rem;
-            padding: var(--page-margin-rem);
-            box-sizing: border-box;
-            min-height: 3681rem;
-            height: auto;
-            overflow: visible;
-        }
-
-        /* 统一的文本基础样式 */
-        .text-base {
-            overflow-wrap: break-word;
-            color: rgba(0, 0, 0, 1);
-            font-family: PingFang SC-Regular;
-            font-weight: normal;
-            text-align: left;
-            white-space: nowrap;
-        }
-
-        .text-wrap {
-            white-space: normal !important;
-            word-break: break-word;
-        }
-
-        /* 文本尺寸变体 */
-        .text-xl {
-            font-size: 80rem;
-            line-height: 80rem;
-            font-family: PingFang SC-Medium;
-            font-weight: 500;
-        }
-
-        .text-lg {
-            font-size: 40rem;
-            line-height: 40rem;
-            font-family: PingFang SC-Semibold;
-            font-weight: 600;
-            color: rgba(255, 255, 255, 1);
-        }
-
-        .text-md {
-            font-size: 36rem;
-            /* line-height: 36rem; */
-        }
-
-        .text-md-medium {
-            font-size: 36rem;
-            line-height: 36rem;
-            font-family: PingFang SC-Medium;
-            font-weight: 500;
-        }
-
-        /* 段落样式 */
-        .paragraph-base {
-            overflow-wrap: break-word;
-            /* color: rgba(0, 0, 0, 1); */
-            font-size: 36rem;
-            font-family: PingFang SC-Regular;
-            font-weight: normal;
-            text-align: left;
-            display: block;
-            line-height: 50rem;
-            white-space: normal;
-        }
-
-
-        /* 统一的容器样式 */
-        .section-header {
-            background-color: rgba(2, 72, 134, 1);
-            /* height: 56rem; */
-            width: 336rem;
-            padding-top: 7rem;
-            /* 微调垂直位置，使文字看起来居中 */
-            box-sizing: border-box;
-        }
-
-        .section-line {
-            background-color: rgba(2, 72, 134, 1);
-            width: 1138rem;
-            /* height: 9rem; */
-            position: relative;
-            left: -1rem;
-        }
-
-        .content-block {
-            width: 1477rem;
-            height: 56rem;
-        }
-
-        /* 图标样式 */
-        .icon {
-            width: 48rem;
-            height: 48rem;
-        }
-
-        /* 图像容器样式 */
-        .image-container {
-            width: 330rem;
-            height: 395rem;
-        }
-
-        /* 具体页面结构样式 */
-        .header-banner {
-            /* width: 1654rem; */
-            width: 100%;
-            height: 92rem;
-        }
-
-        .main-content {
-            position: static;
-            width: 100%;
-            height: auto;
-            padding: 32rem 32rem;
-            box-sizing: border-box;
-        }
-
-        .personal-info-section {
-            width: 1476rem;
-            min-height: 496rem;
-            height: auto;
-            margin: -7rem 0 0 0;
-        }
-
-        .personal-details {
-            width: 1100rem;
-            min-height: 496rem;
-            height: auto;
-        }
-
-        /* 特定文本样式 */
-        .name-title {
-            width: 240rem;
-            height: 112rem;
-        }
-
-        .job-intention {
-            /* width: 324rem; */
-            height: 50rem;
-            margin-top: 21rem;
-        }
-
-        .info-grid {
-            position: relative;
-            width: 915rem;
-            min-height: 128rem;
-            height: auto;
-            margin-top: 25rem;
-        }
-
-        .info-item {
-            width: 306rem;
-            min-height: 128rem;
-            height: auto;
-        }
-
-        .info-item-wide {
-            width: 472rem;
-            min-height: 128rem;
-            height: auto;
-        }
-
-        .icon-with-margin-top {
-            margin-top: 80rem;
-        }
-
-        .icon-with-small-margin {
-            margin-top: 1rem;
-        }
-
-        .info-text-group {
-            width: 300rem;
-            min-height: 128rem;
-            height: auto;
-        }
-
-        .info-text-group-wide {
-            width: 404rem;
-            min-height: 128rem;
-            height: auto;
-        }
-
-        .info-text-narrow {
-            width: 152rem;
-            min-height: 50rem;
-            height: auto;
-            margin-left: 20rem;
-        }
-
-
-        .info-text-full {
-            width: 300rem;
-            min-height: 50rem;
-            height: auto;
-            margin-top: 28rem;
-            margin-left: 20rem;
-        }
-
-        .info-text-phone {
-            width: 620rem;
-            min-height: 50rem;
-            height: auto;
-            margin-top: 28rem;
-        }
-
-
-        .info-item-absolute {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 306rem;
-            height: 128rem;
-        }
-
-        .info-item-absolute-right {
-            position: absolute;
-            left: 443rem;
-            top: 0;
-            width: 472rem;
-            height: 128rem;
-        }
-
-
-        .contact-row {
-            width: 946rem;
-            min-height: 50rem;
-            height: auto;
-            margin-top: 30rem;
-        }
-
-        .contact-text {
-            width: 410rem;
-            min-height: 50rem;
-            height: auto;
-            margin-left: 20rem;
-        }
-
-        .contact-text-wide {
-            width: 580rem;
-            min-height: 50rem;
-            height: auto;
-            margin-left: 20rem;
-        }
-
-        .icon-with-gap {
-            margin: 1rem 0 0 12rem;
-        }
-
-        .address-row {
-            width: 752rem;
-            min-height: 50rem;
-            height: auto;
-            margin-top: 30rem;
-        }
-
-        .address-text {
-            width: 684rem;
-            min-height: 50rem;
-            height: auto;
-        }
-
-        .photo-section {
-            width: 350rem;
-            min-height: 465rem;
-            height: auto;
-            margin-top: 31rem;
-            gap: 24rem;
-            justify-content: flex-start;
-            align-items: flex-start;
-        }
-
-        .section-margin-large {
-            margin: 60rem 0 0;
-        }
-
-        .section-margin-medium {
-            margin: 40rem 0 0;
-        }
-
-        .section-header-text {
-            width: 160rem;
-            margin-left: 74rem;
-        }
-
-        .section-line-margin {
-            margin-top: 46rem;
-        }
-
-        .section-row {
-            margin: 20rem 0 0;
-        }
-
-        .section-row-wide {
-            width: 1362rem;
-            min-height: 50rem;
-            height: auto;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .section-row-medium {
-            width: 1018rem;
-            min-height: 50rem;
-            height: auto;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .section-row-narrow {
-            width: 674rem;
-            min-height: 50rem;
-            height: auto;
-        }
-
-        .date-text {
-            width: 258rem;
-            height: 50rem;
-        }
-
-        .company-text {
-            /* width: 216rem; */
-            height: 50rem;
-            margin-left: 200rem;
-        }
-
-        .position-text {
-            width: 144rem;
-            height: 50rem;
-            margin-left: 200rem;
-        }
-
-        .degree-text {
-            width: 72rem;
-            height: 50rem;
-            margin-left: 200rem;
-        }
-
-        .subject-text {
-            /* width: 216rem; */
-            height: 50rem;
-            margin-left: 200rem;
-        }
-
-        /* 段落样式变体 */
-        .paragraph-margin {
-            margin: 10rem 0 0;
-        }
-
-        .paragraph-margin-small {
-            margin: 5rem 0 0;
-        }
-
-        .paragraph-margin-large {
-            margin: 20rem 0 0;
-        }
-
-        .paragraph-margin-bottom {
-            margin: 20rem 0 419rem;
-        }
-
-        .paragraph-width-xl {
-            width: 1563rem;
-            min-height: 100rem;
-            height: auto;
-            max-width: 100%;
-        }
-
-        .paragraph-width-large {
-            width: 1529rem;
-            min-height: 100rem;
-            height: auto;
-            max-width: 100%;
-        }
-
-        .paragraph-width-medium {
-            width: 1511rem;
-            min-height: 100rem;
-            height: auto;
-            max-width: 100%;
-        }
-
-        .paragraph-width-standard {
-            width: 1510rem;
-            min-height: 250rem;
-            height: auto;
-            max-width: 100%;
-        }
-
-        .paragraph-width-narrow {
-            width: 1506rem;
-            min-height: 100rem;
-            height: auto;
-            max-width: 100%;
-        }
-
-        .paragraph-width-small {
-            width: 1505rem;
-            min-height: 100rem;
-            height: auto;
-            max-width: 100%;
-        }
-
-        .paragraph-width-extra-small {
-            width: 1476rem;
-            min-height: 100rem;
-            height: auto;
-            max-width: 100%;
-        }
-
-        .paragraph-width-education {
-            width: 1439rem;
-            min-height: 250rem;
-            height: auto;
-            max-width: 100%;
-        }
-
-        .paragraph-width-language {
-            width: 166rem;
-            min-height: 200rem;
-            height: auto;
-            max-width: 100%;
-        }
-
-        .paragraph-width-single-line {
-            width: 1482rem;
-            min-height: 50rem;
-            height: auto;
-            white-space: normal;
-            line-height: 36rem;
-            max-width: 100%;
-        }
-
-        .chip-group {
-            margin: 40rem 0 0;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15rem;
-        }
-
-        .chip-group-inline {
-            margin: 0;
-        }
-
-        .chip-group .text-base {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        #project-container {
-            margin-top: 20rem;
-            margin-bottom: 20rem;
-        }
-
-        #work-container {
-            margin-top: 20rem;
-            margin-bottom: 20rem;
-        }
-
-        #education-container {
-            margin-top: 20rem;
-            margin-bottom: 20rem;
-        }
-
-        #evaluation-container {
-            margin-top: 20rem;
-            margin-bottom: 20rem;
-        }
-
-        #certificate-container {
-            margin-top: 20rem;
-            margin-bottom: 20rem;
-        }
-
-        /* 所有样式定义已整合到上面的统一基础样式中 */
-    </style>
+}
+input {
+  background-color: transparent;
+  border: 0;
+}
+button {
+  margin: 0;
+  padding: 0;
+  border: 1rem solid transparent;
+  outline: none;
+  background-color: transparent;
+}
+button:active {
+  opacity: 0.6;
+}
+.flex-col {
+  display: flex;
+  flex-direction: column;
+}
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.page {
+  background-color: rgba(255, 255, 255, 1);
+  position: relative;
+  width: 1654rem;
+  padding: var(--page-margin-rem);
+  box-sizing: border-box;
+  min-height: 3681rem;
+  height: auto;
+  overflow: visible;
+}
+.text-base {
+  overflow-wrap: break-word;
+  color: rgba(0, 0, 0, 1);
+  font-family: PingFang SC-Regular;
+  font-weight: normal;
+  text-align: left;
+  white-space: nowrap;
+}
+.text-wrap {
+  white-space: normal !important;
+  word-break: break-word;
+}
+.text-xl {
+  font-size: 80rem;
+  line-height: 80rem;
+  font-family: PingFang SC-Medium;
+  font-weight: 500;
+}
+.text-lg {
+  font-size: 40rem;
+  line-height: 40rem;
+  font-family: PingFang SC-Semibold;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 1);
+}
+.text-md {
+  font-size: 36rem;
+}
+.text-md-medium {
+  font-size: 36rem;
+  line-height: 36rem;
+  font-family: PingFang SC-Medium;
+  font-weight: 500;
+}
+.paragraph-base {
+  overflow-wrap: break-word;
+  font-size: 36rem;
+  font-family: PingFang SC-Regular;
+  font-weight: normal;
+  text-align: left;
+  display: block;
+  line-height: 50rem;
+  white-space: normal;
+}
+.section-header {
+  background-color: rgba(2, 72, 134, 1);
+  width: 336rem;
+  padding-top: 7rem;
+  box-sizing: border-box;
+}
+.section-line {
+  background-color: rgba(2, 72, 134, 1);
+  width: 1138rem;
+  position: relative;
+  left: -1rem;
+}
+.content-block {
+  width: 1477rem;
+  height: 56rem;
+}
+.icon {
+  width: 48rem;
+  height: 48rem;
+}
+.image-container {
+  width: 330rem;
+  height: 395rem;
+}
+.header-banner {
+  width: 100%;
+  height: 92rem;
+}
+.main-content {
+  position: static;
+  width: 100%;
+  height: auto;
+  padding: 32rem 32rem;
+  box-sizing: border-box;
+}
+.personal-info-section {
+  width: 1476rem;
+  min-height: 496rem;
+  height: auto;
+  margin: -7rem 0 0 0;
+}
+.personal-details {
+  width: 1100rem;
+  min-height: 496rem;
+  height: auto;
+}
+.name-title {
+  width: 240rem;
+  height: 112rem;
+}
+.job-intention {
+  height: 50rem;
+  margin-top: 21rem;
+}
+.info-grid {
+  position: relative;
+  width: 915rem;
+  min-height: 128rem;
+  height: auto;
+  margin-top: 25rem;
+}
+.info-item {
+  width: 306rem;
+  min-height: 128rem;
+  height: auto;
+}
+.info-item-wide {
+  width: 472rem;
+  min-height: 128rem;
+  height: auto;
+}
+.icon-with-margin-top {
+  margin-top: 80rem;
+}
+.icon-with-small-margin {
+  margin-top: 1rem;
+}
+.info-text-group {
+  width: 300rem;
+  min-height: 128rem;
+  height: auto;
+}
+.info-text-group-wide {
+  width: 404rem;
+  min-height: 128rem;
+  height: auto;
+}
+.info-text-narrow {
+  width: 152rem;
+  min-height: 50rem;
+  height: auto;
+  margin-left: 20rem;
+}
+.info-text-full {
+  width: 300rem;
+  min-height: 50rem;
+  height: auto;
+  margin-top: 28rem;
+  margin-left: 20rem;
+}
+.info-text-phone {
+  width: 620rem;
+  min-height: 50rem;
+  height: auto;
+  margin-top: 28rem;
+}
+.info-item-absolute {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 306rem;
+  height: 128rem;
+}
+.info-item-absolute-right {
+  position: absolute;
+  left: 443rem;
+  top: 0;
+  width: 472rem;
+  height: 128rem;
+}
+.contact-row {
+  width: 946rem;
+  min-height: 50rem;
+  height: auto;
+  margin-top: 30rem;
+}
+.contact-text {
+  width: 410rem;
+  min-height: 50rem;
+  height: auto;
+  margin-left: 20rem;
+}
+.contact-text-wide {
+  width: 580rem;
+  min-height: 50rem;
+  height: auto;
+  margin-left: 20rem;
+}
+.icon-with-gap {
+  margin: 1rem 0 0 12rem;
+}
+.address-row {
+  width: 752rem;
+  min-height: 50rem;
+  height: auto;
+  margin-top: 30rem;
+}
+.address-text {
+  width: 684rem;
+  min-height: 50rem;
+  height: auto;
+}
+.photo-section {
+  width: 350rem;
+  min-height: 465rem;
+  height: auto;
+  margin-top: 31rem;
+  gap: 24rem;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+.section-margin-large {
+  margin: 60rem 0 0;
+}
+.section-margin-medium {
+  margin: 40rem 0 0;
+}
+.section-header-text {
+  width: 160rem;
+  margin-left: 74rem;
+}
+.section-line-margin {
+  margin-top: 46rem;
+}
+.section-row {
+  margin: 20rem 0 0;
+}
+.section-row-wide {
+  width: 1362rem;
+  min-height: 50rem;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+}
+.section-row-medium {
+  width: 1018rem;
+  min-height: 50rem;
+  height: auto;
+  display: flex;
+  justify-content: space-between;
+}
+.section-row-narrow {
+  width: 674rem;
+  min-height: 50rem;
+  height: auto;
+}
+.date-text {
+  width: 258rem;
+  height: 50rem;
+}
+.company-text {
+  height: 50rem;
+  margin-left: 200rem;
+}
+.position-text {
+  width: 144rem;
+  height: 50rem;
+  margin-left: 200rem;
+}
+.degree-text {
+  width: 72rem;
+  height: 50rem;
+  margin-left: 200rem;
+}
+.subject-text {
+  height: 50rem;
+  margin-left: 200rem;
+}
+.paragraph-margin {
+  margin: 10rem 0 0;
+}
+.paragraph-margin-small {
+  margin: 5rem 0 0;
+}
+.paragraph-margin-large {
+  margin: 20rem 0 0;
+}
+.paragraph-margin-bottom {
+  margin: 20rem 0 419rem;
+}
+.paragraph-width-xl {
+  width: 1563rem;
+  min-height: 100rem;
+  height: auto;
+  max-width: 100%;
+}
+.paragraph-width-large {
+  width: 1529rem;
+  min-height: 100rem;
+  height: auto;
+  max-width: 100%;
+}
+.paragraph-width-medium {
+  width: 1511rem;
+  min-height: 100rem;
+  height: auto;
+  max-width: 100%;
+}
+.paragraph-width-standard {
+  width: 1510rem;
+  min-height: 250rem;
+  height: auto;
+  max-width: 100%;
+}
+.paragraph-width-narrow {
+  width: 1506rem;
+  min-height: 100rem;
+  height: auto;
+  max-width: 100%;
+}
+.paragraph-width-small {
+  width: 1505rem;
+  min-height: 100rem;
+  height: auto;
+  max-width: 100%;
+}
+.paragraph-width-extra-small {
+  width: 1476rem;
+  min-height: 100rem;
+  height: auto;
+  max-width: 100%;
+}
+.paragraph-width-education {
+  width: 1439rem;
+  min-height: 250rem;
+  height: auto;
+  max-width: 100%;
+}
+.paragraph-width-language {
+  width: 166rem;
+  min-height: 200rem;
+  height: auto;
+  max-width: 100%;
+}
+.paragraph-width-single-line {
+  width: 1482rem;
+  min-height: 50rem;
+  height: auto;
+  white-space: normal;
+  line-height: 36rem;
+  max-width: 100%;
+}
+.chip-group {
+  margin: 40rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15rem;
+}
+.chip-group-inline {
+  margin: 0;
+}
+.chip-group .text-base {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+#project-container {
+  margin-top: 20rem;
+  margin-bottom: 20rem;
+}
+#work-container {
+  margin-top: 20rem;
+  margin-bottom: 20rem;
+}
+#education-container {
+  margin-top: 20rem;
+  margin-bottom: 20rem;
+}
+#evaluation-container {
+  margin-top: 20rem;
+  margin-bottom: 20rem;
+}
+#certificate-container {
+  margin-top: 20rem;
+  margin-bottom: 20rem;
+}
+</style>
 
 
 </head>
