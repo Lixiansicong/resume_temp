@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>上左四</title>
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        p {
+            font-size: 4rem;
+            font-weight: 400;
+            color: #000000;
+        }
+
+        :root {
+            --design-width: 210;
+            --px: calc(min(100vw, 960px) / var(--design-width));
+        }
+
+        html {
+            font-size: var(--px);
+        }
+    </style>
+
+    <style>
+        .big_box {
+            width: 100%;
+            height: auto;
+            padding: 6rem 12rem;
+        }
+
+        .big_box .box {
+            width: 100%;
+            height: auto;
+            display: flex;
+            background-color: #2B354B;
+            padding: 10rem 0 0 0rem;
+        }
+
+        .big_box .box .left {
+            width: 76rem;
+            height: auto;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .big_box .box .left .avatar {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .big_box .box .left .avatar img {
+            width: 41rem;
+            height: 50rem;
+            object-fit: cover;
+        }
+
+        .big_box .box .left .avatar h1 {
+            margin-top: 3rem;
+            font-size: 10rem;
+            font-weight: 500;
+            color: #FFFFFF;
+        }
+
+        .big_box .box .left .left_content {
+            margin: 13rem 0;
+        }
+
+        .big_box .box .left .left_content .left_title {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .big_box .box .left .left_content .left_title .title_left {
+            width: 11rem;
+            height: 11rem;
+            border-radius: 50%;
+            background-color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .big_box .box .left .left_content .left_title .title_left img {
+            width: 7rem;
+            height: 7rem;
+            object-fit: cover;
+        }
+
+        .big_box .box .left .left_content .left_title .title_right {
+            position: relative;
+            right: 2rem;
+            width: 36rem;
+            height: 8rem;
+            background-color: #FFFFFF;
+            text-align: center;
+            line-height: 8rem;
+            font-size: 5rem;
+            font-weight: 500;
+            color: #060606;
+        }
+
+        .big_box .box .left .left_content .left_main {
+            margin-top: 4rem;
+            width: 60rem;
+            height: auto;
+            padding: 3rem;
+            border: 1rem solid #FFFFFF;
+        }
+
+        .big_box .box .left .left_content .left_main p {
+            color: #FFFFFF;
+        }
+
+        .big_box .box .right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .big_box .box .right .top .job {
+            color: #FFFFFF;
+        }
+
+        .big_box .box .right .top .ifo {
+            margin-top: 3rem;
+            margin-bottom: 10rem;
+            width: 100%;
+        }
+
+        .big_box .box .right .top .ifo .info_row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 5rem;
+        }
+
+        .big_box .box .right .top .ifo .info_row span {
+            font-size: 4rem;
+            color: #FFFFFF;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            display: flex;
+            align-items: center;
+        }
+
+        .big_box .box .right .top .ifo .info_row span::before {
+            content: "";
+            display: inline-block;
+            width: 6rem;
+            height: 6rem;
+            margin-right: 2rem;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: top;
+        }
+
+        .big_box .box .right .top .ifo .info_row span[data-icon="age"]::before {
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAByUlEQVR4AayTzSutURSHz7m6V7frdnXvHQgpJSmKYqh8DDBjYCAywVAYMFDKVzIyMDTwR2BobOAjJjJSMpCJgQEDkeN5zn7fl/OWpGg9e6291tq/vGvv8y3zRX8FQrlcrgjqoPk9fWtgT9HbngIhCqWwAts0/8IXWJTbJmmPvYTB8kI0lEAdKQ//xZdDKbkqqI+oMgfW7CkmXwt/yGXyQgQDcAxtsA87kIMNOI3YxGvW7GlkcwTDkAhVsvkJI3ALBzAOTRBbC8EoWLNnmvg3/IdEyFjaWVZhGWahDGJzJotsrNnTSZxY/GlJguAOLiG2G4IriO2awP8I92ppoUdK69ABF6BAP34IFHRercRr8ACJpYUsmPtOcA/FEeY86K3+IPcEz5CYDcmGQIEZvANtwDtI380WcQVUg7c7j/dycMHSQmbPWRTC5W2P9Qxi2yVwTrhXSws5o41sNttFyyE49DH8IHj4hFov8RL46bhgaSH33bzWBcq+4H/4KZgAP6UmqinmrEgH82CIwuoPsYfQGTiTEmJFJvG+Ix+gtT72zhMXLBbyRgpuIZQ/XD3j2eRl+/uZ45gv9zN4xrNBiAGewiosfBLP+EgzLwAAAP//7jvW6gAAAAZJREFUAwBu/IslQjb0LQAAAABJRU5ErkJggg==")
+        }
+
+        .big_box .box .right .top .ifo .info_row span[data-icon="gender"]::before {
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAABtklEQVR4AazTSyhEURzH8bmSR4SFBXmslKyUpGZlozyy0JCdQnkVirwiUR4pC++FDVOWilGyQFmwtbFnaeFR3kap8f3N487tmNSU6f+Z///cc+5/ztxHguufPsFGgUAgBfVojZOH9SnaS7ARRR02se6wSt2JUnTDORep1zheBVekUQaDTKQ5HFNXYww12EcynGt0TjbH7EaqTTMcyMMscrCCe8SMyI5iTd5wUL/WQi7AI74QM8xGn6yaxzJSLcu6gHZzxrgSiXgKeyPbYTb6YOackwfIr9yRJrRTT6ERE2gLGyXbYTa6Y+Yaim++yqBrM07Wzq74EZ8wPoAdZiMPM7fsYohciwqkQ+uKyW7mLOgvMoyGFkRHLpe2vcCBafigu6YdzVEPYht6JMrJSbDDbKTFevj0rOhv9rNyGJPwogE72IWeM1IozEbasmj2kmtxQtGDDehVKCHrkcgnF8EOs5E9QcGlCKhpFrUF1UL5O/5qpDvm5pRFjKAQzYgZkUYPzD7j3UHv3xLjDugmbJFz4Vyjc144Zr9rpwz60GvQW66Fotqc72L9EUKNuKh+7MEbp0PW+9XoBwAA//+Quc7zAAAABklEQVQDALbUnyW5JqVWAAAAAElFTkSuQmCC")
+        }
+
+        .big_box .box .right .top .ifo .info_row span[data-icon="work"]::before {
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAABDUlEQVR4AdzTsY4BURiG4ZlZ2c0Wm2y22N1iu81mm91EXIBCoRCFaFUKDYVKonQJFCIRBdEoaXABNK7BJahUQhjvdzKTTEFhqMg8zneO8/9ziHGsG73ONnJd9xvRgD/y07n7nmxEQYKCKdoBfXIPJy/TiMIIvvAj7CxiiFxAlRzX5x6d+I01czksPpDSGGPhSTGW4M81Dpi/Q1nm5Cb1n4yWTvRMyOIfrx6tiT/3R93Uzx/sTSIG0yhCeEGYSwd5VKHChjBCPYQWNUuYE9kEF7sQttTsYRrpv5FhUgmhTM0vTCONV9NvdHUTNbjzRmu+ox7ODmP3Qg32z2A5tm0fMEEB+QvV2L8yjfR2C0cAAAD///fjAX4AAAAGSURBVAMAmfN7JUZnfLMAAAAASUVORK5CYII=")
+        }
+
+        .big_box .box .right .top .ifo .info_row span[data-icon="phone"]::before {
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAB3klEQVR4AazSzStEURjH8TMzRCFvIQ2hLCwQf4BiIyvZiCLylrJkQ6KIhZSysVIsrCw0shiForCwkY2SBbObMknGLESu7+/OzG1MMzUL0/nce85znvPcM+det/mnX8pClmXloB7t6EYPutCIglTP/lOIJC8WSTzBKfaxix3swY8r5aCevtPcBDzQ01eJPmAJbahBGYpRhFJUoQnKeWTdCurg0Y40ecTkHPLwhmucp6E55TBtZrkcwKtC+XQa4ILaPZdx9KWhOeUwbTxcWlCgQhE6t3jGE+7wjsI0PogrR7lao7URFQow0YmOmGXu87hJY4X4BuL5Whtwu1wuCyGoepCEMYxAByzZCX2N9ZcHiAW1BlpraUfEjOHktWCUwQJy8Y1tVEJvTq9fsRzGM+hljbPe6TAxgTUokZvR7jZ5Yhh6S5sEX6Cmj3KLTjvsZheist6anqIEe4LLD74Qb+orFh8rd521XgXsQnRUqIR7YqtgMERiNfRxasflxBJbLYNmmHgh9ZPpL04TPIQPk9A5cnOa1ivPKfTJVOK2GdpNh95KTx9dFvfkpsMPK6iKul9yuUAIOthMvJJ7DH1v0R3xVlR1mGA/9A1lYpDcqdjaaCECRgGcwZchP3nagJabXwAAAP//aQzkYAAAAAZJREFUAwBdRLwl++Ks/gAAAABJRU5ErkJggg==")
+        }
+
+        .big_box .box .right .top .ifo .info_row span[data-icon="wechat"]::before {
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAABv0lEQVR4AbSSTyhEURTG3wyTpJGmhEiUhY3YWUgaG0mULCYLG1kQK2VnYyFloQhFUYrSJNmoSRZKrFmRxQiJJtSUSZqp5/e9ui/xZpKYzu9+5/5535x73vNbf/T7PyPbtoPQAaMQgdqfFO1WxAMhGOehC4jBImxDnPUTCEM+c89wjDhQxe4yzEIakqDIMJxBA6xDF3iGHxOZ9bLbA08wAquguGUYAs1r0HnOF6HfQiZBVtugEEIwAd2gqGTQdTvRa7gDXbEMwwJyN2Ske5t/CbDTDvWgsBlKQZXdoxWwADswhVkj6oSMXsni4BWHLMosjMq8GtVbVD5GvmHM/D6f752FfUjA53hhoma3oo8wCNJnVH08RvUS+jELqCLm1gHDJKh8xIk3Z7Qs9a6cfA6kJegMqK96XtcrVmJRlf55jU018xw9Bb1B01BpHWvqYR6qXH9AaqUYMo4RiUIb+gibMW6BJhZVxQOaLVR1jLNJ14hJCrZAPTMPHpFMwyV4xRKLe2C5Rpp8BVNdWR+jvuhh9qOwC5twBVHOqAW5jTio/qU5HIcViEAfDLCnt3mDOpGzIudElgGzhDDbvzYyBkY/AAAA//9i4QxCAAAABklEQVQDAKflhSXEB+DQAAAAAElFTkSuQmCC")
+        }
+
+        .big_box .box .right .top .ifo .info_row span[data-icon="email"]::before {
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAABSElEQVR4AaySTStFURSGzz7qmrg/whRTZaBImZsYyMhQBiQlE6JrIPkoMpUyYCSSAWJgLj/ARPkJdEfanueeiftx5OTc3uesddZe+23vdU+alPQr1yjG2A3jMFGQYfqrXiol6SKZhSu4KMgd/TN4pF6twssLXENRafTMpopGPSSTsAdn8Fc90LgNU1DVKJD0wSkcwQ18QZ5cu2dxA07AvUEj8oZ6eWrknB7J8+TaOYuH4B5Ckvw0stDPYx5q4NEJTbK2SGUa7CVkajUKlAfgGNbgFryKONgF3vdhFOwlZGo1yqpJ4pEd5AGFXfCP8No75GPQpjwjGwd5LIHDfyIuQ0cT6o0ZRRIhNMkPdYSKw70kDoE1Qrs8UZ3yG3Qyo/yr3PNOR12jT5JN2ALnUIRV9qzDRxpCiPAKKzBXkBr97o2eCMP/qzSjbwAAAP//hxgZUwAAAAZJREFUAwAmo4Ql/O7xvQAAAABJRU5ErkJggg==")
+        }
+
+        .big_box .box .right .top .ifo .info_row span[data-icon="address"]::before {
+            background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAABwUlEQVR4AazTzYtNYRgA8PfQrAhZKCuRDFmwsLKRsiAbC0NKSSTfZZIVFpSVmGxspGlqSpnFpJSyEv4BKwtlKCmRfM5HM935PXPve5r3zNzdTM/vvM95nvc898y55y5LS/TXdVCr1ephF30cJ/Kebp+76CAXbXTBMM94xEMif6m3Tr4gikE2VWyz6zl9rGcVK4l8j/WVPdup5HUUg1RXc5MtdItejevEB1ja0RwUt31AazkR7xyOcIr3RMSd7Jdsoo7moN06cVeW9N9hoKqqpzyW3+YPEWscNlNHc9Bk3UlpSv6THL8l0+RYkZNYm4M+KeZh8QxOeKhr2aB+lny30vQxDllz0GeN/Cyid8j5D8Y4SNQs6a1D3idNKTfmThy+cpdfdIu/GoN8p45ikIc6ozPCZb7RjH8KFxju7JW2oxgUJRsmGJLvZID49kK83b3RY1y9iAWDctfm+DdvOL/TcU3ti3zRKAb5duKHusN6jEuu6CfemdAfNY6yleIHXAxy0T1Guc8trnKuI4ZG7YHzF8ReSzuag64o7+UwJznDRc5zmqhFb5889lraUQzyDKYZ4w2jPGGQIUaI2mvrB+a/5WkWAAD//+O3eUYAAAAGSURBVAMAVwuOJQLp0hYAAAAASUVORK5CYII=")
+        }
+
+        .big_box .box .right .top .ifo .info_row span:first-child {
+            width: 50rem;
+            flex-shrink: 0;
+        }
+
+        .big_box .box .right .top .ifo .info_row span:nth-child(2) {
+            flex: 1;
+        }
+
+        .big_box .box .right .top .ifo .info_row span:only-child {
+            width: 100%;
+            flex: 1;
+        }
+
+        .big_box .box .right .main {
+            flex: 1;
+            background-color: #FFFFFF;
+            border-top-left-radius: 25rem;
+            padding-left: 4rem;
+            padding-top: 20rem;
+        }
+
+        .big_box .box .right .main .main_box {
+            width: 100%;
+            height: auto;
+            border-left: 1rem solid #7280A3;
+        }
+
+        .big_box .box .right .main .main_box .main_content {
+            width: 100%;
+            padding-left: 4rem;
+            margin-bottom: 10rem;
+        }
+
+        .big_box .box .right .main .main_box .main_content .content {
+            margin-bottom: 5rem;
+        }
+
+        .big_box .box .right .main .main_box .main_content .time {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            margin-bottom: 3rem;
+        }
+
+        .big_box .box .right .main .main_box .main_content .time span {
+            font-size: 4rem;
+            font-weight: 500;
+            color: #000000;
+            word-wrap: break-word;
+            word-break: break-all;
+            text-align: center;
+            flex: 1;
+        }
+
+        .big_box .box .right .main .main_box .main_content .time span:first-child {
+            text-align: start;
+        }
+
+        .big_box .box .right .main .main_box .main_content .main_title {
+            display: flex;
+            align-items: center;
+            position: relative;
+            top: -4rem;
+            left: -6.5rem;
+        }
+
+        .big_box .box .right .main .main_box .main_content .main_title div {
+            width: 4rem;
+            height: 4rem;
+            border-radius: 50%;
+            background-color: #FFFFFF;
+            border: 1rem solid #7280A3;
+            margin-right: 3rem;
+        }
+
+        .big_box .box .right .main .main_box .main_content .main_title h1 {
+            font-size: 6rem;
+            font-weight: 500;
+            color: #7280A3;
+        }
+    </style>
+
+</head>
+
+<body>
+    <div class="big_box">
+        <div class="box">
+            <div class="left">
+                <div class="avatar">
+                    <img src="https://ts4.tc.mm.bing.net/th/id/OIP-C.iCXuE_HnNhT_teEWcHU7xQAAAA?rs=1&pid=ImgDetMain&o=7&rm=3"
+                        alt="">
+                    <h1 class="name">喜洋洋</h1>
+                </div>
+                <div class="left_content">
+                    <div class="left_title">
+                        <div class="title_left">
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAXCAYAAADgKtSgAAACP0lEQVR4AaSUT2gTQRSHf2+2STQRIh48iJiD4EEQBS8eRLEWodRrhBpFLw30IHizin/WEPAiRnrUi4e2IrkIUkEPaqr0qGDBUlFEsCDUg0UjdrMzz7clxJVkJiEO78u8vM1+s/smuwrNMXxuMnW0UD4zWChN9MVo6fyhQmlPU7c+teT11e+7DZt7zLjRF4SKx6isW5sfLXnz+39OlIoLepcT/SDCOxA14gJX3ruc+akGzoL5E3ocvctpoLI1WHgN8GyPbrjlhFkCX9egkefTl+ar1apm4ltGqZPSotsEeuNayCWvg3Ht2S4uzc1ceSwSFvBi2v9Sm7p8XwVJX/r/JKrZcMkzAN0Z/DBwQFpBiI183k+aRDjGbMZj5bbUJZcL433QZvzY6Zvp+JkrmfQWac+E1LKCNZxyZtkTwtfs73rD9321v1hMRKak/mVkL1aj3IVTLicaw1heySBde69OZevbrw6Nlg8GHgLZj89y3Bld5BSNEQrUQ7FMyp1c1GQeqIaaAWGn1JyhnEfBspE8JL85LET99WTeJosMCzskd4ZFTg0GHolgqhuy+oJtBYscgcfe2Fq4qdgNaY/1ibXIOWNIL21I/FzshtxZ9JfsePEWOULp9lswFv8BtCQWLeRiSNo5LHJaM1oVODT5OF4jcYJI3e2saq9a5Eh7nnlJSfUqjk4GNYa50K7pXLHIpSmMHBh70c7mzqr26l+5p77JC0re1/QR6BPmecRGSz6XC5dDNXBcGzrSL8HGVDnmxh8AAAD//+5JN/IAAAAGSURBVAMA3VFq46kzfkIAAAAASUVORK5CYII=" />
+                        </div>
+                        <div class="title_right">专业技能</div>
+                    </div>
+                    <div class="left_main">
+                        <p>Photoshop-熟练</p>
+                        <p>Illustrator-熟练</p>
+                        <p>CorelDRAW-熟练</p>
+                        <p>Figma-熟练</p>
+                    </div>
+                </div>
+                <div class="left_content">
+                    <div class="left_title">
+                        <div class="title_left">
+                            <img
+                                src="data:image/png;base64,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" />
+                        </div>
+                        <div class="title_right">掌握语言</div>
+                    </div>
+                    <div class="left_main">
+                        <p>英语-熟练</p>
+                        <p>日语-熟练</p>
+                        <p>粤语-熟练</p>
+                        <p>普通话-熟练</p>
+                    </div>
+                </div>
+                <div class="left_content">
+                    <div class="left_title">
+                        <div class="title_left">
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAA8AAAAQCAYAAADJViUEAAACuElEQVR4AUxSTUhUURT+zn3TlFYQaYpCC5vnNI6j0sZVE46G0EJahCHUKghSKiIxobCgEkKCqEymhQtrY7gI3QRJOQvDwiDR8WdwBC0TQjRD1Pm9p/PeZMzlnHfOPd93ft7hKmSfxkbD9NZ5Xd7AU9MX+GWWB9gsr10wvYFOd0WNB4Jn01X2xTW32gDSb4lwHYyCDMbHoNDOmvpd4fWGTCzz/Z9cWlZ7ijQFJewWteQHAe3i/JZCBgNVpHTQmkxittjJnuq6PKn+UCKFIKTFxhSp4Pz0SJdMMQJQAoAWFVzf2R3fTk5tUwUzeyTxj3R7AVJXcx3pHiEjmeJWJrrNit7IPSbqN6fXj4uVftYX+qgk5oARS2tjIBr+0DsxEdqwoMW50OJC2P+ENI8KR6bHXjI438LszszastIUhQq601VZ/29ZFgUwq0arxLsrxXNgV2CCHCsJRFgCaAvWIa42OHHYcndVJ9JF4heKivCq4XDMi5MZO1c5x4n4qxUQXUmm1E6Jr67Q7a09U1lZv9+h8FPiGWEMRb4Nr1gXu/Pk5PstR5paJLApWmIoDhqsw5p4cEcnp2TN9vJk2Ei0PL9DOLYor7fRWeoLtCUd+iRDnwXhiyA1otZS9jCjRHyP6KDS3GRG1q7Jizsvd6USjjWfEG5AUzeROk1p7gDxZenyDIRXMtp9WdQlEPUw1E2kuQuEZvOEP08JuVWqFIseElIbFL1kNtwU23crdjB2pfgIP1AKDWDuk6QLwtsj1o+4s1mxwc9l7+1ENAxpyYQixXo5Gn0XXx4b2wmFQikNXhasQOC4NOhl5ovyP30qOhn6bD1DlYyfA7gbwFDcSA6IzRL1WrBxaDxyIr9lYTrUPzv7cUl+KcOJRD5tOpnvqQS1fp8atV9XBgGiZXmLqTQ3bW8ceDwzM2C9cxv6CwAA//9LmrM/AAAABklEQVQDAK61EFoZP5MYAAAAAElFTkSuQmCC" />
+                        </div>
+                        <div class="title_right">技能证书</div>
+                    </div>
+                    <div class="left_main">
+                        <p>英语CET6、IXDC国际体验设计大会认证书、ACI国际注册职业资格证书、证照国际UI设计师认证
+                            Axure RP认证证书、Sketch认证证书</p>
+                    </div>
+                </div>
+                <div class="left_content">
+                    <div class="left_title">
+                        <div class="title_left">
+                            <img
+                                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABcAAAAXCAYAAADgKtSgAAAC0ElEQVR4AayVXUiTURjH/8+Z2pZlJZJdVRdhHxJBGWURuY2SCKEFM91GQkRedJOU3aT29q4PBKFu8yIM0jCxCKGraLvpg0jwJvq4LES7KmGJzL3n6Xmnxd5V2/w4PP9znvPx/M5zznY2hQKLt8nc5wubj+sjt7YUGIKC4AfPdK+GojvMCCQ5dWFZ4SuSySsA709DmVvqW8zqtJ+nypu5P2IeYs2tGZxVyVm6V2cYRchTcsIbzhkrNVNYGGWiTKtWn1UEhpEzPudkIqG2g/mYULPXrWSg6chHbJC5/1p2kGMhCUAGNoqyjGUKh1NFrpqsCUdX1QbbPP5TRpUvcv2At9ls9Ieipi8UfeINmxOS3SXHamfHDc2D3nB0TNTnb45e9IWjR70hc4+/+UalnJiUu6S8W7tcD1nrpyAManAng0+Acx95fh+3QHaJWjRxDzOPyPiwJuu+P2zWybXwSfma7ZbBCtFSrUQAm0T1FqkdSgMBEMZlYLlME9ErFFvDKlFaOUaga0L+LlqyCeu9XOvleN/Vb2q0t3W2tNTqF2qPaGlGmATobEVy2xtpWe4cGOk1pmMDXTcJ3A0gJVqM/WSowIuBjrdDQ42WDUjDbceWLmEDoEEsfIMpgDoxnnqHjOKAx/uMGSIaJmA6Y01+l+iri/h5PG44Tu2ApylkuRnwpP1CK2a3Zv1XjBNuGEprtV6YxaKFWBkxrckOcMDr4pA+L+IxkfyZqNxwz85ylzyozdkZzPcT0j4T/eM9sMeCnVT6B02WzJlkOufY9Y/JlCKNdbY/r6R8wB8AikJRTWyg67i0tSC6C8IXAFqUNqWxNhhsdPAcHXuV7C2GpPijYOqQTiBWZRmxB52fZAx2W5Hcel78ECCbgOZOQqoICCKzOOCvh9pmwEXtmi1/SrkaeMK6bcNgGH8ytIPtRxLr73pZ7Jpqp2Ls1VCnyUo9ssft+d/6BQAA//8BULu0AAAABklEQVQDAEfd8yg/1LcNAAAAAElFTkSuQmCC" />
+                        </div>
+                        <div class="title_right">兴趣爱好</div>
+                    </div>
+                    <div class="left_main">
+                        <p>篮球、游泳、跑步、羽毛球、滑雪</p>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="top">
+                    <p class="job">求职意向：UI设计师</p>
+                    <div class="ifo" id="basics-info">
+
+                    </div>
+                </div>
+                <div class="main">
+                    <div class="main_box">
+                        <div class="main_content">
+                            <div class="main_title">
+                                <div></div>
+                                <h1>教育背景</h1>
+                            </div>
+                            <div class="content">
+                                <div class="time">
+                                    <span>2020.9-2024.6</span>
+                                    <span>上海复旦大学</span>
+                                    <span style="flex: 0.5;">本科</span>
+                                    <span>视觉传达设计</span>
+                                </div>
+                                <p>系统学习了设计素描、设计色彩、三大构成（平面、色彩、立体）等艺术设计基础课程，掌握了图形创意、字体设计、版式设计等核心专业技能。熟练运用Photoshop、Illustrator、InDesign、CorelDRAW等设计软件，并深入研修了品牌形象设计（VI）、包装设计、广告设计、书籍装帧、用户界面（UI）设计、文创产品设计等专业课程，同时辅以中外设计艺术史、设计美学等理论素养课程
+                                </p>
+                            </div>
+                        </div>
+                        <div class="main_content">
+                            <div class="main_title">
+                                <div></div>
+                                <h1>工作经历</h1>
+                            </div>
+                            <div class="content">
+                                <div class="time">
+                                    <span>2020.9-2024.6</span>
+                                    <span>上海财贸大夏</span>
+                                    <span>UI设计师</span>
+                                </div>
+                                <p>系统学习了设计素描、设计色彩、三大构成（平面、色彩、立体）等艺术设计基础课程，掌握了图形创意、字体设计、版式设计等核心专业技能。熟练运用Photoshop、Illustrator、InDesign、CorelDRAW等设计软件，并深入研修了品牌形象设计（VI）、包装设计、广告设计、书籍装帧、用户界面（UI）设计、文创产品设计等专业课程，同时辅以中外设计艺术史、设计美学等理论素养课程
+                                </p>
+                            </div>
+                            <div class="content">
+                                <div class="time">
+                                    <span>2020.9-2024.6</span>
+                                    <span>上海财贸大夏</span>
+                                    <span>UI设计师</span>
+                                </div>
+                                <p>系统学习了设计素描、设计色彩、三大构成（平面、色彩、立体）等艺术设计基础课程，掌握了图形创意、字体设计、版式设计等核心专业技能。熟练运用Photoshop、Illustrator、InDesign、CorelDRAW等设计软件，并深入研修了品牌形象设计（VI）、包装设计、广告设计、书籍装帧、用户界面（UI）设计、文创产品设计等专业课程，同时辅以中外设计艺术史、设计美学等理论素养课程
+                                </p>
+                            </div>
+                        </div>
+                        <div class="main_content">
+                            <div class="main_title">
+                                <div></div>
+                                <h1>项目经历</h1>
+                            </div>
+                            <div class="content">
+                                <div class="time">
+                                    <span>2020.9-2024.6</span>
+                                    <span>上海财贸大夏</span>
+                                </div>
+                                <p>独立负责企业级管理后台和O2O电商平台的UI设计，输出多端（Web/APP/H5）界面及交互方案，注重用户体验与业务需求的结合
+                                <p>协同前端工程师完成设计稿切片与适配，使用Zeplin等工具标注细节，提升开发效率；同时支持品牌宣传物料（如海报、手册）的平面设计，强化产品视觉传播力</p>
+                            </div>
+                        </div>
+
+                        <div class="main_content">
+                            <div class="main_title">
+                                <div></div>
+                                <h1>自我评价</h1>
+                            </div>
+                            <div class="content">
+                                <p>作为一名拥有多年经验的UI设计师，我具备扎实的艺术设计专业背景和良好的艺术素养，始终关注设计理论的积累与行业流行趋势。我精通iOS与Android平台的界面设计规范，能够熟练运用Photoshop、Sketch、Figma、Axure等设计工具进行高保真原型、图标及完整界面设计
+                                    。我注重细节与用户体验，善于从用户角度出发进行设计思考，并能将产品需求转化为直观、美观的视觉解决方案。</p>
+                            </div>
+                        </div>
+                        <div style="margin-top: 30rem;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    // 默认数据，可以通过 window.render 覆盖
+    window.render = window.render || {
+        "jobIntention": "UI设计师",
+        "basics": {
+            "name": "喜洋洋",
+            "age": "26",
+            "gender": "男",
+            "image": "https://ts4.tc.mm.bing.net/th/id/OIP-C.iCXuE_HnNhT_teEWcHU7xQAAAA?rs=1&pid=ImgDetMain&o=7&rm=3",
+            "workYears": "8",
+            "email": "1411799546@qq.com",
+            "phone": "18276098569",
+            "wechat": "1211221654",
+            "address": "广东佛山南海区桂城千灯湖一号"
+        },
+        "work": [
+            {
+                "name": "上海财贸大厦",
+                "position": "UI设计师",
+                "startDate": "2024.9",
+                "endDate": "2025.6",
+                "summary": "负责公司核心移动端产品的整体UI设计工作，主导完成从需求分析、交互原型到高保真视觉设计的全流程，确保设计风格统一且符合产品定位",
+                "highlights": [
+                    "通过用户调研和A/B测试，优化界面交互流程，使关键页面的用户点击率提升18%，并推动设计组件库的搭建，实现团队协作效率提升25%",
+                    "与产品、开发团队紧密协作，制定并维护设计规范文档，确保设计稿高还原度落地（开发还原度达98%），同时参与运营活动专题页的视觉创意设计，提升品牌一致性"
+                ]
+            }
+        ],
+        "education": [
+            {
+                "institution": "上海复旦大学",
+                "area": "视觉传达设计111",
+                "studyType": "本科",
+                "startDate": "2020.9",
+                "endDate": "2024.6",
+                "summary": "系统学习了设计素描、设计色彩、三大构成（平面、色彩、立体）等艺术设计基础课程，掌握了图形创意、字体设计、版式设计等核心专业技能。熟练运用Photoshop、Illustrator、InDesign、CorelDRAW等设计软件，并深入研修了品牌形象设计（VI）、包装设计、广告设计、书籍装帧、用户界面（UI）设计、文创产品设计等专业课程，同时辅以中外设计艺术史、设计美学等理论素养课程"
+            }
+        ],
+        "projects": [
+            {
+                "name": "上海财贸大厦",
+                "startDate": "2024.9",
+                "endDate": "2025.6",
+                "description": "独立负责企业级管理后台和O2O电商平台的UI设计，输出多端（Web/APP/H5）界面及交互方案，注重用户体验与业务需求的结合",
+                "highlights": [
+                    "协同前端工程师完成设计稿切片与适配，使用Zeplin等工具标注细节，提升开发效率；同时支持品牌宣传物料（如海报、手册）的平面设计，强化产品视觉传播力"
+                ]
+            }
+        ],
+        "skills": [
+            {
+                "name": "Photoshop",
+                "level": "熟练"
+            },
+            {
+                "name": "Illustrator",
+                "level": "熟练"
+            },
+            {
+                "name": "InDesign",
+                "level": "熟练"
+            },
+            {
+                "name": "CorelDRAW",
+                "level": "熟练"
+            }
+        ],
+        "languages": [
+            {
+                "name": "英语",
+                "level": "熟练"
+            },
+            {
+                "name": "日语",
+                "level": "一般"
+            }
+        ],
+        "certificates": [
+            "Adobe认证设计师（Adobe Certified Designer）",
+            "Adobe认证设计师（Adobe Certified Designer）",
+            "Adobe认证设计师（Adobe Certified Designer）"
+        ],
+        "interests": [
+            "篮球",
+            "游泳",
+            "旅游",
+            "音乐"
+        ],
+        "evaluation": "作为一名拥有多年经验的UI设计师，我具备扎实的艺术设计专业背景和良好的艺术素养，始终关注设计理论的积累与行业流行趋势。我精通iOS与Android平台的界面设计规范，能够熟练运用Photoshop、Sketch、Figma、Axure等设计工具进行高保真原型、图标及完整界面设计。我注重细节与用户体验，善于从用户角度出发进行设计思考，并能将产品需求转化为直观、美观的视觉解决方案。"
+    };
+
+    // 渲染基本信息
+    $(function () {
+        const data = window.render || {};
+        const basics = data.basics || {};
+
+        const formatDateRange = (start, end) => {
+            if (start && end) return `${start}-${end}`;
+            return start || end || '';
+        };
+
+        const formatWorkYears = (value) => {
+            if (!value) return '';
+            const text = String(value);
+            return text.endsWith('年') ? text : `${text}年`;
+        };
+
+        // 头像和姓名
+        (function renderAvatarAndName() {
+            const $avatar = $('.left .avatar');
+            const $img = $avatar.find('img');
+            const $name = $avatar.find('.name');
+
+            const hasImage = !!basics.image;
+            const hasName = !!basics.name;
+
+            if (hasImage) {
+                $img.attr('src', basics.image).show();
+            } else {
+                $img.hide();
+            }
+
+            if (hasName) {
+                $name.text(basics.name).show();
+            } else {
+                $name.hide();
+            }
+
+            if (!hasImage && !hasName) {
+                $avatar.hide();
+            }
+        })();
+
+        // 求职意向
+        (function renderJobIntention() {
+            const $job = $('.right .top .job');
+            if (data.jobIntention) {
+                $job.text(`求职意向：${data.jobIntention}`).show();
+            } else {
+                $job.hide();
+            }
+        })();
+
+        // 右上基本信息
+        (function renderBasicsInfo() {
+            const $basicsInfo = $('#basics-info');
+            $basicsInfo.empty();
+
+            const infoPairs = [
+                { icon: 'age', label: '年龄', value: basics.age },
+                { icon: 'gender', label: '性别', value: basics.gender },
+                { icon: 'work', label: '工作年限', value: formatWorkYears(basics.workYears) },
+                { icon: 'phone', label: '电话号码', value: basics.phone },
+                { icon: 'wechat', label: '微信号', value: basics.wechat },
+                { icon: 'email', label: '电子邮箱', value: basics.email },
+                { icon: 'address', label: '现住地址', value: basics.address }
+            ].filter(pair => pair.value);
+
+            if (!infoPairs.length) {
+                $basicsInfo.closest('.top').hide();
+                return;
+            }
+
+            let currentRow = $('<div>').addClass('info_row');
+            infoPairs.forEach((pair, index) => {
+                if (pair.icon === 'address') {
+                    if (currentRow.children().length > 0) {
+                        $basicsInfo.append(currentRow);
+                    }
+                    currentRow = $('<div>').addClass('info_row');
+                    const $span = $('<span>').attr('data-icon', pair.icon).text(`${pair.label}：${pair.value}`);
+                    currentRow.append($span);
+                    $basicsInfo.append(currentRow);
+                    currentRow = $('<div>').addClass('info_row');
+                } else {
+                    if (index > 0 && currentRow.children().length >= 2) {
+                        $basicsInfo.append(currentRow);
+                        currentRow = $('<div>').addClass('info_row');
+                    }
+                    const $span = $('<span>').attr('data-icon', pair.icon).text(`${pair.label}：${pair.value}`);
+                    currentRow.append($span);
+                }
+            });
+
+            if (currentRow.children().length > 0) {
+                $basicsInfo.append(currentRow);
+            }
+        })();
+
+        const $leftContents = $('.left .left_content');
+
+        // 左侧：专业技能
+        (function renderSkills() {
+            const $section = $leftContents.eq(0);
+            const $container = $section.find('.left_main');
+            $container.empty();
+
+            if (!Array.isArray(data.skills) || !data.skills.length) {
+                $section.hide();
+                return;
+            }
+
+            data.skills.forEach(skill => {
+                const text = [skill.name, skill.level].filter(Boolean).join('-');
+                if (text) {
+                    $container.append($('<p>').text(text));
+                }
+            });
+
+            if (!$container.children().length) {
+                $section.hide();
+            }
+        })();
+
+        // 左侧：掌握语言
+        (function renderLanguages() {
+            const $section = $leftContents.eq(1);
+            const $container = $section.find('.left_main');
+            $container.empty();
+
+            if (!Array.isArray(data.languages) || !data.languages.length) {
+                $section.hide();
+                return;
+            }
+
+            data.languages.forEach(lang => {
+                const text = [lang.name, lang.level].filter(Boolean).join('-');
+                if (text) {
+                    $container.append($('<p>').text(text));
+                }
+            });
+
+            if (!$container.children().length) {
+                $section.hide();
+            }
+        })();
+
+        // 左侧：技能证书
+        (function renderCertificates() {
+            const $section = $leftContents.eq(2);
+            const $container = $section.find('.left_main');
+            $container.empty();
+
+            if (!Array.isArray(data.certificates) || !data.certificates.length) {
+                $section.hide();
+                return;
+            }
+
+            const text = data.certificates.filter(Boolean).join('、');
+            if (text) {
+                $container.append($('<p>').text(text));
+            } else {
+                $section.hide();
+            }
+        })();
+
+        // 左侧：兴趣爱好
+        (function renderInterests() {
+            const $section = $leftContents.eq(3);
+            const $container = $section.find('.left_main');
+            $container.empty();
+
+            if (!Array.isArray(data.interests) || !data.interests.length) {
+                $section.hide();
+                return;
+            }
+
+            const text = data.interests.filter(Boolean).join('、');
+            if (text) {
+                $container.append($('<p>').text(text));
+            } else {
+                $section.hide();
+            }
+        })();
+
+        const $mainContents = $('.right .main .main_box .main_content');
+
+        // 右侧：教育背景
+        (function renderEducation() {
+            const $section = $mainContents.eq(0);
+            $section.find('.content').remove();
+
+            if (!Array.isArray(data.education) || !data.education.length) {
+                $section.hide();
+                return;
+            }
+
+            data.education.forEach(edu => {
+                const $content = $('<div>').addClass('content');
+                const $time = $('<div>').addClass('time');
+                const range = formatDateRange(edu.startDate, edu.endDate);
+                if (range) $time.append($('<span>').text(range));
+                if (edu.institution) $time.append($('<span>').text(edu.institution));
+                if (edu.studyType) $time.append($('<span>').css('flex', '0.5').text(edu.studyType));
+                if (edu.area) $time.append($('<span>').text(edu.area));
+                if ($time.children().length) $content.append($time);
+                if (edu.summary) $content.append($('<p>').text(edu.summary));
+                if ($content.children().length) $section.append($content);
+            });
+
+            if (!$section.find('.content').length) {
+                $section.hide();
+            }
+        })();
+
+        // 右侧：工作经历
+        (function renderWork() {
+            const $section = $mainContents.eq(1);
+            $section.find('.content').remove();
+
+            if (!Array.isArray(data.work) || !data.work.length) {
+                $section.hide();
+                return;
+            }
+
+            data.work.forEach(work => {
+                const $content = $('<div>').addClass('content');
+                const $time = $('<div>').addClass('time');
+                const range = formatDateRange(work.startDate, work.endDate);
+                if (range) $time.append($('<span>').text(range));
+                if (work.name) $time.append($('<span>').text(work.name));
+                if (work.position) $time.append($('<span>').text(work.position));
+                if ($time.children().length) $content.append($time);
+                if (work.summary) $content.append($('<p>').text(work.summary));
+                if (Array.isArray(work.highlights)) {
+                    work.highlights.filter(Boolean).forEach(text => {
+                        $content.append($('<p>').text(text));
+                    });
+                }
+                if ($content.children().length) $section.append($content);
+            });
+
+            if (!$section.find('.content').length) {
+                $section.hide();
+            }
+        })();
+
+        // 右侧：项目经历
+        (function renderProjects() {
+            const $section = $mainContents.eq(2);
+            $section.find('.content').remove();
+
+            if (!Array.isArray(data.projects) || !data.projects.length) {
+                $section.hide();
+                return;
+            }
+
+            data.projects.forEach(project => {
+                const $content = $('<div>').addClass('content');
+                const $time = $('<div>').addClass('time');
+                const range = formatDateRange(project.startDate, project.endDate);
+                if (range) $time.append($('<span>').text(range));
+                if (project.name) $time.append($('<span>').text(project.name));
+                if ($time.children().length) $content.append($time);
+                if (project.description) $content.append($('<p>').text(project.description));
+                if (Array.isArray(project.highlights)) {
+                    project.highlights.filter(Boolean).forEach(text => {
+                        $content.append($('<p>').text(text));
+                    });
+                }
+                if ($content.children().length) $section.append($content);
+            });
+
+            if (!$section.find('.content').length) {
+                $section.hide();
+            }
+        })();
+
+        // 右侧：自我评价
+        (function renderEvaluation() {
+            const $section = $mainContents.eq(3);
+            $section.find('.content').remove();
+
+            if (!data.evaluation) {
+                $section.hide();
+                return;
+            }
+
+            const $content = $('<div>').addClass('content');
+            $content.append($('<p>').text(data.evaluation));
+            $section.append($content);
+        })();
+    });
+</script>
+
+</html>
